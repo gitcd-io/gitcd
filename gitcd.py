@@ -31,7 +31,7 @@ gitcd.loadConfig()
 parser = argparse.ArgumentParser()
 parser.add_argument("action", help="Action to call.", type=str, choices=('init', 'feature'))
 # todo: make it optional as in https://github.com/claudio-walser/knack/blob/master/knack.py#L29
-parser.add_argument("command", help="Command to execute.", type=str, choices=('start', 'test', 'review', 'finish', 'deploy'))
+parser.add_argument("command", help="Command to execute.", type=str, choices=('start', 'test', 'review', 'finish'))
 # todo: make it optional as in https://github.com/claudio-walser/knack/blob/master/knack.py#L29
 parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
 argcomplete.autocomplete(parser)

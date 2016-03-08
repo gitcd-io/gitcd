@@ -16,8 +16,7 @@ class Gitcd(object):
     'start': 'featureStart',
     'test': 'featureTest',
     'review': 'featureReview',
-    'finish': 'featureFinish',
-    'deploy': 'featureDeploy'
+    'finish': 'featureFinish'
   }
 
   def setInterface(self, interface: AbstractInterface):
@@ -93,13 +92,8 @@ class Gitcd(object):
     self.cliCommand.execute("git push origin %s" % (self.configFile.getTest()))
 
   def featureReview(self, branch: str):
-    print("gitcd feature review")
+    print("open a pull request on github")
 
   def featureFinish(self, branch: str):
     print("gitcd feature finish")
-
-  def featureDeploy(self, branch: str):
-    # todo: no branchname needed cause we are just tagging the master branch
-    # and it should probably be called directly from feature finish
-    print("gitcd feature deploy")
 
