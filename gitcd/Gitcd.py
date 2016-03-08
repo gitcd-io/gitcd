@@ -77,6 +77,7 @@ class Gitcd(object):
     self.interface.ok("gitcd feature start")
 
     # todo: uh, need to fetch origin from .git somehow
+    # possibly from `git remote -v`
     self.cliCommand.execute("git checkout %s" % (self.configFile.getMaster()))
     self.cliCommand.execute("git pull origin %s" % (self.configFile.getMaster()))
     self.cliCommand.execute("git checkout -b %s%s" % (self.configFile.getFeature(), branch))
@@ -85,6 +86,8 @@ class Gitcd(object):
   def featureTest(self, branch: str):
     self.interface.ok("gitcd feature test")
 
+    # todo: need to handle this as prefix and read all possible branches
+    # ask user if more than one possibillities
     self.cliCommand.execute("git checkout %s" % (self.configFile.getTest()))
     self.cliCommand.execute("git pull origin %s" % (self.configFile.getTest()))
     self.cliCommand.execute("git merge origin %s%s" % (self.configFile.getFeature(), branch))
@@ -93,6 +96,7 @@ class Gitcd(object):
   def featureReview(self, branch: str):
     self.interface.ok("open a pull request on github")
     # todo: need to fetch url from .git file or cli commands
+    # possibly from `git remote -v`
     self.cliCommand.execute("git request-pull %s%s https://github.com/mmz-srf/srf-mpc %s" % (self.configFile.getFeature(), branch, self.configFile.getMaster()))
 
 
@@ -106,6 +110,7 @@ class Gitcd(object):
 
     # push new tag
     currentDate = time.strftime("%Y-%m-%d-%H%M")
+    # need to handle commit message here, interactive shell execution could be a possiblity
     self.cliCommand.execute("git tag -a -m 'release' %s%s" % (self.configFile.getTag(), currentDate))
     self.cliCommand.execute("git push origin %s%s" % (self.configFile.getTag(), currentDate))
 
