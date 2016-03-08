@@ -72,12 +72,25 @@ class Gitcd(object):
     self.cliCommand.execute("git remote update")
 
 
+
+
   # maybe even take this in a own feature class
   def featureStart(self, branch: str):
-    print("gitcd feature start")
+    self.interface.ok("gitcd feature start")
+
+    # todo: uh, need to fetch origin from .git somehow
+    self.cliCommand.execute("git checkout %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("git pull origin %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("git checkout -b %s%s" % (self.configFile.getFeature(), branch))
+    self.cliCommand.execute("git push origin %s%s" % (self.configFile.getFeature(), branch))
 
   def featureTest(self, branch: str):
-    print("gitcd feature test")
+    self.interface.ok("gitcd feature test")
+
+    self.cliCommand.execute("git checkout %s" % (self.configFile.getTest()))
+    self.cliCommand.execute("git pull origin %s" % (self.configFile.getTest()))
+    self.cliCommand.execute("git merge origin %s%s" % (self.configFile.getFeature(), branch))
+    self.cliCommand.execute("git push origin %s" % (self.configFile.getTest()))
 
   def featureReview(self, branch: str):
     print("gitcd feature review")
