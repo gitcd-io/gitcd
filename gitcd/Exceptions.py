@@ -8,3 +8,6 @@ class GitcdException(Exception):
 
 class GitcdArgumentsException(Exception):
   pass
+
+class GitcdFileNotFoundException(Exception):
+  pass

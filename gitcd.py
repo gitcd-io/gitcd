@@ -22,8 +22,10 @@ Its basicly a dispatcher using argparse.
 gitcd instance
 """
 interface = Cli()
-gitcd = Gitcd(interface)
-
+gitcd = Gitcd()
+gitcd.setInterface(interface)
+gitcd.setConfigFilename(".gitcd")
+gitcd.loadConfig()
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
@@ -35,18 +37,17 @@ argcomplete.autocomplete(parser)
 
 def main(action: str, command: str, branch: str):
   # abort if not initialize and still no config
-  if not gitcd.gitcdfile.loaded and not action == "init":
+  if not gitcd.configFile.loaded and not action == "init":
     interface.error("No .gitcdfile exists. Call gitcd init first. Aborting now!")
     sys.exit(1)
 
   try:
     methodToCall = getattr(gitcd, action)  
   except:
-    # todo: call exception
     interface.error("Action %s does not exists, see gitcd --help for more information." % action)
     sys.exit(1)
 
-    result = methodToCall(box)
+  result = methodToCall()
   sys.exit(0)
 
 
@@ -55,4 +56,4 @@ Handle main loop
 """
 if __name__ == '__main__':
   arguments = parser.parse_args()
-  main(arguments.type, arguments.action, arguments.branch)
+  main(arguments.action, arguments.command, arguments.branch)
