@@ -2,6 +2,7 @@ from gitcd.Exceptions import GitcdException
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Interface.AbstractInterface import AbstractInterface
 from gitcd.Interface.Cli import Cli
+from gitcd.Cli.Command import Command as CliCommand
 
 from pprint import pprint
 
@@ -10,6 +11,15 @@ class Gitcd(object):
 
   interface = False
   configFile = ConfigFile()
+  cliCommand = CliCommand()
+
+  featureMethods = {
+    'start': featureStart,
+    'test': featureTest,
+    'review': featureReview,
+    'finish': featureFinish,
+    'deploy': featureDeploy
+  }
 
   def setInterface(self, interface: AbstractInterface):
     self.interface = interface
@@ -52,17 +62,28 @@ class Gitcd(object):
 
 
   
-  def feature(self):
-    print("wrapper function, still needs a command as argument")
+  def feature(self, command):
+    # remote upate
+    self.update()
+    self.featureMethods[command]()
 
+  def update(self):
+    self.cliCommand.execute("git remote update")
+
+
+  # maybe even take this in a own feature class
   def featureStart(self):
     print("gitcd feature start")
 
   def featureTest(self):
     print("gitcd feature test")
 
+  def featureReview(self):
+    print("gitcd feature review")
+
   def featureFinish(self):
     print("gitcd feature finish")
 
   def featureDeploy(self):
     print("gitcd feature deploy")
+

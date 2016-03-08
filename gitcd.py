@@ -30,7 +30,7 @@ gitcd.loadConfig()
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
 parser.add_argument("action", help="Action to call.", type=str, choices=('init', 'feature'))
-parser.add_argument("command", help="Command to execute.", type=str, choices=('start', 'test', 'finish', 'deploy'))
+parser.add_argument("command", help="Command to execute.", type=str, choices=('start', 'test', 'review', 'finish', 'deploy'))
 parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
 argcomplete.autocomplete(parser)
 
