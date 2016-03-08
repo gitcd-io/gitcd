@@ -2,7 +2,7 @@
 # PYTHON_ARGCOMPLETE_OK
 
 import sys
-#import argcomplete
+import argcomplete
 import argparse
 
 from gitcd.Gitcd import Gitcd
