@@ -91,7 +91,10 @@ class Gitcd(object):
     self.cliCommand.execute("git push origin %s" % (self.configFile.getTest()))
 
   def featureReview(self, branch: str):
-    print("open a pull request on github")
+    self.interface.ok("open a pull request on github")
+    # todo: need to fetch url from .git file or cli commands
+    self.cliCommand.execute("git request-pull %s%s https://github.com/mmz-srf/srf-mpc %s" % (self.configFile.getFeature(), branch, self.configFile.getMaster()))
+
 
   def featureFinish(self, branch: str):
     self.interface.ok("gitcd feature finish")
