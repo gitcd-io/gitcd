@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-
-"""
-Exceptions for Gitcd
-"""
 class GitcdException(Exception):
   pass
 

@@ -17,7 +17,6 @@ class Parser:
 
     return self.yaml
 
-  def write(self, filename: str, config: object):
-    print("write config")
-    #with open(filename, "w") as outfile:
-    #  outfile.write(yaml.dump(config, default_flow_style=False))
+  def write(self, filename: str, config: dict):
+    with open(filename, "w") as outfile:
+      outfile.write(yaml.dump(config, default_flow_style=False))

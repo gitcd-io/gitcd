@@ -1,4 +1,4 @@
-master: master
 feature: feature/
-develop: develop
+master: master
 tag: v
+test: develop

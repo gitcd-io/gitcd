@@ -24,30 +24,26 @@ class File:
   def write(self):
     self.parser.write(self.filename, self.config)
 
-
   def getMaster(self):
-    return self.config.master
+    return self.config['master']
 
   def setMaster(self, master: str):
-    self.config.master = master
-
+    self.config['master'] = master
 
   def getFeature(self):
-    return self.config.feature
+    return self.config['feature']
 
   def setFeature(self, feature: str):
-    self.config.feature = feature
+    self.config['feature'] = feature
 
+  def getTest(self):
+    return self.config['test']
 
-  def getDevelop(self):
-    return self.config.develop
-
-  def setDevelop(self, develop: str):
-    self.config.develop = develop
-
+  def setTest(self, test: str):
+    self.config['test'] = test
 
   def getTag(self):
-    return self.config.tag
+    return self.config['tag']
 
   def setTag(self, tag: str):
-    self.config.tag = tag
+    self.config['tag'] = tag
