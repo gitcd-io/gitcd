@@ -1,3 +1,4 @@
+import time
 from gitcd.Exceptions import GitcdException
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Interface.AbstractInterface import AbstractInterface
@@ -57,8 +58,6 @@ class Gitcd(object):
     self.configFile.write()
     pprint(self.configFile.config)
 
-
-  
   def feature(self, command, branch):
     # remote upate
     self.update()
@@ -95,5 +94,23 @@ class Gitcd(object):
     print("open a pull request on github")
 
   def featureFinish(self, branch: str):
-    print("gitcd feature finish")
+    self.interface.ok("gitcd feature finish")
 
+    self.cliCommand.execute("git checkout %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("git pull origin %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("git merge origin %s%s" % (self.configFile.getFeature(), branch))
+    self.cliCommand.execute("git push origin %s" % (self.configFile.getMaster()))
+
+    # push new tag
+    currentDate = time.strftime("%Y-%m-%d-%H%M")
+    self.cliCommand.execute("git tag -a -m 'release' %s%s" % (self.configFile.getTag(), currentDate))
+    self.cliCommand.execute("git push origin %s%s" % (self.configFile.getTag(), currentDate))
+
+    deleteFeatureBranch = self.interface.askFor("Delete your feature branch?",
+      ["yes", "no"],
+      "yes"
+    )
+    if deleteFeatureBranch == "yes":
+      # feature branch lokal und remote wieder löschen
+      self.cliCommand.execute("git branch -D %s%s" % (self.configFile.getFeature(), branch))
+      self.cliCommand.execute("git push origin :%s%s" % (self.configFile.getFeature(), branch))
