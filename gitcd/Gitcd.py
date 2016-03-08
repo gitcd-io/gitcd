@@ -8,7 +8,6 @@ from pprint import pprint
 
 class Gitcd(object):
 
-
   interface = False
   configFile = ConfigFile()
   cliCommand = CliCommand()
