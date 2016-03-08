@@ -14,11 +14,11 @@ class Gitcd(object):
   cliCommand = CliCommand()
 
   featureMethods = {
-    'start': featureStart,
-    'test': featureTest,
-    'review': featureReview,
-    'finish': featureFinish,
-    'deploy': featureDeploy
+    'start': 'featureStart',
+    'test': 'featureTest',
+    'review': 'featureReview',
+    'finish': 'featureFinish',
+    'deploy': 'featureDeploy'
   }
 
   def setInterface(self, interface: AbstractInterface):
@@ -30,7 +30,6 @@ class Gitcd(object):
   def loadConfig(self):
     # todo: maybe a warning if we are working with the default values
     self.configFile.load()
-
 
   def init(self):
     self.configFile.setMaster(
@@ -62,28 +61,33 @@ class Gitcd(object):
 
 
   
-  def feature(self, command):
+  def feature(self, command, branch):
     # remote upate
     self.update()
-    self.featureMethods[command]()
+
+    # dispatch from mapping
+    featureMethod = getattr(self, self.featureMethods[command])
+    featureMethod(branch)
 
   def update(self):
     self.cliCommand.execute("git remote update")
 
 
   # maybe even take this in a own feature class
-  def featureStart(self):
+  def featureStart(self, branch: str):
     print("gitcd feature start")
 
-  def featureTest(self):
+  def featureTest(self, branch: str):
     print("gitcd feature test")
 
-  def featureReview(self):
+  def featureReview(self, branch: str):
     print("gitcd feature review")
 
-  def featureFinish(self):
+  def featureFinish(self, branch: str):
     print("gitcd feature finish")
 
-  def featureDeploy(self):
+  def featureDeploy(self, branch: str):
+    # todo: no branchname needed cause we are just tagging the master branch
+    # and it should probably be called directly from feature finish
     print("gitcd feature deploy")
 

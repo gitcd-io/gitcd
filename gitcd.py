@@ -30,24 +30,26 @@ gitcd.loadConfig()
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
 parser.add_argument("action", help="Action to call.", type=str, choices=('init', 'feature'))
+# todo: make it optional as in https://github.com/claudio-walser/knack/blob/master/knack.py#L29
 parser.add_argument("command", help="Command to execute.", type=str, choices=('start', 'test', 'review', 'finish', 'deploy'))
+# todo: make it optional as in https://github.com/claudio-walser/knack/blob/master/knack.py#L29
 parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
 argcomplete.autocomplete(parser)
 
 
 def main(action: str, command: str, branch: str):
-  # abort if not initialize and still no config
-  if not gitcd.configFile.loaded and not action == "init":
-    interface.error("No .gitcdfile exists. Call gitcd init first. Aborting now!")
-    sys.exit(1)
-
+  # todo: abort if no .gitcd file is present or just go on with the defaults?
   try:
     methodToCall = getattr(gitcd, action)  
   except:
     interface.error("Action %s does not exists, see gitcd --help for more information." % action)
     sys.exit(1)
 
-  result = methodToCall()
+  if action == "init":
+    result = methodToCall()
+  else:
+    result = methodToCall(command, branch)
+
   sys.exit(0)
 
 
