@@ -1,3 +1,5 @@
+# todo: have to move this into Cli namespace and rename the class to Interface
+
 import os
 import re
 import readline
