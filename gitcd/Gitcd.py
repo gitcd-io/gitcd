@@ -69,6 +69,8 @@ class Gitcd(object):
   def update(self):
     self.cliCommand.execute("git remote update")
 
+  def getFeatureArgs(self):
+    return ["start", "test", "review", "finish"]
 
 
 
