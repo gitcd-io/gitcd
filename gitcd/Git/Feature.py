@@ -17,10 +17,10 @@ class Feature(Abstract):
 
     # todo: uh, need to fetch origin from .git somehow
     # possibly from `git remote -v`
-    self.cli.execute("/usr/bin/git checkout %s" % (self.config.getMaster()))
-    self.cli.execute("/usr/bin/git pull origin %s" % (self.config.getMaster()))
-    self.cli.execute("/usr/bin/git checkout -b %s%s" % (self.config.getFeature(), branch))
-    self.cli.execute("/usr/bin/git push origin %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git checkout %s" % (self.config.getMaster()))
+    self.cli.execute("git pull origin %s" % (self.config.getMaster()))
+    self.cli.execute("git checkout -b %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git push origin %s%s" % (self.config.getFeature(), branch))
 
   def test(self, branch: str):
     self.interface.ok("gitcd feature test")
