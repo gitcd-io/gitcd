@@ -80,10 +80,10 @@ class Gitcd(object):
 
     # todo: uh, need to fetch origin from .git somehow
     # possibly from `git remote -v`
-    self.cliCommand.execute("git checkout %s" % (self.configFile.getMaster()))
-    self.cliCommand.execute("git pull origin %s" % (self.configFile.getMaster()))
-    self.cliCommand.execute("git checkout -b %s%s" % (self.configFile.getFeature(), branch))
-    self.cliCommand.execute("git push origin %s%s" % (self.configFile.getFeature(), branch))
+    self.cliCommand.execute("/usr/bin/git checkout %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("/usr/bin/git pull origin %s" % (self.configFile.getMaster()))
+    self.cliCommand.execute("/usr/bin/git checkout -b %s%s" % (self.configFile.getFeature(), branch))
+    self.cliCommand.execute("/usr/bin/git push origin %s%s" % (self.configFile.getFeature(), branch))
 
   def featureTest(self, branch: str):
     self.interface.ok("gitcd feature test")
