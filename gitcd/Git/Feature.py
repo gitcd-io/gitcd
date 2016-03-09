@@ -29,7 +29,7 @@ class Feature(Abstract):
     # ask user if more than one possibillities
     self.cli.execute("git checkout %s" % (self.config.getTest()))
     self.cli.execute("git pull origin %s" % (self.config.getTest()))
-    self.cli.execute("git merge origin %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git merge %s%s" % (self.config.getFeature(), branch))
     self.cli.execute("git push origin %s" % (self.config.getTest()))
 
   def review(self, branch: str):
@@ -44,7 +44,7 @@ class Feature(Abstract):
 
     self.cli.execute("git checkout %s" % (self.config.getMaster()))
     self.cli.execute("git pull origin %s" % (self.config.getMaster()))
-    self.cli.execute("git merge origin %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git merge %s%s" % (self.config.getFeature(), branch))
     self.cli.execute("git push origin %s" % (self.config.getMaster()))
 
     # push new tag
