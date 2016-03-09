@@ -1,6 +1,5 @@
 from gitcd.Git.Abstract import Abstract
-
-#import time
+import time
 
 
 #from gitcd.Exceptions import GitcdException
