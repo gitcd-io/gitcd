@@ -35,7 +35,7 @@ class Feature(Abstract):
     self.interface.ok("open a pull request on github")
     # todo: need to fetch url from .git file or cli commands
     # possibly from `git remote -v`
-    self.cli.execute("git request-pull %s%s https://github.com/mmz-srf/srf-mpc %s" % (self.config.getFeature(), branch, self.config.getMaster()))
+    self.cli.execute("git request-pull %s%s https://github.com/claudio-walser/gitcd %s" % (self.config.getFeature(), branch, self.config.getMaster()))
 
 
   def finish(self, branch: str):
