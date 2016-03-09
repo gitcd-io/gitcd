@@ -12,7 +12,7 @@ class Command(object):
 
     pprint(cliArgs)
     #subprocess.Popen(cliArgs)
-    #subprocess.call(cliArgs, shell = True)
+    subprocess.call(cliArgs, shell = True)
 
 
-    print(command)
+    #print(command)
