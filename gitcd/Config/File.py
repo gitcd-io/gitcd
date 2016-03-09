@@ -12,7 +12,7 @@ class File:
   defaults = Defaults()
   config = False
 
-  def setConfigFilename(self, configFilename: str):
+  def setFilename(self, configFilename: str):
   	self.filename = configFilename
 
   def load(self):

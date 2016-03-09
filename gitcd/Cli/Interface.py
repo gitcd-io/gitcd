@@ -1,12 +1,9 @@
-# todo: have to move this into Cli namespace and rename the class to Interface
-
 import os
 import re
 import readline
-from gitcd.Interface.AbstractInterface import AbstractInterface
 
-class Cli(AbstractInterface):
-  
+class Interface(object):
+
   # style
   HEADER = '\033[95m'
   BOLD = '\033[1m'
@@ -22,7 +19,10 @@ class Cli(AbstractInterface):
   
   # closing character
   ENDC = '\033[0m'
-  
+
+  def writeOut(self, msg: str):
+    print(msg)
+    return True
 
   def error(self, msg: str):
     # some cli colors
@@ -121,4 +121,3 @@ class InputCompleter(object):
             return [cmd + ' '][state]
         results = [c + ' ' for c in self.options if c.startswith(cmd)] + [None]
         return results[state]
-
