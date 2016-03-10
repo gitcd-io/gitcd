@@ -3,8 +3,6 @@ from gitcd.Config.File import File as ConfigFile
 from gitcd.Cli.Interface import Interface
 from gitcd.Git.Common import Common as Git
 
-#from gitcd.Git.Commands import Feature
-
 class Gitcd(object):
 
   interface = Interface()
