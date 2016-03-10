@@ -19,9 +19,8 @@ if len(sys.argv) == 3 and sys.argv[1] == 'init':
   sys.argv.append('*')
 
 def completeAction(prefix, parsed_args, **kwargs):
-  with open("./debug.txt", "w") as outfile:
-    if parsed_args.command == 'feature':
-      return (v for v in gitcd.getFeatureSubcommands() if v.startswith(prefix))
+  if parsed_args.command == 'feature':
+    return (v for v in gitcd.getFeatureSubcommands() if v.startswith(prefix))
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()

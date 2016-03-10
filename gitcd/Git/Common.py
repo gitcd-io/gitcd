@@ -9,5 +9,3 @@ class Common(Abstract):
 
   def setupSubcommands(self):
     self.subCommands['feature'].setConfig(self.config)
-
-
