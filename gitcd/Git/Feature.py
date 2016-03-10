@@ -27,9 +27,6 @@ class Feature(Abstract):
 
   def review(self, branch: str):
     self.interface.ok("open a pull request on github")
-    # todo: need to fetch url from .git file or cli commands
-    # possibly from `git remote -v`
-
     remote = self.getRemote()
 
     self.cli.execute("git request-pull %s%s %s %s" % (self.config.getFeature(), branch, remote, self.config.getMaster()))
