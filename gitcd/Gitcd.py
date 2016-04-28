@@ -3,8 +3,6 @@ from gitcd.Config.File import File as ConfigFile
 from gitcd.Cli.Interface import Interface
 from gitcd.Git.Common import Common as Git
 
-#from gitcd.Git.Commands import Feature
-
 class Gitcd(object):
 
   interface = Interface()
@@ -14,6 +12,9 @@ class Gitcd(object):
   def __init__(self):
     self.git.setConfig(self.config)
     self.git.setupSubcommands()
+
+  def getFeatureSubcommands(self):
+    return ['start', 'test', 'review', 'finish']
 
   def setConfigFilename(self, configFilename: str):
     self.config.setFilename(configFilename)
@@ -58,7 +59,7 @@ class Gitcd(object):
     try:
       method = getattr(subCommand, action)  
     except:
-      interface.error("Action %s does not exists on subcommand %s, see knack --help for more information." % action)
+      self.interface.error("Action %s does not exists on subcommand %s, see knack --help for more information." % action)
       sys.exit(1)
 
     self.git.update()
