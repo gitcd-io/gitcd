@@ -15,7 +15,22 @@ class Abstract(object):
     self.cli.execute("git remote update")
 
   def readOrigins(self):
-    return ['origin', 'remote']
+    output = self.cli.execute("git remote -v")
+    if returnCode == False:
+      self.interface.error("An error occured while reading remotes. Please pass it manually!")
+      return ['origin']
+
+    lines = output.split("\n")
+
+    last = False
+    origins = []
+    for line in lines:
+        strings = line.split("\t")
+        if last != strings[0] and strings[0] != "":
+            last = strings[0]
+            origins.append(last)
+
+    return origins
 
   def getOrigin(self):
     origins = self.readOrigins()
@@ -29,7 +44,22 @@ class Abstract(object):
     return origin
 
   def readRemotes(self):
-    return ["https://github.com/claudio-walser/gitcd", "https://github.com/srf-mmz/gitcd"]
+    output = self.cli.execute("git remote -v")
+    if returnCode == False:
+      self.interface.error("An error occured while reading remotes. Please pass it manually!")
+      return ['origin']
+
+    lines = output.split("\n")
+
+    last = False
+    remotes = []
+    for line in lines:
+        strings = line.split("\t")
+        if last != strings[1] and strings[1] != "":
+            last = strings[1]
+            remotes.append(last)
+
+    return remotes
 
   def getRemote(self):
     remotes = self.readRemotes()
