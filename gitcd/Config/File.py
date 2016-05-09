@@ -12,7 +12,7 @@ class File:
   defaults = Defaults()
   config = False
 
-  def setFilename(self, configFilename: str):
+  def setFilename(self, configFilename):
   	self.filename = configFilename
 
   def load(self):
@@ -27,23 +27,23 @@ class File:
   def getMaster(self):
     return self.config['master']
 
-  def setMaster(self, master: str):
+  def setMaster(self, master):
     self.config['master'] = master
 
   def getFeature(self):
     return self.config['feature']
 
-  def setFeature(self, feature: str):
+  def setFeature(self, feature):
     self.config['feature'] = feature
 
   def getTest(self):
     return self.config['test']
 
-  def setTest(self, test: str):
+  def setTest(self, test):
     self.config['test'] = test
 
   def getTag(self):
     return self.config['tag']
 
-  def setTag(self, tag: str):
+  def setTag(self, tag):
     self.config['tag'] = tag

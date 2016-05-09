@@ -3,7 +3,7 @@ import time
 
 class Feature(Abstract):
 
-  def start(self, branch: str):
+  def start(self, branch):
     self.interface.ok("gitcd feature start")
 
     origin = self.getOrigin()
@@ -13,7 +13,7 @@ class Feature(Abstract):
     self.cli.execute("git checkout -b %s%s" % (self.config.getFeature(), branch))
     self.cli.execute("git push %s %s%s" % (origin, self.config.getFeature(), branch))
 
-  def test(self, branch: str):
+  def test(self, branch):
     self.interface.ok("gitcd feature test")
 
     origin = self.getOrigin()
@@ -25,14 +25,14 @@ class Feature(Abstract):
     self.cli.execute("git merge %s%s" % (self.config.getFeature(), branch))
     self.cli.execute("git push %s %s" % (origin, self.config.getTest()))
 
-  def review(self, branch: str):
+  def review(self, branch):
     self.interface.ok("open a pull request on github")
     remote = self.getRemote()
 
     self.cli.execute("git request-pull %s%s %s %s" % (self.config.getFeature(), branch, remote, self.config.getMaster()))
 
 
-  def finish(self, branch: str):
+  def finish(self, branch):
     self.interface.ok("gitcd feature finish")
 
     origin = self.getOrigin()

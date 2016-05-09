@@ -16,7 +16,7 @@ class Gitcd(object):
   def getFeatureSubcommands(self):
     return ['start', 'test', 'review', 'finish']
 
-  def setConfigFilename(self, configFilename: str):
+  def setConfigFilename(self, configFilename):
     self.config.setFilename(configFilename)
 
   def loadConfig(self):
@@ -49,7 +49,7 @@ class Gitcd(object):
 
     self.config.write()
 
-  def dispatch(self, command: str, action: str, branch: str):
+  def dispatch(self, command, action, branch):
     try:
       subCommand = self.git.subCommands[command]  
     except:

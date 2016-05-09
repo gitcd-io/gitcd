@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # PYTHON_ARGCOMPLETE_OK
 
 import sys
@@ -30,7 +30,7 @@ parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
 argcomplete.autocomplete(parser)
 
 
-def main(command: str, action: str, branch: str):
+def main(command, action, branch):
   # todo: abort if no .gitcd file is present or just go on with the defaults?
   if command == "init":
     gitcd.init()
