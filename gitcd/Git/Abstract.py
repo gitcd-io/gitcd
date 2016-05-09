@@ -16,9 +16,9 @@ class Abstract(object):
 
   def readOrigins(self):
     output = self.cli.execute("git remote -v")
-    if returnCode == False:
+    if output == False:
       self.interface.error("An error occured while reading remotes. Please pass it manually!")
-      return ['origin']
+      return []
 
     lines = output.split("\n")
 
@@ -45,9 +45,9 @@ class Abstract(object):
 
   def readRemotes(self):
     output = self.cli.execute("git remote -v")
-    if returnCode == False:
+    if output == False:
       self.interface.error("An error occured while reading remotes. Please pass it manually!")
-      return ['origin']
+      return []
 
     lines = output.split("\n")
 
