@@ -54,6 +54,6 @@ class Feature(Abstract):
     )
 
     if deleteFeatureBranch == "yes":
-      # feature branch lokal und remote wieder löschen
+      # delete feature branch locally and remote
       self.cli.execute("git branch -D %s%s" % (self.config.getFeature(), branch))
       self.cli.execute("git push %s :%s%s" % (origin, self.config.getFeature(), branch))
