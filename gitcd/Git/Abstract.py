@@ -15,6 +15,7 @@ class Abstract(object):
     self.cli.execute("git remote update")
 
   def getCurrentDevelopmentBranch(self, developPrefix):
+
     currentDevelopmentBranch = developPrefix
     output = self.cli.execute("git branch -r")
 
@@ -22,7 +23,7 @@ class Abstract(object):
 
     branches = []
     for line in lines:
-      if line.startswith("origin/" + developPrefix):
+      if line.startswith("origin/%s" % developPrefix):
         branches.append(line)
 
     if len(branches) > 1:
