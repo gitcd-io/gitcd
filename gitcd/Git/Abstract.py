@@ -13,6 +13,7 @@ class Abstract(object):
 
   def update(self):
     self.cli.execute("git remote update")
+    self.cli.execute("git fetch -p")
 
   def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
