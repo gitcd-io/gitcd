@@ -17,7 +17,7 @@ class Feature(Abstract):
     self.interface.ok("gitcd feature test")
 
     origin = self.getOrigin()
-    developmentBranch = self.getCurrentDevelopmentBranch()
+    developmentBranch = self.getCurrentDevelopmentBranch(self.config.getTest())
 
     # todo: need to handle this as prefix and read all possible branches
     # ask user if more than one possibillities
