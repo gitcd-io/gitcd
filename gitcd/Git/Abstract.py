@@ -8,26 +8,36 @@ class Abstract(object):
   interface = CliInterface()
   config = False
 
-  def setConfig(self, config: ConfigFile):
+  def setConfig(self, config:ConfigFile):
     self.config = config
 
   def update(self):
     self.cli.execute("git remote update")
 
-  def getCurrentDevelopmentBranch(self, developPrefix:str):
-
-    currentDevelopmentBranch = developPrefix
+  def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
+
+    if output == False:
+      return []
 
     lines = output.split("\n")
 
     branches = []
     for line in lines:
       line = line.strip()
-      if line.startswith("origin/%s" % developPrefix):
+      if line.startswith("origin/%s" % self.config.getTest()):
         branches.append(line.replace("origin/", ""))
 
-    if len(branches) > 1:
+    return branches
+
+  def getDevelopmentBranch(self):
+    branches = self.readDevelopmentBranches()
+
+    if len(branches) == 0:
+      self.interface.error("An error occured while reading your development branches. Please pass it manually!")
+      # should ask for user input here as well
+
+    else if len(branches) > 1:
       currentDevelopmentBranch = self.interface.askFor("Which origin you want to use?",
         branches,
         branches[0]
@@ -58,6 +68,7 @@ class Abstract(object):
 
   def getOrigin(self):
     origins = self.readOrigins()
+
     if len(origins) > 1:
       origin = self.interface.askFor("Which origin you want to use?",
         origins,
