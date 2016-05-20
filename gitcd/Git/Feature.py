@@ -17,13 +17,14 @@ class Feature(Abstract):
     self.interface.ok("gitcd feature test")
 
     origin = self.getOrigin()
+    developmentBranch = self.getCurrentDevelopmentBranch()
 
     # todo: need to handle this as prefix and read all possible branches
     # ask user if more than one possibillities
-    self.cli.execute("git checkout %s" % (self.config.getTest()))
-    self.cli.execute("git pull %s %s" % (origin, self.config.getTest()))
+    self.cli.execute("git checkout %s" % (developmentBranch))
+    self.cli.execute("git pull %s %s" % (origin, developmentBranch))
     self.cli.execute("git merge %s%s" % (self.config.getFeature(), branch))
-    self.cli.execute("git push %s %s" % (origin, self.config.getTest()))
+    self.cli.execute("git push %s %s" % (origin, developmentBranch))
 
   def review(self, branch: str):
     self.interface.ok("open a pull request on github")

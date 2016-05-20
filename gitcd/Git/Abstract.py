@@ -14,6 +14,28 @@ class Abstract(object):
   def update(self):
     self.cli.execute("git remote update")
 
+  def getCurrentDevelopmentBranch(self, developPrefix):
+    currentDevelopmentBranch = developPrefix
+    output = self.cli.execute("git branch -r")
+
+    lines = output.split("\n")
+
+    branches = []
+    for line in lines:
+      if line.startswith("origin/" + developPrefix):
+        branches.append(line)
+
+    if len(branches) > 1:
+      currentDevelopmentBranch = self.interface.askFor("Which origin you want to use?",
+        branches,
+        branches[0]
+      )
+    else:
+      currentDevelopmentBranch = branches[0]
+
+    return currentDevelopmentBranch
+
+
   def readOrigins(self):
     output = self.cli.execute("git remote -v")
     if output == False:
