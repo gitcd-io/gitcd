@@ -44,7 +44,7 @@ class Feature(Abstract):
     self.cli.execute("git push %s %s" % (origin, self.config.getMaster()))
 
     # push new tag
-    currentDate = time.strftime("%Y-%m-%d-%H%M")
+    currentDate = time.strftime("%Y.%m.%d%H%M")
     # need to handle commit message here, interactive shell execution could be a possiblity
     self.cli.execute("git tag -a -m 'release' %s%s" % (self.config.getTag(), currentDate))
     self.cli.execute("git push %s %s%s" % (origin, self.config.getTag(), currentDate))
