@@ -23,8 +23,9 @@ class Abstract(object):
 
     branches = []
     for line in lines:
+      line = line.strip()
       if line.startswith("origin/%s" % developPrefix):
-        branches.append(line)
+        branches.append(line.replace("origin/", ""))
 
     if len(branches) > 1:
       currentDevelopmentBranch = self.interface.askFor("Which origin you want to use?",
