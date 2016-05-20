@@ -14,29 +14,38 @@ class Abstract(object):
   def update(self):
     self.cli.execute("git remote update")
 
-  def getCurrentDevelopmentBranch(self, developPrefix):
-
-    currentDevelopmentBranch = developPrefix
+  def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
+
+    if output == False:
+      return []
 
     lines = output.split("\n")
 
     branches = []
     for line in lines:
       line = line.strip()
-      if line.startswith("origin/%s" % developPrefix):
+      if line.startswith("origin/%s" % self.config.getTest()):
         branches.append(line.replace("origin/", ""))
 
-    if len(branches) > 1:
-      currentDevelopmentBranch = self.interface.askFor("Which origin you want to use?",
-        branches,
-        branches[0]
-      )
+    return branches
+
+  def getDevelopmentBranch(self):
+    branches = self.readDevelopmentBranches()
+
+    if len(branches) == 1:
+      developmentBranch = branches[0]
     else:
-      currentDevelopmentBranch = branches[0]
+      if len(branches) == 0:
+        default = False
+        choice = False
+      else:
+        default = branches[0]
+        choice = branches
 
-    return currentDevelopmentBranch
+        developmentBranch = self.interface.askFor("Which develop branch you want to use?", default, choice)
 
+    return developmentBranch
 
   def readOrigins(self):
     output = self.cli.execute("git remote -v")
@@ -58,13 +67,19 @@ class Abstract(object):
 
   def getOrigin(self):
     origins = self.readOrigins()
-    if len(origins) > 1:
-      origin = self.interface.askFor("Which origin you want to use?",
-        origins,
-        origins[0]
-      )
-    else:
+
+    if len(origins) == 1:
       origin = origins[0]
+    else:
+      if len(origins) == 0:
+        default = False
+        choice = False
+      else:
+        default = origins[0]
+        choice = origins
+
+        origin = self.interface.askFor("Which origin you want to use?", default, choice)
+
     return origin
 
   def readRemotes(self):
@@ -87,11 +102,17 @@ class Abstract(object):
 
   def getRemote(self):
     remotes = self.readRemotes()
-    if len(remotes) > 1:
-      remote = self.interface.askFor("Which remote url you want to use?",
-        remotes,
-        remotes[0]
-      )
-    else:
+
+    if len(remotes) == 1:
       remote = remotes[0]
-    return remote 
+    else:
+      if len(remotes) == 0:
+        default = False
+        choice = False
+      else:
+        default = remotes[0]
+        choice = remotes
+
+        remote = self.interface.askFor("Which remote you want to use?", default, choice)
+
+    return remote
