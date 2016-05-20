@@ -14,7 +14,7 @@ class Abstract(object):
   def update(self):
     self.cli.execute("git remote update")
 
-  def getCurrentDevelopmentBranch(self, developPrefix):
+  def getCurrentDevelopmentBranch(self, developPrefix:str):
 
     currentDevelopmentBranch = developPrefix
     output = self.cli.execute("git branch -r")
