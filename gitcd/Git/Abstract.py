@@ -44,7 +44,7 @@ class Abstract(object):
         default = branches[0]
         choice = branches
 
-        developmentBranch = self.interface.askFor("Which develop branch you want to use?", default, choice)
+        developmentBranch = self.interface.askFor("Which develop branch you want to use?", choice, default)
 
     return developmentBranch
 
@@ -79,7 +79,7 @@ class Abstract(object):
         default = origins[0]
         choice = origins
 
-        origin = self.interface.askFor("Which origin you want to use?", default, choice)
+        origin = self.interface.askFor("Which origin you want to use?", choice, default)
 
     return origin
 
@@ -114,6 +114,6 @@ class Abstract(object):
         default = remotes[0]
         choice = remotes
 
-        remote = self.interface.askFor("Which remote you want to use?", default, choice)
+        remote = self.interface.askFor("Which remote you want to use?", choice, default)
 
     return remote
