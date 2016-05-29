@@ -42,10 +42,28 @@ class Feature(Abstract):
     self.interface.ok("gitcd feature test: ".branch)
 
   def review(self, branch):
-    self.interface.ok("open a pull request on github")
-    remote = self.getRemote()
 
-    self.cli.execute("git request-pull %s%s %s %s" % (self.config.getFeature(), branch, remote, self.config.getMaster()))
+    if branch == None:
+      branch = self.cli.executeRaw("git rev-parse --abbrev-ref HEAD")
+    else: 
+      branch = self.config.getFeature().branch
+
+    master = self.config.getMaster()
+
+    repo = self.cli.executeRaw("git remote show origin -n | grep h.URL | sed 's/.*://;s/.git$//'")
+    
+    token = self.config.getToken()
+
+    if token != None:
+      title = self.interface.askFor("Pullrequtest Title?")
+      body = self.interface.askFor("Pullrequtest Body?")
+      username = self.cli.executeRaw("git config -l | grep credential | cut -d\"=\" -f 2")
+      self.cli.executeRaw("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/pulls" % (username, token, title, body, branch, master, repo) )
+    else: 
+      print ("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
+      self.cli.executeRaw("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
+
+    self.interface.ok("open a pull request on github")
 
 
   def finish(self, branch):

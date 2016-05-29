@@ -47,3 +47,9 @@ class File:
 
   def setTag(self, tag):
     self.config['tag'] = tag
+
+  def getToken(self):
+    return self.config['token']
+
+  def setToken(self, token):
+    self.config['token'] = token

@@ -17,3 +17,7 @@ class Command(object):
 
     return output.decode("utf-8")
     #subprocess.call(command, shell = True)
+
+  def executeRaw(self, command):
+    return subprocess.Popen(command, shell=True, stdout=subprocess.PIPE).stdout.read().strip()
+

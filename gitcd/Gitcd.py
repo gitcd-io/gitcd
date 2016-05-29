@@ -47,6 +47,12 @@ class Gitcd(object):
       self.config.getTag())
     )
 
+    self.config.setToken(
+      self.interface.askFor("Your personal Github Token?",
+      False,
+      self.config.getToken())
+    )
+
     self.config.write()
 
   def dispatch(self, command, action, branch):
