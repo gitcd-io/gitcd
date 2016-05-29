@@ -11,10 +11,12 @@ gitcd = Gitcd()
 gitcd.setConfigFilename(".gitcd")
 gitcd.loadConfig()
 
+# feature command expect always an action
 if len(sys.argv) == 2 and sys.argv[1] != 'feature':
   # default action is run
   sys.argv.append('run')
-if len(sys.argv) == 3 and sys.argv[1] != 'feature':
+# branch optional in any command
+if len(sys.argv) == 3:
   # default branch name is *
   sys.argv.append('*')
 
