@@ -29,4 +29,10 @@ class Init(Command):
       self.config.getTag())
     )
 
+    self.config.setToken(
+      self.interface.askFor("Your personal Github token?",
+      False,
+      self.config.getToken())
+    )
+
     self.config.write()

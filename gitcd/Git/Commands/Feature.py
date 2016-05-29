@@ -45,8 +45,22 @@ class Feature(Command):
     self.interface.ok("open a pull request on github")
     remote = self.getRemote()
 
-    self.cli.execute("git request-pull %s%s %s %s" % (self.config.getFeature(), branch, remote, self.config.getMaster()))
+    featureBranch = self.getFeatureBranch(branch)
 
+    master = self.config.getMaster()
+
+    repo = self.cli.execute("git remote show origin -n | grep h.URL | sed 's/.*://;s/.git$//'")
+    
+    token = self.config.getToken()
+
+    if token != None:
+      title = self.interface.askFor("Pull-Request title?")
+      body = self.interface.askFor("Pull-Request body?")
+      username = self.cli.execute("git config -l | grep credential | cut -d\"=\" -f 2")
+      self.cli.execute("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/pulls" % (username, token, title, body, branch, master, repo) )
+    else: 
+      print ("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
+      self.cli.execute("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
 
   def finish(self, branch: str):
     self.interface.ok("gitcd feature finish")

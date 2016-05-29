@@ -5,5 +5,6 @@ class Defaults(object):
       'test': 'develop',
       'feature': 'feature/',
       'master': 'master',
-      'tag': 'v'
+      'tag': 'v',
+      'token': None
     }
