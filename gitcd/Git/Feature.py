@@ -4,27 +4,42 @@ import time
 class Feature(Abstract):
 
   def start(self, branch):
-    self.interface.ok("gitcd feature start")
 
     origin = self.getOrigin()
+
+    if branch == None:
+      branch = self.interface.askFor("Name your new Branch?")
+
+    branch = self.config.getFeature().branch
+
 
     self.cli.execute("git checkout %s" % (self.config.getMaster()))
     self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
-    self.cli.execute("git checkout -b %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git checkout -b %s" % (branch))
     self.cli.execute("git push %s %s%s" % (origin, self.config.getFeature(), branch))
 
+
+    self.interface.ok("gitcd feature start: ".branch)
+
   def test(self, branch):
-    self.interface.ok("gitcd feature test")
 
     origin = self.getOrigin()
     developmentBranch = self.getDevelopmentBranch()
+
+    if branch == None:
+      branch = self.cli.executeRaw("git rev-parse --abbrev-ref HEAD")
+    else: 
+      branch = self.config.getFeature().branch
+      
 
     # todo: need to handle this as prefix and read all possible branches
     # ask user if more than one possibillities
     self.cli.execute("git checkout %s" % (developmentBranch))
     self.cli.execute("git pull %s %s" % (origin, developmentBranch))
-    self.cli.execute("git merge %s%s" % (self.config.getFeature(), branch))
+    self.cli.execute("git merge %s" % (branch))
     self.cli.execute("git push %s %s" % (origin, developmentBranch))
+
+    self.interface.ok("gitcd feature test: ".branch)
 
   def review(self, branch):
     self.interface.ok("open a pull request on github")

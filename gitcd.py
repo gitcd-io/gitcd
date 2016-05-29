@@ -26,7 +26,7 @@ def completeAction(prefix, parsed_args, **kwargs):
 parser = argparse.ArgumentParser()
 parser.add_argument("command", help="Command to call.", type=str, choices=('init', 'feature'))
 parser.add_argument("action", help="Action to execute.", type=str).completer = completeAction
-parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
+parser.add_argument("--branch", "-b", help="Your awesome feature-branch name", type=str)
 argcomplete.autocomplete(parser)
 
 
