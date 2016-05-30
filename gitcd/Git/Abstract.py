@@ -117,3 +117,12 @@ class Abstract(object):
         remote = self.interface.askFor("Which remote you want to use?", choice, default)
 
     return remote
+
+  def getFeaturebranch(self, branch):
+    # get the current branch if no branch is provided
+    if branch == None:
+      branch = self.cli.executeRaw("git rev-parse --abbrev-ref HEAD")
+    else: 
+      branch = self.config.getFeature() + branch
+
+    return branch

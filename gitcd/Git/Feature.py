@@ -10,8 +10,7 @@ class Feature(Abstract):
     if branch == None:
       branch = self.interface.askFor("Name your new Branch?")
 
-    branch = self.config.getFeature().branch
-
+    branch = self.config.getFeature() + branch
 
     self.cli.execute("git checkout %s" % (self.config.getMaster()))
     self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
@@ -19,12 +18,14 @@ class Feature(Abstract):
     self.cli.execute("git push %s %s%s" % (origin, self.config.getFeature(), branch))
 
 
-    self.interface.ok("gitcd feature start: ".branch)
+    self.interface.ok("gitcd feature start: " + branch)
 
   def test(self, branch):
 
     origin = self.getOrigin()
     developmentBranch = self.getDevelopmentBranch()
+    branch = self.getFeaturebranch(branch)
+      
 
     if branch == None:
       branch = self.cli.executeRaw("git rev-parse --abbrev-ref HEAD")
@@ -42,11 +43,7 @@ class Feature(Abstract):
     self.interface.ok("gitcd feature test: ".branch)
 
   def review(self, branch):
-
-    if branch == None:
-      branch = self.cli.executeRaw("git rev-parse --abbrev-ref HEAD")
-    else: 
-      branch = self.config.getFeature().branch
+    branch = self.getFeaturebranch(branch)
 
     master = self.config.getMaster()
 
@@ -64,11 +61,12 @@ class Feature(Abstract):
       self.cli.executeRaw("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
 
     self.interface.ok("open a pull request on github")
+    remote = self.getRemote()
 
 
   def finish(self, branch):
-    self.interface.ok("gitcd feature finish")
 
+    branch = self.getFeaturebranch(branch)
     origin = self.getOrigin()
 
     self.cli.execute("git checkout %s" % (self.config.getMaster()))
@@ -91,3 +89,5 @@ class Feature(Abstract):
       # delete feature branch locally and remote
       self.cli.execute("git branch -D %s%s" % (self.config.getFeature(), branch))
       self.cli.execute("git push %s :%s%s" % (origin, self.config.getFeature(), branch))
+
+    self.interface.ok("gitcd feature finish")
