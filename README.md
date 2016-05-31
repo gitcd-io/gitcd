@@ -52,6 +52,7 @@ gitcd feature start <branchname>
 
 
 **Test a feature branch**
+
 Merges a feature branch into your development branch
 ```console
 gitcd feature test <branchname>
