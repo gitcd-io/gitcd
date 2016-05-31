@@ -1,5 +1,8 @@
 Readme File
 
+pip install argcomplete
+pip install pyyaml
+
 Init config file
 gitcd init
 
