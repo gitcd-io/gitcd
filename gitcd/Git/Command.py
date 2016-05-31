@@ -13,6 +13,9 @@ class Command(Abstract):
     return False
 
   # some abstract main functions for any command
+  def getCurrentBranch(self):
+    return self.cli.execute("git rev-parse --abbrev-ref HEAD")
+
   def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
     if output == False:
