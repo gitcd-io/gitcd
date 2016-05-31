@@ -70,7 +70,7 @@ class Interface(object):
     if default:
       self.writeOut(self.BOLD + "Default: " + self.ENDC + default)
 
-    value = input("")
+    value = raw_input("")
 
     # reset all completers after user input is happen
     readline.set_completer()
