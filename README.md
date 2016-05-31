@@ -6,7 +6,8 @@ By [Claudio Walser]
 **gitcd** is a little helper for continous integration workflows using git as scm.
 
 ## Installation
-Since gitcd is using python3 by default, you better upgrade
+Since gitcd is using python3 by default, you better upgrade.
+
 Run the following command to install prerequisites:
 
 ```console
@@ -90,4 +91,4 @@ send us a pull request.
 
 ## License
 
-Apache License 2.0 see LICENSE
+Apache License 2.0 see https://github.com/claudio-walser/gitcd/blob/feature/major-cleanup/LICENSE
