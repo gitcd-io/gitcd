@@ -43,14 +43,10 @@ class Feature(Command):
 
   def review(self, branch: str):
     self.interface.ok("open a pull request on github")
-    remote = self.getRemote()
 
     featureBranch = self.getFeatureBranch(branch)
-
     master = self.config.getMaster()
-
     repo = self.cli.execute("git remote show origin -n | grep h.URL | sed 's/.*://;s/.git$//'")
-    
     token = self.config.getToken()
 
     if token != None:

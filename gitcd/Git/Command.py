@@ -92,39 +92,3 @@ class Command(Abstract):
         origin = self.interface.askFor("Which origin you want to use?", choice, default)
 
     return origin
-
-  def readRemotes(self):
-    output = self.cli.execute("git remote -v")
-    if output == False:
-      self.interface.error("An error occured while reading remotes. Please pass it manually!")
-      return []
-
-    lines = output.split("\n")
-
-    last = False
-    remotes = []
-    for line in lines:
-        strings = line.split("\t")
-        if last != strings[1] and strings[1] != "":
-            last = strings[1]
-            remotes.append(last)
-
-    return remotes
-
-  def getRemote(self):
-    remotes = self.readRemotes()
-
-    if len(remotes) == 1:
-      remote = remotes[0]
-    else:
-      if len(remotes) == 0:
-        default = False
-        choice = False
-      else:
-        default = remotes[0]
-        choice = remotes
-
-        remote = self.interface.askFor("Which remote you want to use?", choice, default)
-
-    return remote
-
