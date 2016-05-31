@@ -1,9 +1,5 @@
 # Continous tool for working with git
 
-By [Claudio Walser]
-
-And [Gianni Carafa]
-
 ## Description
 **gitcd** is a little helper for continous integration workflows using git as scm.
 
