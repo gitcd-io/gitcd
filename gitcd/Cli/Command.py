@@ -3,7 +3,7 @@ import string
 
 class Command(object):
 
-  def execute(self, command: str):
+  def execute(self, command):
     cliArgs = command.split(" ")
 
     process = subprocess.Popen(cliArgs, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

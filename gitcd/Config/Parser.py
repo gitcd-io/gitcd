@@ -6,7 +6,7 @@ class Parser:
 
   yaml = {}
 
-  def load(self, filename: str):
+  def load(self, filename):
     # raise exception if no .gitcd in current working dir
     if not os.path.isfile(filename):
       raise GitcdFileNotFoundException("File %s not found" % filename)
@@ -17,6 +17,6 @@ class Parser:
 
     return self.yaml
 
-  def write(self, filename: str, config: dict):
+  def write(self, filename, config):
     with open(filename, "w") as outfile:
       outfile.write(yaml.dump(config, default_flow_style=False))

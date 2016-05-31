@@ -14,13 +14,13 @@ class Gitcd(object):
     self.git.setConfig(self.config)
     self.git.setupCommands()
 
-  def setConfigFilename(self, configFilename: str):
+  def setConfigFilename(self, configFilename):
     self.config.setFilename(configFilename)
 
   def loadConfig(self):
     self.config.load()
 
-  def getCommand(self, command: str):
+  def getCommand(self, command):
     try:
       commandObject = self.git.commands[command]
     except:
@@ -28,7 +28,7 @@ class Gitcd(object):
 
     return commandObject
 
-  def dispatch(self, command: str, action: str, branch: str):
+  def dispatch(self, command, action, branch):
     try:
       commandObject = self.git.commands[command]
     except:

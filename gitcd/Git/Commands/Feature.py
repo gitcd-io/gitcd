@@ -11,7 +11,7 @@ class Feature(Command):
       'finish'
     ]
 
-  def start(self, branch: str):
+  def start(self, branch):
     self.interface.ok("gitcd feature start")
 
     origin = self.getOrigin()
@@ -28,7 +28,7 @@ class Feature(Command):
     self.cli.execute("git checkout -b %s" % (featureBranch))
     self.cli.execute("git push %s %s" % (origin, branch))
 
-  def test(self, branch: str):
+  def test(self, branch):
     self.interface.ok("gitcd feature test")
 
     origin = self.getOrigin()
@@ -41,7 +41,7 @@ class Feature(Command):
     self.cli.execute("git merge %s" % (featureBranch))
     self.cli.execute("git push %s %s" % (origin, developmentBranch))
 
-  def review(self, branch: str):
+  def review(self, branch):
     self.interface.ok("open a pull request on github")
 
     featureBranch = self.getFeatureBranch(branch)
@@ -58,7 +58,7 @@ class Feature(Command):
       print ("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
       self.cli.execute("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
 
-  def finish(self, branch: str):
+  def finish(self, branch):
     self.interface.ok("gitcd feature finish")
 
     origin = self.getOrigin()

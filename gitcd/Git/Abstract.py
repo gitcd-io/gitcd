@@ -8,7 +8,7 @@ class Abstract(object):
   interface = CliInterface()
   config = False
 
-  def setConfig(self, config: ConfigFile):
+  def setConfig(self, config):
     self.config = config
 
   def update(self):

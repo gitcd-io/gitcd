@@ -4,7 +4,7 @@ class Init(Command):
 
   # no special subcommands, only run which is meant to be default
 
-  def run(self, dummy: str):
+  def run(self, dummy):
     self.config.setMaster(
       self.interface.askFor("Branch name for production releases?",
       False,

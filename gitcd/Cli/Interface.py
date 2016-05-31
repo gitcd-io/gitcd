@@ -20,33 +20,33 @@ class Interface(object):
   # closing character
   ENDC = '\033[0m'
 
-  def writeOut(self, msg: str):
+  def writeOut(self, msg):
     print(msg)
     return True
 
-  def error(self, msg: str):
+  def error(self, msg):
     # some cli colors
     self.writeOut(self.FAIL + "Error: " + self.ENDC)
     return self.writeOut(msg)
 
-  def warning(self, msg: str):
+  def warning(self, msg):
     # some cli colors
     self.writeOut(self.WARNING + "Warning: " + self.ENDC)
     return self.writeOut(msg)
 
-  def header(self, msg: str):
+  def header(self, msg):
     # some cli colors
     return self.writeOut(self.HEADER + msg + self.ENDC)
 
-  def info(self, msg: str):
+  def info(self, msg):
     # some cli colors
     return self.writeOut(self.OKBLUE + msg + self.ENDC)
 
-  def ok(self, msg: str):
+  def ok(self, msg):
     # some cli colors
     return self.writeOut(self.OKGREEN + msg + self.ENDC)
 
-  def askFor(self, prompt: str, options = False, default: str = False):
+  def askFor(self, prompt, options = False, default = False):
     self.info(prompt)
 
     completer = InputCompleter()
@@ -93,7 +93,7 @@ class InputCompleter(object):
 
     re = re.compile('.*\s+$', re.M)
 
-    def setOptions(self, options: list):
+    def setOptions(self, options):
       self.options = options
       return True
 
