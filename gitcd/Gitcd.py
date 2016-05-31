@@ -1,7 +1,8 @@
 import sys
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Cli.Interface import Interface
-from gitcd.Git.Common import Common as Git
+from gitcd.Git.Git import Git
+from gitcd.Git.Command import Command
 
 class Gitcd(object):
 
@@ -11,10 +12,7 @@ class Gitcd(object):
 
   def __init__(self):
     self.git.setConfig(self.config)
-    self.git.setupSubcommands()
-
-  def getFeatureSubcommands(self):
-    return ['start', 'test', 'review', 'finish']
+    self.git.setupCommands()
 
   def setConfigFilename(self, configFilename: str):
     self.config.setFilename(configFilename)
@@ -22,45 +20,27 @@ class Gitcd(object):
   def loadConfig(self):
     self.config.load()
 
-  def init(self):
-    self.config.setMaster(
-      self.interface.askFor("Branch name for production releases?",
-      False,
-      self.config.getMaster())
-    )
+  def getCommand(self, command: str):
+    try:
+      commandObject = self.git.commands[command]
+    except:
+      commandObject = Command()
 
-    self.config.setFeature(
-      self.interface.askFor("Branch name for feature development?",
-      False,
-      self.config.getFeature())
-    )
-
-    self.config.setTest(
-      self.interface.askFor("Branch name for test releases?",
-      False,
-      self.config.getTest())
-    )
-
-    self.config.setTag(
-      self.interface.askFor("Version tag prefix?",
-      False,
-      self.config.getTag())
-    )
-
-    self.config.write()
+    return commandObject
 
   def dispatch(self, command: str, action: str, branch: str):
     try:
-      subCommand = self.git.subCommands[command]  
+      commandObject = self.git.commands[command]
     except:
       self.interface.error("Subcommand %s does not exists, see gitcd --help for more information." % command)
       sys.exit(1)
     
     try:
-      method = getattr(subCommand, action)  
+      subcommandMethod = getattr(commandObject, action)  
     except:
       self.interface.error("Action %s does not exists on subcommand %s, see knack --help for more information." % action)
       sys.exit(1)
 
+    # not sure if its really necessary to update everytime here, its good but takes some time
     self.git.update()
-    method(branch)
+    subcommandMethod(branch)

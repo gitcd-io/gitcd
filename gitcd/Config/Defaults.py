@@ -7,4 +7,3 @@ class Defaults(object):
       'master': 'master',
       'tag': 'v'
     }
-
