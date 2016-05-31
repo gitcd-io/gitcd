@@ -1,7 +1,7 @@
-from gitcd.Git.Abstract import Abstract
+from gitcd.Git.Command import Command
 import time
 
-class Feature(Abstract):
+class Feature(Command):
 
   def getSubcommands(self):
     return [

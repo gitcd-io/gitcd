@@ -25,7 +25,7 @@ def completeAction(prefix, parsed_args, **kwargs):
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
-parser.add_argument("command", help="Command to call.", type=str, choices=('init', 'feature'))
+parser.add_argument("command", help="Command to call.", type=str, choices=('init', 'clean', 'feature'))
 parser.add_argument("action", help="Action to execute.", type=str).completer = completeAction
 parser.add_argument("branch", help="Your awesome feature-branch name", type=str) # todo forward completer to native git branch completion
 argcomplete.autocomplete(parser)

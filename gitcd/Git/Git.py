@@ -1,8 +1,9 @@
 from gitcd.Git.Commands.Init import Init
 from gitcd.Git.Commands.Clean import Clean
 from gitcd.Git.Commands.Feature import Feature
+from gitcd.Git.Abstract import Abstract
 
-class Git(object):
+class Git(Abstract):
 
   commands = {
     'init': Init(),

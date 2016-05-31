@@ -1,12 +1,8 @@
-from gitcd.Cli.Command import Command as CliCommand
-from gitcd.Cli.Interface import Interface as CliInterface
 from gitcd.Config.File import File as ConfigFile
+from gitcd.Git.Abstract import Abstract
 
-class Command(object):
 
-  cli = CliCommand()
-  interface = CliInterface()
-  config = False
+class Command(Abstract):
 
   # meant to be overwritten in concrete command implementations
   def getSubcommands(self):
@@ -15,17 +11,9 @@ class Command(object):
   def run(self):
     return False
 
-  # some abstract main functions
-  def setConfig(self, config: ConfigFile):
-    self.config = config
-
-  def update(self):
-    self.cli.execute("git remote update")
-    self.cli.execute("git fetch -p")
-
+  # some abstract main functions for any command
   def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
-
     if output == False:
       return []
 

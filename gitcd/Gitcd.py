@@ -35,6 +35,6 @@ class Gitcd(object):
       self.interface.error("Action %s does not exists on subcommand %s, see knack --help for more information." % action)
       sys.exit(1)
 
-    # not sure if its really necessary to update everytime here,
+    # not sure if its really necessary to update everytime here, its good but takes some time
     self.git.update()
     subcommandMethod(branch)
