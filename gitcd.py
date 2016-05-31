@@ -4,10 +4,8 @@
 import sys
 import argcomplete
 import argparse
-
 from gitcd.Gitcd import Gitcd
 
-from pprint import pprint
 
 gitcd = Gitcd()
 gitcd.setConfigFilename(".gitcd")
@@ -21,7 +19,7 @@ if len(sys.argv) == 3 and sys.argv[1] != 'feature':
   sys.argv.append('*')
 
 def completeAction(prefix, parsed_args, **kwargs):
-  return (v for v in gitcd.getCommand(command).getSubcommands() if v.startswith(prefix))
+  return (v for v in gitcd.getCommand(parsed_args.command).getSubcommands() if v.startswith(prefix))
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()

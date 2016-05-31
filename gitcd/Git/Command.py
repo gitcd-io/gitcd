@@ -6,7 +6,8 @@ class Command(Abstract):
 
   # meant to be overwritten in concrete command implementations
   def getSubcommands(self):
-    return []
+    return ['run']
+
   # basic default maethod for any command
   def run(self):
     return False

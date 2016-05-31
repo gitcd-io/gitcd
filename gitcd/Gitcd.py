@@ -2,6 +2,7 @@ import sys
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Cli.Interface import Interface
 from gitcd.Git.Git import Git
+from gitcd.Git.Command import Command
 
 class Gitcd(object):
 
@@ -19,8 +20,13 @@ class Gitcd(object):
   def loadConfig(self):
     self.config.load()
 
-  def getCommand(self):
-    return 
+  def getCommand(self, command: str):
+    try:
+      commandObject = self.git.commands[command]
+    except:
+      commandObject = Command()
+
+    return commandObject
 
   def dispatch(self, command: str, action: str, branch: str):
     try:
