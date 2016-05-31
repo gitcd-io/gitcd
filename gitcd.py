@@ -13,29 +13,27 @@ gitcd = Gitcd()
 gitcd.setConfigFilename(".gitcd")
 gitcd.loadConfig()
 
-if len(sys.argv) == 2 and sys.argv[1] == 'init':
-  sys.argv.append('*')
-if len(sys.argv) == 3 and sys.argv[1] == 'init':
+if len(sys.argv) == 2 and sys.argv[1] != 'feature':
+  # default action is run
+  sys.argv.append('run')
+if len(sys.argv) == 3 and sys.argv[1] != 'feature':
+  # default branch name is *
   sys.argv.append('*')
 
 def completeAction(prefix, parsed_args, **kwargs):
-  if parsed_args.command == 'feature':
-    return (v for v in gitcd.getFeatureSubcommands() if v.startswith(prefix))
+  return (v for v in gitcd.getCommand(command).getSubcommands() if v.startswith(prefix))
 
 # create parser in order to autocomplete
 parser = argparse.ArgumentParser()
 parser.add_argument("command", help="Command to call.", type=str, choices=('init', 'feature'))
 parser.add_argument("action", help="Action to execute.", type=str).completer = completeAction
-parser.add_argument("branch", help="Your awesome feature-branch name", type=str)
+parser.add_argument("branch", help="Your awesome feature-branch name", type=str) # todo forward completer to native git branch completion
 argcomplete.autocomplete(parser)
 
 
 def main(command: str, action: str, branch: str):
   # todo: abort if no .gitcd file is present or just go on with the defaults?
-  if command == "init":
-    gitcd.init()
-  else:
-    gitcd.dispatch(command, action, branch)
+  gitcd.dispatch(command, action, branch)
 
   sys.exit(0)
 

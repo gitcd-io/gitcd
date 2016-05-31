@@ -3,6 +3,14 @@ import time
 
 class Feature(Abstract):
 
+  def getSubcommands(self):
+    return [
+      'start',
+      'test',
+      'review',
+      'finish'
+    ]
+
   def start(self, branch: str):
     self.interface.ok("gitcd feature start")
 
