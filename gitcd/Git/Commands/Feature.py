@@ -34,14 +34,8 @@ class Feature(Command):
     origin = self.getOrigin()
     developmentBranch = self.getDevelopmentBranch()
 
-    if branch == "*":
-      # todo, maybe check for featureBranch prefix, or at least check if its not the master/develop branch and not any tag
-      featureBranch = self.getCurrentBranch()
-    else: 
-      featureBranch = "%s%s" % (self.config.getFeature(), branch)
+    featureBranch = self.getFeatureBranch(branch)
 
-    # todo: need to handle this as prefix and read all possible branches
-    # ask user if more than one possibillities
     self.cli.execute("git checkout %s" % (developmentBranch))
     self.cli.execute("git pull %s %s" % (origin, developmentBranch))
     self.cli.execute("git merge %s" % (featureBranch))
@@ -59,12 +53,7 @@ class Feature(Command):
 
     origin = self.getOrigin()
 
-    if branch == "*":
-      # todo, maybe check for featureBranch prefix, or at least check if its not the master/develop branch and not any tag
-      featureBranch = self.getCurrentBranch()
-    else:
-      featureBranch = "%s%s" % (self.config.getFeature(), branch)
-
+    featureBranch = self.getFeatureBranch(branch)
 
     self.cli.execute("git checkout %s" % (self.config.getMaster()))
     self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))

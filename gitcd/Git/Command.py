@@ -16,6 +16,16 @@ class Command(Abstract):
   def getCurrentBranch(self):
     return self.cli.execute("git rev-parse --abbrev-ref HEAD")
 
+  def getFeatureBranch(self, branch: str):
+    if branch == "*":
+      # todo, maybe check for featureBranch prefix, or at least check if its not the master/develop branch and not any tag
+      # ask for any remote feature branch if conditions dont match
+      featureBranch = self.getCurrentBranch()
+    else:
+      featureBranch = "%s%s" % (self.config.getFeature(), branch)
+
+    return featureBranch
+
   def readDevelopmentBranches(self):
     output = self.cli.execute("git branch -r")
     if output == False:
