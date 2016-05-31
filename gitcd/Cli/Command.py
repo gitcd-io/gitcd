@@ -12,4 +12,3 @@ class Command(object):
       return False
 
     return output.decode("utf-8")
-    #subprocess.call(command, shell = True)

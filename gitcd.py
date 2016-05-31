@@ -30,7 +30,6 @@ argcomplete.autocomplete(parser)
 
 
 def main(command: str, action: str, branch: str):
-  # todo: abort if no .gitcd file is present or just go on with the defaults?
   gitcd.dispatch(command, action, branch)
 
   sys.exit(0)
