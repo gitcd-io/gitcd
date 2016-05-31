@@ -11,4 +11,4 @@ class Command(object):
     if process.returncode != 0:
       return False
 
-    return output.decode("utf-8")
+    return output.decode("utf-8").strip()
