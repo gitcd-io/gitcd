@@ -41,11 +41,13 @@ gitcd init
 After passing all your configuration data start work with it
 
 
+
 **Start new feature**
 ```console
 gitcd feature start <branchname>
 ```
 Starts a new feature branch from your master branch
+
 
 
 **Test a feature branch**
@@ -55,11 +57,13 @@ gitcd feature test <branchname>
 Merges a feature branch into your development branch
 
 
+
 **Open a pull request for code review**
 ```console
 gitcd feature review <branchname>
 ```
 Opens a pull request to your master branch - not working yet
+
 
 
 **Finish a feature branch**
