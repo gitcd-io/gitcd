@@ -36,7 +36,7 @@ Afterwards you have to cd into one of your local directories representing a git 
 ```console
 gitcd init
 ```
-After passing all your configuration data start work with it
+After passing all your configuration data, start working with it
 
 
 
@@ -88,12 +88,12 @@ send us a pull request.
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
+2. Create your feature branch (`gitcd feature start my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+4. Push to the branch (`git push origin feature/my-new-feature`)
+5. Create new Pull Request (`gitcd feature review my-new-feature`)
 
 
 ## License
 
-Apache License 2.0 see https://github.com/claudio-walser/gitcd/blob/feature/major-cleanup/LICENSE
+Apache License 2.0 see https://github.com/claudio-walser/gitcd/blob/master/LICENSE
