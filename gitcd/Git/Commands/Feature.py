@@ -55,7 +55,7 @@ class Feature(Command):
       username = self.cli.execute("git config -l | grep credential | cut -d\"=\" -f 2")
       self.cli.execute("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/pulls" % (username, token, title, body, branch, master, repo) )
     else: 
-      print ("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
+      self.interface.writeOut("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
       self.cli.execute("open https://github.com/%s/compare/%s...%s" % (repo, master, branch))
 
   def finish(self, branch):
