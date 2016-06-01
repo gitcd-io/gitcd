@@ -28,10 +28,10 @@ class Command(object):
       # handle  strings in single quotes
       if arg.startswith("'") and isSingle == False and isDouble == False:
         isSingle = True
-        tmpString = arg
+        tmpString = arg[1:]
 
       elif arg.endswith("'") and isSingle == True:
-        arg = "%s %s" % (tmpString, arg)
+        arg = "%s %s" % (tmpString, arg[:-1])
         parsedArgs.append(arg)
         isSingle = False
         tmpString = False
@@ -39,10 +39,10 @@ class Command(object):
       # handle strings in double quotes
       elif arg.startswith('"') and isDouble == False and isSingle == False:
         isDouble = True
-        tmpString = arg
+        tmpString = arg[1:]
 
       elif arg.endswith('"') and isDouble == True:
-        arg = "%s %s" % (tmpString, arg)
+        arg = "%s %s" % (tmpString, arg[:-1])
         parsedArgs.append(arg)
         isDouble = False
         tmpString = False

@@ -73,7 +73,9 @@ class Feature(Command):
     # push new tag
     currentDate = time.strftime("%Y.%m.%d%H%M")
     tagMessage = self.interface.askFor("What message your new tag should have?")
-    tagMessage = tagMessage.replace("'", "\\'")
+    # you are not allowd to have single quotes in the tag message because of parsing the arguments
+    # i dont want to write a lexical parser for this
+    tagMessage = tagMessage.replace("'", '"')
     print(tagMessage)
 
     self.cli.execute("git tag -a -m '%s' %s%s" % (tagMessage, self.config.getTag(), currentDate))
