@@ -26,7 +26,7 @@ class Command(object):
         isSingle = True
         tmpString = arg
 
-      elif arg.endswith("'") && isSingle == True:
+      elif arg.endswith("'") and isSingle == True:
         arg = "%s %s" % (tmpString, arg)
         parsedArgs.append(arg)
         isSingle = False
@@ -37,7 +37,7 @@ class Command(object):
         isDouble = True
         tmpString = arg
 
-      elif arg.endswith('"') && isDouble == True:
+      elif arg.endswith('"') and isDouble == True:
         arg = "%s %s" % (tmpString, arg)
         parsedArgs.append(arg)
         isDouble = False
