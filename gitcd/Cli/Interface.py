@@ -21,7 +21,7 @@ class Interface(object):
   ENDC = '\033[0m'
 
   def writeOut(self, msg):
-    print "msg"
+    print msg
     return True
 
   def error(self, msg):
