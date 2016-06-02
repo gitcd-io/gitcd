@@ -75,7 +75,7 @@ class Feature(Command):
     tagMessage = self.interface.askFor("What message your new tag should have?")
     # you are not allowed to have double quotes in the tag message because of parsing the arguments
     # i dont want to write a lexical parser for this
-    tagMessage = tagMessage.replace('"', '\"')
+    tagMessage = tagMessage.replace('"', '\\"')
     print(tagMessage)
     self.cli.execute('git tag -a -m "%s" %s%s' % (tagMessage, self.config.getTag(), currentDate))
     self.cli.execute("git push %s %s%s" % (origin, self.config.getTag(), currentDate))
