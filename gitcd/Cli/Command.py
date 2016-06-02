@@ -10,7 +10,7 @@ class Command(object):
 
     #pprint(cliArgs)
 
-    process = subprocess.Popen(cliArgs, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = process.communicate()
     if process.returncode != 0:
       return False
