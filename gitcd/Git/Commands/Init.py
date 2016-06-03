@@ -43,8 +43,8 @@ Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
       )
     else:
       # you'll be asked for it while a release
-      versionScheme = ' '
-
+      versionScheme = None
+    # pass version scheme to config
     self.config.setVersionScheme(versionScheme)
 
 
