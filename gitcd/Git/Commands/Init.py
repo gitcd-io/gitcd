@@ -29,6 +29,25 @@ class Init(Command):
       self.config.getTag())
     )
 
+    versionType = self.interface.askFor("Version type? You can either set your tag number manually or generate it by date.",
+      ['manual', 'date'],
+      self.config.getTag()
+    )
+    self.config.setVersionType(versionType)
+
+    if versionType == 'date':
+      versionScheme = self.interface.askFor("Scheme for your date-tag? \
+Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
+        '%Y.%m.%d%H%M',
+        self.config.getVersionScheme()
+      )
+    else:
+      # you'll be asked for it while a release
+      versionScheme = None
+
+    self.config.setVersionScheme(versionScheme)
+
+
     self.config.setToken(
       self.interface.askFor("Your personal Github token?",
       False,
