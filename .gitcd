@@ -1,5 +1,7 @@
 feature: feature/
 master: master
 tag: v
+versionType: manual
+versionScheme: null
 test: develop
-token:  
+token: null
