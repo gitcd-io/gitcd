@@ -31,7 +31,7 @@ class Init(Command):
 
     versionType = self.interface.askFor("Version type? You can either set your tag number manually or generate it by date.",
       ['manual', 'date'],
-      self.config.getTag()
+      self.config.versionType()
     )
     self.config.setVersionType(versionType)
 
@@ -43,7 +43,7 @@ Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
       )
     else:
       # you'll be asked for it while a release
-      versionScheme = None
+      versionScheme = ""
 
     self.config.setVersionScheme(versionScheme)
 
