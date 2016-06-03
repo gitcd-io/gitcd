@@ -29,12 +29,14 @@ class Init(Command):
       self.config.getTag())
     )
 
+    # ask for version type, manual or date
     versionType = self.interface.askFor("Version type? You can either set your tag number manually or generate it by date.",
       ['manual', 'date'],
       self.config.getVersionType()
     )
     self.config.setVersionType(versionType)
 
+    # if type is date ask for scheme
     if versionType == 'date':
       versionScheme = self.interface.askFor("Scheme for your date-tag? \
 Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
