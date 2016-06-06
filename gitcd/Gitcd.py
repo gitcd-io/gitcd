@@ -38,7 +38,7 @@ class Gitcd(object):
     try:
       subcommandMethod = getattr(commandObject, action)  
     except:
-      self.interface.error("Action %s does not exists on subcommand %s, see knack --help for more information." % action)
+      self.interface.error("Action %s does not exists on subcommand %s, see gitcd --help for more information." % (action, command))
       sys.exit(1)
 
     # not sure if its really necessary to update everytime here, its good but takes some time
