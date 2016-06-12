@@ -1,5 +1,6 @@
 from gitcd.Git.Command import Command
 import time
+from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
 
 class Feature(Command):
 
@@ -29,17 +30,21 @@ class Feature(Command):
     self.cli.execute("git push %s %s" % (origin, branch))
 
   def test(self, branch):
-    self.interface.ok("gitcd feature test")
+    try:
 
-    origin = self.getOrigin()
-    developmentBranch = self.getDevelopmentBranch()
+      self.interface.ok("gitcd feature test")
 
-    featureBranch = self.getFeatureBranch(branch)
+      origin = self.getOrigin()
+      developmentBranch = self.getDevelopmentBranch()
 
-    self.cli.execute("git checkout %s" % (developmentBranch))
-    self.cli.execute("git pull %s %s" % (origin, developmentBranch))
-    self.cli.execute("git merge %s" % (featureBranch))
-    self.cli.execute("git push %s %s" % (origin, developmentBranch))
+      featureBranch = self.getFeatureBranch(branch)
+
+      self.cli.execute("git checkout %s" % (developmentBranch))
+      self.cli.execute("git pull %s %s" % (origin, developmentBranch))
+      self.cli.execute("git merge %s" % (featureBranch))
+      self.cli.execute("git push %s %s" % (origin, developmentBranch))
+    except GitcdNoDevelopmentBranchDefinedException as e:
+      print("gitcd error: ".format(e))
 
   def review(self, branch):
     self.interface.ok("open a pull request on github")
