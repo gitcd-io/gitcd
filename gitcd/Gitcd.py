@@ -3,6 +3,7 @@ from gitcd.Config.File import File as ConfigFile
 from gitcd.Cli.Interface import Interface
 from gitcd.Git.Git import Git
 from gitcd.Git.Command import Command
+from gitcd.Exceptions import GitcdCliExecutionException
 
 class Gitcd(object):
 
@@ -41,6 +42,10 @@ class Gitcd(object):
       self.interface.error("Action %s does not exists on subcommand %s, see gitcd --help for more information." % (action, command))
       sys.exit(1)
 
-    # not sure if its really necessary to update everytime here, its good but takes some time
-    self.git.update()
-    subcommandMethod(branch)
+    try:
+      # not sure if its really necessary to update everytime here, its good but takes some time
+      self.git.update()
+      subcommandMethod(branch)
+    # catch cli executino errors here
+    except GitcdCliExecutionException as e:
+      self.interface.error(format(e))
