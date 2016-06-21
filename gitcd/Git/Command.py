@@ -1,6 +1,6 @@
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Git.Abstract import Abstract
-
+from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
 
 class Command(Abstract):
 
@@ -44,7 +44,9 @@ class Command(Abstract):
   def getDevelopmentBranch(self):
     branches = self.readDevelopmentBranches()
 
-    if len(branches) == 1:
+    if len(branches) < 1:
+      raise GitcdNoDevelopmentBranchDefinedException("No development branch found")
+    elif len(branches) == 1:
       developmentBranch = branches[0]
     else:
       if len(branches) == 0:
