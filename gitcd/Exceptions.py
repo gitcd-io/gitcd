@@ -9,3 +9,6 @@ class GitcdFileNotFoundException(Exception):
 
 class GitcdNoDevelopmentBranchDefinedException(Exception):
   pass
+
+class GitcdCliExecutionException(Exception):
+  pass

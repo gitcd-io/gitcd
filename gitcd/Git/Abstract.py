@@ -8,6 +8,9 @@ class Abstract(object):
   interface = CliInterface()
   config = False
 
+  def __init__(self):
+    self.cli.setRaiseException(True)
+
   def setConfig(self, config: ConfigFile):
     self.config = config
 
