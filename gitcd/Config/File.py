@@ -48,6 +48,18 @@ class File:
   def setTag(self, tag):
     self.config['tag'] = tag
 
+  def getVersionType(self):
+    return self.config['versionType']
+
+  def setVersionType(self, versionType: str):
+    self.config['versionType'] = versionType
+
+  def getVersionScheme(self):
+    return self.config['versionScheme']
+
+  def setVersionScheme(self, versionType: str):
+    self.config['versionScheme'] = versionType
+
   def getToken(self):
     return self.config['token']
 
