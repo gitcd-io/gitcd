@@ -6,17 +6,30 @@ from gitcd.Exceptions import GitcdCliExecutionException
 class Command(object):
 
   raiseException = False
+  verbose = False
   interface = Interface()
+
+  def setVerbose(self, verbose: bool):
+    self.verbose = verbose
+
+  def getVerbose(self):
+    return self.verbose
 
   def setRaiseException(self, raiseException: bool):
     self.raiseException = raiseException
 
+  def getRaiseException(self):
+    return self.raiseException
+
   def execute(self, command: str):
+    if self.verbose == True:
+      self.interface.warning("Executing: %s" % command)
+
     process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output, err = process.communicate()
     if process.returncode != 0:
       if self.raiseException == True:
-        raise GitcdCliExecutionException("Command '%s' failed\n\n%s" % (self.interface.WARNING + command + self.interface.ENDC, err.decode("utf-8").strip()))
+        raise GitcdCliExecutionException(err.decode("utf-8").strip())
       return False
 
     return output.decode("utf-8").strip()

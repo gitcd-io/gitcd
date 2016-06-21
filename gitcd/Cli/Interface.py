@@ -31,8 +31,7 @@ class Interface(object):
 
   def warning(self, msg: str):
     # some cli colors
-    self.writeOut(self.WARNING + "Warning: " + self.ENDC)
-    return self.writeOut(msg)
+    return self.writeOut(self.WARNING + msg + self.ENDC)
 
   def header(self, msg: str):
     # some cli colors
