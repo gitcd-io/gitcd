@@ -14,7 +14,7 @@ class Command(Abstract):
 
   # some abstract main functions for any command
   def getCurrentBranch(self):
-    return self.cli.execute("git rev-parse --abbrev-ref HEAD")
+    return self.quietCli.execute("git rev-parse --abbrev-ref HEAD")
 
   def getFeatureBranch(self, branch):
     if branch == "*":
@@ -27,7 +27,7 @@ class Command(Abstract):
     return featureBranch
 
   def readDevelopmentBranches(self):
-    output = self.cli.execute("git branch -r")
+    output = self.quietCli.execute("git branch -r")
     if output == False:
       return []
 
@@ -61,7 +61,7 @@ class Command(Abstract):
     return developmentBranch
 
   def readOrigins(self):
-    output = self.cli.execute("git remote -v")
+    output = self.quietCli.execute("git remote -v")
     if output == False:
       self.interface.error("An error occured while reading remotes. Please pass it manually!")
       return []

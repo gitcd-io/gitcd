@@ -5,20 +5,19 @@ from gitcd.Cli.Interface import Interface as CliInterface
 class Abstract(object):
 
   cli = CliCommand()
+  quietCli = CliCommand()
   interface = CliInterface()
   config = False
 
   def __init__(self):
     self.cli.setRaiseException(True)
     self.cli.setVerbose(True)
+    self.quietCli.setRaiseException(True)
+    self.quietCli.setVerbose(False)
 
   def setConfig(self, config):
     self.config = config
 
   def update(self):
-    # dont be verbose on update
-    verbose = self.cli.getVerbose()
-    self.cli.setVerbose(False)
-    self.cli.execute("git remote update")
-    self.cli.execute("git fetch -p")
-    self.cli.setVerbose(verbose)
+    self.quietCli.execute("git remote update")
+    self.quietCli.execute("git fetch -p")
