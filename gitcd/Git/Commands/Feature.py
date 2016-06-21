@@ -13,7 +13,7 @@ class Feature(Command):
     ]
 
   def start(self, branch):
-    self.interface.ok("gitcd feature start")
+    self.interface.header("gitcd feature start")
 
     origin = self.getOrigin()
 
@@ -31,7 +31,7 @@ class Feature(Command):
 
   def test(self, branch):
     try:
-      self.interface.ok("gitcd feature test")
+      self.interface.header("gitcd feature test")
 
       origin = self.getOrigin()
       developmentBranch = self.getDevelopmentBranch()
@@ -46,7 +46,7 @@ class Feature(Command):
       self.interface.writeOut("gitcd error: %s" % (format(e)))
 
   def review(self, branch):
-    self.interface.ok("open a pull request on github")
+    self.interface.header("open a pull request on github")
 
     featureBranch = self.getFeatureBranch(branch)
     master = self.config.getMaster()
@@ -63,7 +63,7 @@ class Feature(Command):
       self.cli.execute("open https://github.com/%s/compare/%s...%s" % (repo, master, featureBranch))
 
   def finish(self, branch):
-    self.interface.ok("gitcd feature finish")
+    self.interface.header("gitcd feature finish")
 
     origin = self.getOrigin()
 

@@ -48,4 +48,4 @@ class Gitcd(object):
       subcommandMethod(branch)
     # catch cli executino errors here
     except GitcdCliExecutionException as e:
-      self.interface.error(format(e))
+      self.interface.error(e)
