@@ -8,7 +8,7 @@ class Command(object):
   raiseException = False
   interface = Interface()
 
-  def setRaiseException(self, raiseException: bool):
+  def setRaiseException(self, raiseException):
     self.raiseException = raiseException
 
   def execute(self, command):
