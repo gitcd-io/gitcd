@@ -43,7 +43,7 @@ class Feature(Command):
       self.cli.execute("git merge %s" % (featureBranch))
       self.cli.execute("git push %s %s" % (origin, developmentBranch))
     except GitcdNoDevelopmentBranchDefinedException as e:
-      print("gitcd error: ".format(e))
+      self.interface.writeOut("gitcd error: %s" % (format(e)))
 
   def review(self, branch: str):
     self.interface.ok("open a pull request on github")
