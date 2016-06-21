@@ -51,13 +51,13 @@ class File:
   def getVersionType(self):
     return self.config['versionType']
 
-  def setVersionType(self, versionType: str):
+  def setVersionType(self, versionType):
     self.config['versionType'] = versionType
 
   def getVersionScheme(self):
     return self.config['versionScheme']
 
-  def setVersionScheme(self, versionType: str):
+  def setVersionScheme(self, versionType):
     self.config['versionScheme'] = versionType
 
   def getToken(self):
