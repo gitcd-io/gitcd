@@ -16,7 +16,7 @@ class Command(object):
     output, err = process.communicate()
     if process.returncode != 0:
       if self.raiseException == True:
-        raise GitcdCliExecutionException(err.decode("utf-8").strip())
+        raise GitcdCliExecutionException("Command '%s' failed\n\n%s" % (self.interface.WARNING + command + self.interface.ENDC, err.decode("utf-8").strip()))
       return False
 
     return output.decode("utf-8").strip()
