@@ -31,6 +31,10 @@ Working with gitcd, first you might want to symlink the main python file into /u
 ```console
 sudo ln -s $(pwd)/gitcd.py /usr/local/bin/gitcd
 ```
+If you are a fan of having git subcommands you can link it as following. Be aware that i didnt found a way for autocompletion to get work this way:
+```console
+sudo ln -s $(pwd)/gitcd.py /usr/local/bin/git-cd
+```
 
 Afterwards you have to cd into one of your local directories representing a git repository and run the init command
 ```console
