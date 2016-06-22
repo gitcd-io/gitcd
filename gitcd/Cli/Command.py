@@ -32,4 +32,8 @@ class Command(object):
         raise GitcdCliExecutionException(err.decode("utf-8").strip())
       return False
 
-    return output.decode("utf-8").strip()
+    output = output.decode("utf-8").strip()
+    if self.verbose == True:
+      self.interface.writeOut(output)
+
+    return output
