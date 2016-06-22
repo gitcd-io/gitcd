@@ -10,7 +10,7 @@ class Interface(object):
   UNDERLINE = '\033[4m'
   
   # good
-  OKBLUE = '\033[34m'
+  OKBLUE = '\033[96m'
   OKGREEN = '\033[92m'
   
   # not so good
