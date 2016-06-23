@@ -20,14 +20,3 @@ class Clean(Command):
         if self.getCurrentBranch() == branch:
           self.quietCli.execute("git checkout %s" % self.config.getMaster())
         self.cli.execute("git branch -D %s" % branch)
-
-
-
-    #* feature/cleanup-local-branches
-    #feature/python-2
-    #feature/show-error-output
-    #master
-    #remotes/origin/HEAD -> origin/master
-    #remotes/origin/feature/cleanup-local-branches
-    #remotes/origin/feature/python-2
-    #remotes/origin/master
