@@ -94,3 +94,35 @@ class Command(Abstract):
         origin = self.interface.askFor("Which origin you want to use?", choice, default)
 
     return origin
+
+
+  def getLocalBranches(self):
+    output = self.quietCli.execute("git branch -a")
+    if output == False:
+      return []
+
+    lines = output.split("\n")
+
+    localBranches = []
+    for line in lines:
+      line = line.strip()
+      if not line.startswith("remotes/"):
+        localBranches.append(line.replace("* ", ""))
+
+    return localBranches
+
+  def getRemoteBranches(self, origin: str):
+    output = self.quietCli.execute("git branch -r")
+    if output == False:
+      return []
+
+    lines = output.split("\n")
+
+    remoteBranches = []
+    for line in lines:
+      line = line.strip()
+      if line.startswith("%s/" % origin):
+        if not line.startswith("%s/HEAD" % origin): 
+          remoteBranches.append(line.replace("%s/" % origin, ""))
+
+    return remoteBranches
