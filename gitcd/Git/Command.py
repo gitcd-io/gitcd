@@ -111,7 +111,7 @@ class Command(Abstract):
 
     return localBranches
 
-  def getRemoteBranches(self, origin: str):
+  def getRemoteBranches(self, origin):
     output = self.quietCli.execute("git branch -r")
     if output == False:
       return []
