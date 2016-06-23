@@ -1,5 +1,4 @@
 from gitcd.Git.Command import Command
-from pprint import pprint
 
 class Clean(Command):
 
@@ -10,10 +9,6 @@ class Clean(Command):
 
     localBranches = self.getLocalBranches()
     remoteBranches = self.getRemoteBranches(origin)
-
-
-    pprint(localBranches)
-    pprint(remoteBranches)
 
     for branch in localBranches:
       if branch not in remoteBranches:
