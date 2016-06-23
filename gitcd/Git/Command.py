@@ -61,20 +61,17 @@ class Command(Abstract):
     return developmentBranch
 
   def readOrigins(self):
-    output = self.quietCli.execute("git remote -v")
+    output = self.quietCli.execute("git remote")
     if output == False:
       self.interface.error("An error occured while reading remotes. Please pass it manually!")
       return []
 
     lines = output.split("\n")
 
-    last = False
     origins = []
     for line in lines:
-        strings = line.split("\t")
-        if last != strings[0] and strings[0] != "":
-            last = strings[0]
-            origins.append(last)
+      if not line in origins:
+        origins.append(line)
 
     return origins
 
@@ -91,7 +88,7 @@ class Command(Abstract):
         default = origins[0]
         choice = origins
 
-        origin = self.interface.askFor("Which origin you want to use?", choice, default)
+      origin = self.interface.askFor("Which origin you want to use?", choice, default)
 
     return origin
 
