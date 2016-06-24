@@ -28,6 +28,7 @@ class Feature(Command):
     self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
     self.cli.execute("git checkout -b %s" % (featureBranch))
     self.cli.execute("git push %s %s" % (origin, featureBranch))
+    self.cli.execute("git branch --set-upstream-to %s/%s" % (origin, featureBranch))
 
   def test(self, branch: str):
     try:
