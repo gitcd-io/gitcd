@@ -43,7 +43,7 @@ gitcd init
 After passing all your configuration data, start working with it
 
 The tool is able to cleanup all local branches which doesent exist on the origins. This is done with:
-```
+```console
 gitcd clean
 ```
 It only deletes local branches and doesent touch remote ones. If one of the branches to delete is your current checked-out branch, the tool checkout the master branch locally in order to delete the feature branch.
@@ -81,7 +81,7 @@ gitcd feature finish <branchname>
 
 **Tagging the master branch**
 
-Merges it into your master and asks for permission to delete your feature branch
+Creates a tag from your master branch and pushes it to remote
 ```console
 gitcd release
 ```

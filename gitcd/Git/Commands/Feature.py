@@ -22,6 +22,16 @@ class Feature(Command):
     if branch == "*":
       branch = self.interface.askFor("Name for your new feature-branch? (without %s prefix)" % self.config.getFeature())
 
+    if branch.startswith(self.config.getFeature()):
+      fixFeatureBranch = self.interface.askFor("Your feature branch already starts with your feature prefix, should i remove it for you?",
+        ["yes", "no"],
+        "yes"
+      )
+
+      if fixFeatureBranch == "yes":
+        branch = branch.replace(self.config.getFeature(), "")
+
+
     featureBranch = "%s%s" % (self.config.getFeature(), branch)
 
 
