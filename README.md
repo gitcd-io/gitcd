@@ -74,10 +74,18 @@ gitcd feature review <branchname>
 
 **Finish a feature branch**
 
-Merges it into your master and create a tag of the current master code
+Merges it into your master and asks for permission to delete your feature branch
 ```console
 gitcd feature finish <branchname>
 ```
+
+**Tagging the master branch**
+
+Merges it into your master and asks for permission to delete your feature branch
+```console
+gitcd release
+```
+
 
 
 ### Known Issues
