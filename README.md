@@ -81,7 +81,7 @@ gitcd feature finish <branchname>
 
 **Tagging the master branch**
 
-Merges it into your master and asks for permission to delete your feature branch
+Creates a tag from your master branch and pushes it to remote
 ```console
 gitcd release
 ```
