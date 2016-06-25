@@ -7,6 +7,9 @@ class GitcdArgumentsException(Exception):
 class GitcdFileNotFoundException(Exception):
   pass
 
+class GitcdNoRepositoryException(Exception):
+  pass
+
 class GitcdNoFeatureBranchException(Exception):
   pass
 
