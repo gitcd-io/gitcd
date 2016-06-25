@@ -19,8 +19,6 @@ class Command(Abstract):
 
   def getFeatureBranch(self, branch: str):
     if branch == "*":
-      # todo, maybe check for featureBranch prefix, or at least check if its not the master/develop branch and not any tag
-      # ask for any remote feature branch if conditions dont match
       featureBranch = self.getCurrentBranch()
       if not featureBranch.startswith(self.config.getFeature()):
         raise GitcdNoFeatureBranchException("Your current branch is not a valid feature branch. Checkout a feature branch or pass one as param.")
