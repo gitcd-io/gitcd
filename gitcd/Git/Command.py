@@ -123,3 +123,35 @@ class Command(Abstract):
           remoteBranches.append(line.replace("%s/" % origin, ""))
 
     return remoteBranches
+
+
+  def getLocalTags(self):
+    output = self.quietCli.execute("git tag -l")
+    if output == False:
+      return []
+
+    lines = output.split("\n")
+    localTags = []
+    for line in lines:
+      localTags.append(line)
+
+    return localTags
+
+  def getRemoteTags(self, origin):
+    output = self.quietCli.execute("git ls-remote --tags")
+    if output == False:
+      return []
+
+    lines = output.split("\n")
+
+    remoteTags = []
+    for line in lines:
+      line = line.strip()
+      if not line.startswith("From "):
+        lineParts = line.split("\t")
+        if len(lineParts) == 2:
+          tagName = lineParts[1]
+          if not tagName.endswith("^{}"):
+            remoteTags.append(tagName.replace("refs/tags/", ""))
+
+    return remoteTags
