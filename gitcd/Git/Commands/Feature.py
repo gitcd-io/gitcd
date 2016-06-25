@@ -9,7 +9,8 @@ class Feature(Command):
       'start',
       'test',
       'review',
-      'finish'
+      'finish',
+      'release'
     ]
 
   def start(self, branch: str):
@@ -75,6 +76,24 @@ class Feature(Command):
     self.cli.execute("git merge %s" % (featureBranch))
     self.cli.execute("git push %s %s" % (origin, self.config.getMaster()))
 
+    deleteFeatureBranch = self.interface.askFor("Delete your feature branch?",
+      ["yes", "no"],
+      "yes"
+    )
+
+    if deleteFeatureBranch == "yes":
+      # delete feature branch locally and remote
+      self.cli.execute("git branch -D %s" % (featureBranch))
+      self.cli.execute("git push %s :%s" % (origin, featureBranch))
+
+  def release(self, branch: str):
+    self.interface.header("gitcd feature release")
+
+    origin = self.getOrigin()
+
+    self.cli.execute("git checkout %s" % (self.config.getMaster()))
+    self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
+
     # push new tag
     if self.config.getVersionType() == 'manual':
       tagNumber = self.interface.askFor("Whats the current tag number you want to deliver?")
@@ -86,13 +105,3 @@ class Feature(Command):
     tagMessage = tagMessage.replace('"', '\\"')
     self.cli.execute('git tag -a -m "%s" %s%s' % (tagMessage, self.config.getTag(), tagNumber))
     self.cli.execute("git push %s %s%s" % (origin, self.config.getTag(), tagNumber))
-
-    deleteFeatureBranch = self.interface.askFor("Delete your feature branch?",
-      ["yes", "no"],
-      "yes"
-    )
-
-    if deleteFeatureBranch == "yes":
-      # delete feature branch locally and remote
-      self.cli.execute("git branch -D %s" % (featureBranch))
-      self.cli.execute("git push %s :%s" % (origin, featureBranch))
