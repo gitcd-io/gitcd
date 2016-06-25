@@ -2,7 +2,7 @@ from gitcd.Git.Command import Command
 
 class Release(Command):
 
-  def run(self, dummy: str):
+  def run(self, dummy):
     self.interface.header("gitcd release")
 
     origin = self.getOrigin()
