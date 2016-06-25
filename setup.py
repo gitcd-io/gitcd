@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='gitcd',
-      version='1.0.4',
+      version='1.0.5',
       description='Tool for continous delivery using git',
       author='Claudio Walser',
       author_email='claudio.walser@srf.ch',
