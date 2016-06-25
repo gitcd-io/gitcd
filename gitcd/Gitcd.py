@@ -21,6 +21,9 @@ class Gitcd(object):
   def loadConfig(self):
     self.config.load()
 
+  def getAvailableCommands(self):
+    return self.git.commands.keys()
+
   def getCommand(self, command: str):
     try:
       commandObject = self.git.commands[command]
