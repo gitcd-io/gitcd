@@ -25,15 +25,6 @@ class Command(Abstract):
       if not featureBranch.startswith(self.config.getFeature()):
         raise GitcdNoFeatureBranchException("Your current branch is not a valid feature branch. Checkout a feature branch or pass one as param.")
     else:
-      if branch.startswith(self.config.getFeature()):
-        fixFeatureBranch = self.interface.askFor("Your feature branch already starts with your feature prefix, should i remove it for you?",
-          ["yes", "no"],
-          "yes"
-         )
-
-        if fixFeatureBranch == "yes":
-          branch = branch.replace(self.config.getFeature(), "")
-
       featureBranch = "%s%s" % (self.config.getFeature(), branch)
 
     return featureBranch
