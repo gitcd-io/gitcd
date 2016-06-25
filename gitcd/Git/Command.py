@@ -137,7 +137,7 @@ class Command(Abstract):
 
     return localTags
 
-  def getRemoteTags(self, origin):
+  def getRemoteTags(self, origin: str):
     output = self.quietCli.execute("git ls-remote --tags")
     if output == False:
       return []
