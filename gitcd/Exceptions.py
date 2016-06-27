@@ -7,6 +7,9 @@ class GitcdArgumentsException(Exception):
 class GitcdFileNotFoundException(Exception):
   pass
 
+class GitcdNoRepositoryException(Exception):
+  pass
+
 class GitcdNoFeatureBranchException(Exception):
   pass
 
@@ -14,4 +17,7 @@ class GitcdNoDevelopmentBranchDefinedException(Exception):
   pass
 
 class GitcdCliExecutionException(Exception):
+  pass
+
+class GitcdGithubApiException(Exception):
   pass

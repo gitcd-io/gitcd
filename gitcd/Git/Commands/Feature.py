@@ -1,6 +1,10 @@
-from gitcd.Git.Command import Command
 import time
+import requests
+import json
+
+from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
+
 
 class Feature(Command):
 
@@ -61,18 +65,50 @@ class Feature(Command):
     self.interface.header("open a pull request on github")
 
     featureBranch = self.getFeatureBranch(branch)
+    origin = self.getOrigin()
     master = self.config.getMaster()
-    repo = self.cli.execute("git remote show origin -n | grep h.URL | sed 's/.*://;s/.git$//'")
+    repo = self.getRepository(origin)
+    username = self.getUsername(origin)
     token = self.config.getToken()
 
-    if token != None:
+    if type(token) is str:
+      url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)
       title = self.interface.askFor("Pull-Request title?")
       body = self.interface.askFor("Pull-Request body?")
-      username = self.cli.execute("git config -l | grep credential | cut -d\"=\" -f 2")
-      self.cli.execute("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/pulls" % (username, token, title, body, featureBranch, master, repo) )
+      
+      data = {
+        "title": title,
+        "body": body,
+        "head": featureBranch,
+        "base": master
+      }
+
+      self.interface.warning("Opening pull-request on %s" % (url))
+
+      headers = {'Authorization': 'token %s' % token}
+      response = requests.post(
+        url,
+        headers = headers,
+        data = json.dumps(data),
+      )
+      if response.status_code != 201:
+        raise GitcdGithubApiException("Could not create a pull request, please create it manually.") 
+
+      defaultBrowser = self.getDefaultBrowserCommand()
+      self.cli.execute("%s %s" % (
+        defaultBrowser,
+        response.json().html_url
+      ))
+
     else: 
-      self.interface.writeOut("open https://github.com/%s/compare/%s...%s" % (repo, master, featureBranch))
-      self.cli.execute("open https://github.com/%s/compare/%s...%s" % (repo, master, featureBranch))
+      defaultBrowser = self.getDefaultBrowserCommand()
+      self.cli.execute("%s https://github.com/%s/%s/compare/%s...%s" % (
+        defaultBrowser,
+        username,
+        repo,
+        master,
+        featureBranch
+      ))
 
   def finish(self, branch: str):
     self.interface.header("gitcd feature finish")
