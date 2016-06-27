@@ -1,7 +1,10 @@
+from sys import platform
+
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Git.Abstract import Abstract
 from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
 from gitcd.Exceptions import GitcdNoFeatureBranchException
+from gitcd.Exceptions import GitcdNoRepositoryException
 
 class Command(Abstract):
 
@@ -156,3 +159,54 @@ class Command(Abstract):
             remoteTags.append(tagName.replace("refs/tags/", ""))
 
     return remoteTags
+
+  def getRemoteUrl(self, origin: str):
+    output = self.quietCli.execute("git config -l")
+    if output == False:
+      raise GitcdNoRepositoryException("It seems you are not in any git repository")
+
+    lines = output.split("\n")
+
+    for line in lines:
+      if line.startswith("remote.%s.url=" % (origin)):
+        lineParts = line.split("=")
+        url = lineParts[1]
+        # in case of https https://github.com/claudio-walser/test-repo.git
+        if url.startswith("https://") or url.startswith("http://"):
+          url = url.replace("http://", "")
+          url = url.replace("https://", "")
+        # in case of ssh git@github.com:claudio-walser/test-repo.git
+        else:
+          urlParts = line.split("@")
+          url = urlParts[1]
+          url = url.replace(":", "/")
+
+        return url
+
+    raise GitcdNoRepositoryException("It seems you are not in any git repository")
+
+  def getUsername(self, origin: str):
+    url = self.getRemoteUrl(origin)
+
+    urlParts = url.split("/")
+    username = urlParts[1]
+
+    return username
+
+  def getRepository(self, origin: str):
+    url = self.getRemoteUrl(origin)
+
+    urlParts = url.split("/")
+    repository = urlParts[2]
+    if repository.endswith(".git"):
+      repository = repository.replace(".git", "")
+
+    return repository
+
+  def getDefaultBrowserCommand(self):
+    if platform == "linux" or platform == "linux2":
+      return "sensible-browser"
+    elif platform == "darwin":
+       return "open"
+    elif platform == "win32":
+       raise Exception("You have to be fucking kidding me")

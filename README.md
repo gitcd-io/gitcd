@@ -12,6 +12,8 @@ Run the following command to install prerequisites:
 sudo apt-get install python3 python3-pip
 pip3 install pyyaml
 pip3 install argcomplete
+pip3 install requests
+pip3 install json
 ```
 
 Run the following command to install argument completion on linux:
