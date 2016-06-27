@@ -18,3 +18,6 @@ class GitcdNoDevelopmentBranchDefinedException(Exception):
 
 class GitcdCliExecutionException(Exception):
   pass
+
+class GitcdGithubApiException(Exception):
+  pass

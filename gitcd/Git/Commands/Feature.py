@@ -1,9 +1,6 @@
 import time
-from urllib3 import PoolManager as Http
-from urllib3 import connectionpool
-import certifi
+import requests
 import json
-import base64
 
 from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
@@ -86,24 +83,23 @@ class Feature(Command):
         "base": master
       }
 
-     
       self.interface.warning("Opening pull-request on %s" % (url))
-      http = Http(
-        cert_reqs='CERT_REQUIRED',
-        ca_certs=certifi.where(),
-      )
-      
-      headers = connectionpool.make_headers(content_type='application/json', basic_auth="token %s" % token)
-      response = http.urlopen(
-        'POST',
-        url,
-        headers=headers,
-        body=json.dumps(data)
-      )
-      print(response.status)
-      print(response.read())
 
-      #self.cli.execute("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/%s/pulls" % (username, token, title, body, featureBranch, master, username, repo) )
+      headers = {'Authorization': 'token %s' % token}
+      response = requests.post(
+        url,
+        headers = headers,
+        data = json.dumps(data),
+      )
+      if response.status_code != 201:
+        raise GitcdGithubApiException("Could not create a pull request, please create it manually.") 
+
+      defaultBrowser = self.getDefaultBrowserCommand()
+      self.cli.execute("%s %s" % (
+        defaultBrowser,
+        response.json().html_url
+      ))
+
     else: 
       defaultBrowser = self.getDefaultBrowserCommand()
       self.cli.execute("%s https://github.com/%s/%s/compare/%s...%s" % (
