@@ -1,8 +1,13 @@
 import time
 from urllib3 import PoolManager as Http
+from urllib3 import connectionpool
 import certifi
+import json
+import base64
+
 from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
+
 
 class Feature(Command):
 
@@ -71,23 +76,43 @@ class Feature(Command):
 
     if type(token) is str:
       url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)
+      title = self.interface.askFor("Pull-Request title?")
+      body = self.interface.askFor("Pull-Request body?")
+      
       data = {
-        "title": self.interface.askFor("Pull-Request title?"),
-        "body": self.interface.askFor("Pull-Request body?"),
+        "title": title,
+        "body": body,
         "head": featureBranch,
         "base": master
       }
 
+     
       self.interface.warning("Opening pull-request on %s" % (url))
       http = Http(
         cert_reqs='CERT_REQUIRED',
         ca_certs=certifi.where(),
       )
-      response = http.request("POST", url, fields=data)
+      
+      headers = connectionpool.make_headers(content_type='application/json', basic_auth="token %s" % token)
+      response = http.urlopen(
+        'POST',
+        url,
+        headers=headers,
+        body=json.dumps(data)
+      )
+      print(response.status)
       print(response.read())
+
+      #self.cli.execute("curl -s -u %s:%s -H \"Content-Type: application/json\" -X POST -d '{\"title\": \"%s\",\"body\": \"%s\",\"head\": \"%s\",\"base\": \"%s\"}' https://api.github.com/repos/%s/%s/pulls" % (username, token, title, body, featureBranch, master, username, repo) )
     else: 
       defaultBrowser = self.getDefaultBrowserCommand()
-      self.cli.execute("%s https://github.com/%s/%s/compare/%s...%s" % (defaultBrowser, username, repo, master, featureBranch))
+      self.cli.execute("%s https://github.com/%s/%s/compare/%s...%s" % (
+        defaultBrowser,
+        username,
+        repo,
+        master,
+        featureBranch
+      ))
 
   def finish(self, branch: str):
     self.interface.header("gitcd feature finish")
