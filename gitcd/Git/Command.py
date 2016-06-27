@@ -160,7 +160,7 @@ class Command(Abstract):
 
     return remoteTags
 
-  def getRemoteUrl(self, origin: str):
+  def getRemoteUrl(self, origin):
     output = self.quietCli.execute("git config -l")
     if output == False:
       raise GitcdNoRepositoryException("It seems you are not in any git repository")
@@ -185,7 +185,7 @@ class Command(Abstract):
 
     raise GitcdNoRepositoryException("It seems you are not in any git repository")
 
-  def getUsername(self, origin: str):
+  def getUsername(self, origin):
     url = self.getRemoteUrl(origin)
 
     urlParts = url.split("/")
@@ -193,7 +193,7 @@ class Command(Abstract):
 
     return username
 
-  def getRepository(self, origin: str):
+  def getRepository(self, origin):
     url = self.getRemoteUrl(origin)
 
     urlParts = url.split("/")
