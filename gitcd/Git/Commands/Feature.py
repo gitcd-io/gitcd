@@ -4,6 +4,7 @@ import json
 
 from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdNoDevelopmentBranchDefinedException
+from gitcd.Exceptions import GitcdGithubApiException
 
 
 class Feature(Command):
@@ -92,12 +93,13 @@ class Feature(Command):
         data = json.dumps(data),
       )
       if response.status_code != 201:
+        # todo better handling of errors here, ie. pull-request already existss
         raise GitcdGithubApiException("Could not create a pull request, please create it manually.") 
 
       defaultBrowser = self.getDefaultBrowserCommand()
       self.cli.execute("%s %s" % (
         defaultBrowser,
-        response.json().html_url
+        response.json()["html_url"]
       ))
 
     else: 
