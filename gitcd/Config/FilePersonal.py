@@ -11,7 +11,7 @@ class FilePersonal:
   defaults = DefaultsPersonal()
   config = {}
 
-  def setFilename(self, configFilename: str):
+  def setFilename(self, configFilename):
   	self.filename = configFilename
 
   def load(self):
