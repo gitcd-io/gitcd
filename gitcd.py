@@ -9,6 +9,7 @@ from gitcd.Gitcd import Gitcd
 
 gitcd = Gitcd()
 gitcd.setConfigFilename(".gitcd")
+gitcd.setConfigFilenamePersonal(".gitcd-personal")
 gitcd.loadConfig()
 
 # feature command expect always an action

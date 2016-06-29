@@ -70,7 +70,7 @@ class Feature(Command):
     master = self.config.getMaster()
     repo = self.getRepository(origin)
     username = self.getUsername(origin)
-    token = self.config.getToken()
+    token = self.configPersonal.getToken()
 
     if type(token) is str:
       url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)

@@ -50,10 +50,11 @@ Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
     self.config.setVersionScheme(versionScheme)
 
 
-    self.config.setToken(
+    self.configPersonal.setToken(
       self.interface.askFor("Your personal Github token?",
       False,
-      self.config.getToken())
+      self.configPersonal.getToken())
     )
 
+    self.configPersonal.write()
     self.config.write()
