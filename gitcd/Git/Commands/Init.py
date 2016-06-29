@@ -1,20 +1,10 @@
 from gitcd.Git.Command import Command
 
-from pprint import pprint
-import sys
-
-
 class Init(Command):
 
   # no special subcommands, only run which is meant to be default
 
   def run(self, dummy: str):
-
-
-    pprint(self.config)
-    pprint(self.configPersonal)
-    sys.exit(0)
-
     self.config.setMaster(
       self.interface.askFor("Branch name for production releases?",
       False,
@@ -60,10 +50,11 @@ Year: %Y / Month: %m  / Day: %d / Hour: %H / Minute: %M / Second: %S",
     self.config.setVersionScheme(versionScheme)
 
 
-    self.config.setToken(
+    self.configPersonal.setToken(
       self.interface.askFor("Your personal Github token?",
       False,
-      self.config.getToken())
+      self.configPersonal.getToken())
     )
 
+    self.configPersonal.write()
     self.config.write()
