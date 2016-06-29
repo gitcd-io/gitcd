@@ -3,23 +3,28 @@ import yaml
 from gitcd.Config.Parser import Parser
 from gitcd.Config.DefaultsPersonal import DefaultsPersonal
 
-
 class FilePersonal:
 
   loaded = False
   filename = ".gitcd-personal"
   parser = Parser()
   defaults = DefaultsPersonal()
-  config = False
+  config = {}
 
   def setFilename(self, configFilename: str):
   	self.filename = configFilename
 
   def load(self):
+    defaultConfig = self.defaults.load()
     if not os.path.isfile(self.filename):
-      self.config = self.defaults.load()
+      self.config = defaultConfig
     else:
-      self.config = self.parser.load(self.filename)
+      config = self.parser.load(self.filename)
+      for key in defaultConfig.keys():
+        if key in config:
+          self.config[key] = config[key]
+        else:
+          self.config[key] = defaultConfig[key]
   
   def write(self):
     self.parser.write(self.filename, self.config)
