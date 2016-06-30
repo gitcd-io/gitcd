@@ -1,23 +1,30 @@
 class GitcdException(Exception):
-  pass
+    pass
+
 
 class GitcdArgumentsException(Exception):
-  pass
+    pass
+
 
 class GitcdFileNotFoundException(Exception):
-  pass
+    pass
+
 
 class GitcdNoRepositoryException(Exception):
-  pass
+    pass
+
 
 class GitcdNoFeatureBranchException(Exception):
-  pass
+    pass
+
 
 class GitcdNoDevelopmentBranchDefinedException(Exception):
-  pass
+    pass
+
 
 class GitcdCliExecutionException(Exception):
-  pass
+    pass
+
 
 class GitcdGithubApiException(Exception):
-  pass
+    pass

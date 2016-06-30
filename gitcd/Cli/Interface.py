@@ -46,7 +46,7 @@ class Interface(object):
         # some cli colors
         return self.writeOut(self.OKGREEN + msg + self.ENDC)
 
-    def askFor(self, prompt: str, options = False, default: str = False):
+    def askFor(self, prompt: str, options=False, default: str = False):
         self.info(prompt)
 
         completer = InputCompleter()
@@ -54,7 +54,7 @@ class Interface(object):
         readline.parse_and_bind("tab: complete")
 
         # given options completer
-        if type(options) == list:
+        if isinstance(options, list):
             self.writeOut(
                 self.BOLD +
                 "Possibilities: " +
@@ -67,7 +67,7 @@ class Interface(object):
             readline.set_completer(completer.completeOptions)
 
         # directory completer
-        if type(options) == str and options == "os.directory":
+        if isinstance(options, str) and options == "os.directory":
             # just here to clarify, do nothing is perfect for
             # /folder/completion if readline is parsed and bound
             pass
@@ -83,13 +83,13 @@ class Interface(object):
         # reset all completers after user input is happen
         readline.set_completer()
 
-        if type(value) == str:
+        if isinstance(value, str):
             value = value.strip()
 
         if value == "" and default is not False:
             value = default
 
-        if type(options) == list and value not in options:
+        if isinstance(options, list) and value not in options:
             self.error(
                 "Value <" +
                 value +
@@ -102,35 +102,35 @@ class Interface(object):
 
 class InputCompleter(object):
 
-        options = []
+    options = []
 
-        re = re.compile('.*\s+$', re.M)
+    re = re.compile('.*\s+$', re.M)
 
-        def setOptions(self, options: list):
-            self.options = options
-            return True
+    def setOptions(self, options: list):
+        self.options = options
+        return True
 
-        def completeNothing(self, text, state):
-            return False
+    def completeNothing(self, text, state):
+        return False
 
-        def completeOptions(self, text, state):
-                # need to simplify this much more
-                buffer = readline.get_line_buffer()
-                line = readline.get_line_buffer().split()
-                # show all commands
-                if not line:
-                        return [c + ' ' for c in self.options][state]
+    def completeOptions(self, text, state):
+        # need to simplify this much more
+        buffer = readline.get_line_buffer()
+        line = readline.get_line_buffer().split()
+        # show all commands
+        if not line:
+            return [c + ' ' for c in self.options][state]
 
-                # account for last argument ending in a space
-                if self.re.match(buffer):
-                        line.append('')
+        # account for last argument ending in a space
+        if self.re.match(buffer):
+            line.append('')
 
-                # resolve command to the implementation function
-                cmd = line[0].strip()
-                if cmd in self.options:
-                        args = line[1:]
-                        if args:
-                                return False
-                        return [cmd + ' '][state]
-                results = [c + ' ' for c in self.options if c.startswith(cmd)] + [None]
-                return results[state]
+        # resolve command to the implementation function
+        cmd = line[0].strip()
+        if cmd in self.options:
+            args = line[1:]
+            if args:
+                return False
+            return [cmd + ' '][state]
+        results = [c + ' ' for c in self.options if c.startswith(cmd)] + [None]
+        return results[state]

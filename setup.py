@@ -10,4 +10,4 @@ setup(name='gitcd',
       url='https://github.com/claudio-walser/gitcd',
       packages=['gitcd'],
       install_requires=['pyyaml', 'argcomplete']
-)
+      )
