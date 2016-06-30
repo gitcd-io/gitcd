@@ -31,7 +31,8 @@ class Feature(Command):
 
         if branch.startswith(self.config.getFeature()):
             fixFeatureBranch = self.interface.askFor(
-                "Your feature branch already starts with your feature prefix, should i remove it for you?", [
+                "Your feature branch already starts with your feature prefix,\
+                should i remove it for you?", [
                     "yes", "no"], "yes")
 
             if fixFeatureBranch == "yes":
@@ -97,7 +98,8 @@ class Feature(Command):
                 # todo better handling of errors here, ie. pull-request already
                 # existss
                 raise GitcdGithubApiException(
-                    "Could not create a pull request, please create it manually.")
+                    "Could not create a pull request,\
+                    please create it manually.")
 
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (

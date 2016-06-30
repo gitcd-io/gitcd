@@ -26,7 +26,8 @@ class Command(Abstract):
             featureBranch = self.getCurrentBranch()
             if not featureBranch.startswith(self.config.getFeature()):
                 raise GitcdNoFeatureBranchException(
-                    "Your current branch is not a valid feature branch. Checkout a feature branch or pass one as param.")
+                    "Your current branch is not a valid feature branch.\
+                    Checkout a feature branch or pass one as param.")
         else:
             featureBranch = "%s%s" % (self.config.getFeature(), branch)
 
@@ -72,7 +73,8 @@ class Command(Abstract):
         output = self.quietCli.execute("git remote")
         if not output:
             self.interface.error(
-                "An error occured while reading remotes. Please pass it manually!")
+                "An error occured while reading remotes.\
+                Please pass it manually!")
             return []
 
         lines = output.split("\n")

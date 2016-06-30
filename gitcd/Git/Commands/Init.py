@@ -32,7 +32,8 @@ class Init(Command):
 
         # ask for version type, manual or date
         versionType = self.interface.askFor(
-            "Version type? You can either set your tag number manually or generate it by date.", [
+            "Version type? You can either set your tag number\
+            manually or generate it by date.", [
                 'manual', 'date'], self.config.getVersionType())
         self.config.setVersionType(versionType)
 
