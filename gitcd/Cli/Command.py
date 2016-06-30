@@ -3,37 +3,44 @@ import string
 from gitcd.Cli.Interface import Interface
 from gitcd.Exceptions import GitcdCliExecutionException
 
+
 class Command(object):
 
-  raiseException = False
-  verbose = False
-  interface = Interface()
+    raiseException = False
+    verbose = False
+    interface = Interface()
 
-  def setVerbose(self, verbose: bool):
-    self.verbose = verbose
+    def setVerbose(self, verbose: bool):
+        self.verbose = verbose
 
-  def getVerbose(self):
-    return self.verbose
+    def getVerbose(self):
+        return self.verbose
 
-  def setRaiseException(self, raiseException: bool):
-    self.raiseException = raiseException
+    def setRaiseException(self, raiseException: bool):
+        self.raiseException = raiseException
 
-  def getRaiseException(self):
-    return self.raiseException
+    def getRaiseException(self):
+        return self.raiseException
 
-  def execute(self, command: str):
-    if self.verbose == True:
-      self.interface.warning("Executing: %s" % command)
+    def execute(self, command: str):
+        if self.verbose is True:
+            self.interface.warning("Executing: %s" % command)
 
-    process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output, err = process.communicate()
-    if process.returncode != 0:
-      if self.raiseException == True:
-        raise GitcdCliExecutionException(err.decode("utf-8").strip())
-      return False
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
+        output, err = process.communicate()
+        if process.returncode != 0:
+            if self.raiseException is True:
+                raise GitcdCliExecutionException(err.decode("utf-8").strip())
+            return False
 
-    output = output.decode("utf-8").strip()
-    if self.verbose == True:
-      self.interface.writeOut(output)
+        output = output.decode("utf-8").strip()
+        if self.verbose is True:
+            self.interface.writeOut(output)
 
-    return output
+        return output
