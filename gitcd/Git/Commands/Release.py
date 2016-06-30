@@ -22,7 +22,11 @@ class Release(Command):
             "What message your new tag should have?")
         # escape double quotes for shell command
         tagMessage = tagMessage.replace('"', '\\"')
-        self.cli.execute('git tag -a -m "%s" %s%s' %
-                         (tagMessage, self.config.getTag(), tagNumber))
-        self.cli.execute("git push %s %s%s" %
-                         (origin, self.config.getTag(), tagNumber))
+        self.cli.execute(
+            'git tag -a -m "%s" %s%s'
+            % (tagMessage, self.config.getTag(), tagNumber)
+        )
+        self.cli.execute(
+            "git push %s %s%s"
+            % (origin, self.config.getTag(), tagNumber)
+        )

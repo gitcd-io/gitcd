@@ -46,7 +46,7 @@ class Interface(object):
         # some cli colors
         return self.writeOut(self.OKGREEN + msg + self.ENDC)
 
-    def askFor(self, prompt: str, options=False, default: str = False):
+    def askFor(self, prompt: str, options=False, default: str=False):
         self.info(prompt)
 
         completer = InputCompleter()
@@ -56,12 +56,8 @@ class Interface(object):
         # given options completer
         if isinstance(options, list):
             self.writeOut(
-                self.BOLD +
-                "Possibilities: " +
-                self.ENDC +
-                "[" +
-                ", ".join(options) +
-                "]"
+                self.BOLD + "Possibilities: " + self.ENDC +
+                "[" + ", ".join(options) + "]"
             )
             completer.setOptions(options)
             readline.set_completer(completer.completeOptions)

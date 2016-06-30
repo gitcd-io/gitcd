@@ -45,8 +45,8 @@ class Gitcd(object):
             commandObject = self.git.commands[command]
         except:
             self.interface.error(
-                "Subcommand %s does not exists,\
-                see gitcd --help for more information." %
+                "Subcommand %s does not exists," +
+                " see gitcd --help for more information." %
                 command)
             sys.exit(1)
 
@@ -54,8 +54,8 @@ class Gitcd(object):
             subcommandMethod = getattr(commandObject, action)
         except:
             self.interface.error(
-                "Action %s does not exists on subcommand %s,\
-                see gitcd --help for more information." %
+                "Action %s does not exists on subcommand %s," +
+                " see gitcd --help for more information." %
                 (action, command))
             sys.exit(1)
 

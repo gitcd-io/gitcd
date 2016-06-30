@@ -26,8 +26,9 @@ class Command(Abstract):
             featureBranch = self.getCurrentBranch()
             if not featureBranch.startswith(self.config.getFeature()):
                 raise GitcdNoFeatureBranchException(
-                    "Your current branch is not a valid feature branch.\
-                    Checkout a feature branch or pass one as param.")
+                    "Your current branch is not a valid feature branch." +
+                    " Checkout a feature branch or pass one as param."
+                )
         else:
             featureBranch = "%s%s" % (self.config.getFeature(), branch)
 
@@ -53,7 +54,8 @@ class Command(Abstract):
 
         if len(branches) < 1:
             raise GitcdNoDevelopmentBranchDefinedException(
-                "No development branch found")
+                "No development branch found"
+            )
         elif len(branches) == 1:
             developmentBranch = branches[0]
         else:
@@ -65,7 +67,10 @@ class Command(Abstract):
                 choice = branches
 
                 developmentBranch = self.interface.askFor(
-                    "Which develop branch you want to use?", choice, default)
+                    "Which develop branch you want to use?",
+                    choice,
+                    default
+                )
 
         return developmentBranch
 
@@ -73,8 +78,9 @@ class Command(Abstract):
         output = self.quietCli.execute("git remote")
         if not output:
             self.interface.error(
-                "An error occured while reading remotes.\
-                Please pass it manually!")
+                "An error occured while reading remotes." +
+                " Please pass it manually!"
+            )
             return []
 
         lines = output.split("\n")
@@ -100,7 +106,10 @@ class Command(Abstract):
                 choice = origins
 
             origin = self.interface.askFor(
-                "Which origin you want to use?", choice, default)
+                "Which origin you want to use?",
+                choice,
+                default
+            )
 
         return origin
 
@@ -192,7 +201,8 @@ class Command(Abstract):
                 return url
 
         raise GitcdNoRepositoryException(
-            "It seems you are not in any git repository")
+            "It seems you are not in any git repository"
+        )
 
     def getUsername(self, origin: str):
         url = self.getRemoteUrl(origin)

@@ -14,8 +14,7 @@ class Feature(Command):
             'start',
             'test',
             'review',
-            'finish',
-            'release'
+            'finish'
         ]
 
     def start(self, branch: str):
@@ -26,27 +25,39 @@ class Feature(Command):
         # ask for branch if nothing passed
         if branch == "*":
             branch = self.interface.askFor(
-                "Name for your new feature-branch? (without %s prefix)" %
-                self.config.getFeature())
+                "Name for your new feature-branch? (without %s prefix)"
+                % self.config.getFeature()
+            )
 
         if branch.startswith(self.config.getFeature()):
             fixFeatureBranch = self.interface.askFor(
-                "Your feature branch already starts with your feature prefix,\
-                should i remove it for you?", [
-                    "yes", "no"], "yes")
+                "Your feature branch already starts" +
+                " with your feature prefix," +
+                " should i remove it for you?",
+                ["yes", "no"],
+                "yes"
+            )
 
             if fixFeatureBranch == "yes":
                 branch = branch.replace(self.config.getFeature(), "")
 
         featureBranch = "%s%s" % (self.config.getFeature(), branch)
 
-        self.cli.execute("git checkout %s" % (self.config.getMaster()))
-        self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
-        self.cli.execute("git checkout -b %s" % (featureBranch))
-        self.cli.execute("git push %s %s" % (origin, featureBranch))
         self.cli.execute(
-            "git branch --set-upstream-to %s/%s" %
-            (origin, featureBranch))
+            "git checkout %s" % (self.config.getMaster())
+        )
+        self.cli.execute(
+            "git pull %s %s" % (origin, self.config.getMaster())
+        )
+        self.cli.execute(
+            "git checkout -b %s" % (featureBranch)
+        )
+        self.cli.execute(
+            "git push %s %s" % (origin, featureBranch)
+        )
+        self.cli.execute(
+            "git branch --set-upstream-to %s/%s" % (origin, featureBranch)
+        )
 
     def test(self, branch: str):
         try:
@@ -98,8 +109,9 @@ class Feature(Command):
                 # todo better handling of errors here, ie. pull-request already
                 # existss
                 raise GitcdGithubApiException(
-                    "Could not create a pull request,\
-                    please create it manually.")
+                    "Could not create a pull request," +
+                    " please create it manually."
+                )
 
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
