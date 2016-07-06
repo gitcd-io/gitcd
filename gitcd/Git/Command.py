@@ -229,3 +229,9 @@ class Command(Abstract):
             return "open"
         elif platform == "win32":
             raise Exception("You have to be fucking kidding me")
+
+    def detectBehindMaster(self):
+        #git log origin/master..master
+
+    def detectUncommitedChanges(self):
+        #git log origin/master..master
