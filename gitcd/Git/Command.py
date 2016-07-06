@@ -230,8 +230,16 @@ class Command(Abstract):
         elif platform == "win32":
             raise Exception("You have to be fucking kidding me")
 
-    def detectBehindMaster(self):
-        #git log origin/master..master
+    def isBehindOrigin(self, branch: str):
+        output = self.quietCli.execute("git log origin/%s..%s" % (branch, branch))
+        if not output:
+            return False
+        
+        return True
 
-    def detectUncommitedChanges(self):
-        #git log origin/master..master
+    def hasUncommitedChanges(self):
+        output = self.quietCli.execute("git status --porcelain")
+        if not output:
+            return False
+        
+        return True
