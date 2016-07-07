@@ -175,7 +175,7 @@ class Command(Abstract):
 
         return remoteTags
 
-    def getRemoteUrl(self, origin: str):
+    def getRemote(self, origin: str):
         output = self.quietCli.execute("git config -l")
         if not output:
             raise GitcdNoRepositoryException(
@@ -187,22 +187,27 @@ class Command(Abstract):
             if line.startswith("remote.%s.url=" % (origin)):
                 lineParts = line.split("=")
                 url = lineParts[1]
-                # in case of https
-                # https://github.com/claudio-walser/test-repo.git
-                if url.startswith("https://") or url.startswith("http://"):
-                    url = url.replace("http://", "")
-                    url = url.replace("https://", "")
-                # in case of ssh git@github.com:claudio-walser/test-repo.git
-                else:
-                    urlParts = line.split("@")
-                    url = urlParts[1]
-                    url = url.replace(":", "/")
 
                 return url
 
         raise GitcdNoRepositoryException(
             "It seems you are not in any git repository"
         )
+
+    def getRemoteUrl(self, origin: str):
+        url = self.getRemote(origin)
+        # in case of https
+        # https://github.com/claudio-walser/test-repo.git
+        if url.startswith("https://") or url.startswith("http://"):
+            url = url.replace("http://", "")
+            url = url.replace("https://", "")
+        # in case of ssh git@github.com:claudio-walser/test-repo.git
+        else:
+            urlParts = line.split("@")
+            url = urlParts[1]
+            url = url.replace(":", "/")
+
+        return url
 
     def getUsername(self, origin: str):
         url = self.getRemoteUrl(origin)
@@ -230,16 +235,28 @@ class Command(Abstract):
         elif platform == "win32":
             raise Exception("You have to be fucking kidding me")
 
-    def isBehindOrigin(self, branch: str):
-        output = self.quietCli.execute("git log origin/%s..%s" % (branch, branch))
+    def remoteHasBranch(self, origin: str, branch: str):
+        remoteUrl = self.getRemote(origin)
+        output = self.quietCli.execute(
+            "git ls-remote --heads %s %s" % (remoteUrl, branch)
+        )
         if not output:
             return False
-        
+
+        return True
+
+    def isBehindOrigin(self, origin: str, branch: str):
+        output = self.quietCli.execute(
+            "git log %s/%s..%s" % (origin, branch, branch)
+        )
+        if not output:
+            return False
+
         return True
 
     def hasUncommitedChanges(self):
         output = self.quietCli.execute("git status --porcelain")
         if not output:
             return False
-        
+
         return True

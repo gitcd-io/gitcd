@@ -59,19 +59,67 @@ class Feature(Command):
             "git branch --set-upstream-to %s/%s" % (origin, featureBranch)
         )
 
+    def checkBranch(self, origin: str, branch: str):
+        # uncomitted changes
+        if self.hasUncommitedChanges():
+            abort = self.interface.askFor(
+                "You currently have uncomitted changes." +
+                " Do you want me to abort and let you commit first?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if abort == "yes":
+                return False
+
+        # will fail if the branch does not exists locally
+        self.cli.execute("git checkout %s" % (branch))
+
+        # check remote existence
+        if not self.remoteHasBranch(origin, branch):
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch does not exists on origin." +
+                " Do you want me to push it remote?", ["yes", "no"], "yes"
+            )
+
+            if pushFeatureBranch == "yes":
+                self.cli.execute(
+                    "git push %s %s" % (origin, branch)
+                )
+
+        # check behind origin
+        if self.isBehindOrigin(origin, branch):
+
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch is behind the origin/feature." +
+                " Do you want me to push the changes?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if pushFeatureBranch == "yes":
+                self.cli.execute(
+                    "git push %s %s" % (origin, branch)
+                )
+
+        return True
+
     def test(self, branch: str):
         try:
             self.interface.header("gitcd feature test")
 
             origin = self.getOrigin()
             developmentBranch = self.getDevelopmentBranch()
-
             featureBranch = self.getFeatureBranch(branch)
+
+            if not self.checkBranch(origin, featureBranch):
+                return False
 
             self.cli.execute("git checkout %s" % (developmentBranch))
             self.cli.execute("git pull %s %s" % (origin, developmentBranch))
             self.cli.execute("git merge %s/%s" % (origin, featureBranch))
             self.cli.execute("git push %s %s" % (origin, developmentBranch))
+
         except GitcdNoDevelopmentBranchDefinedException as e:
             self.interface.writeOut("gitcd error: %s" % (format(e)))
 
@@ -136,13 +184,17 @@ class Feature(Command):
 
         featureBranch = self.getFeatureBranch(branch)
 
+        if not self.checkBranch(origin, featureBranch):
+            return False
+
         self.cli.execute("git checkout %s" % (self.config.getMaster()))
         self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
         self.cli.execute("git merge %s/%s" % (origin, featureBranch))
         self.cli.execute("git push %s %s" % (origin, self.config.getMaster()))
 
         deleteFeatureBranch = self.interface.askFor(
-            "Delete your feature branch?", ["yes", "no"], "yes")
+            "Delete your feature branch?", ["yes", "no"], "yes"
+        )
 
         if deleteFeatureBranch == "yes":
             # delete feature branch remote and locally
