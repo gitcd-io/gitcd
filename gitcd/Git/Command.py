@@ -203,7 +203,7 @@ class Command(Abstract):
             url = url.replace("https://", "")
         # in case of ssh git@github.com:claudio-walser/test-repo.git
         else:
-            urlParts = line.split("@")
+            urlParts = url.split("@")
             url = urlParts[1]
             url = url.replace(":", "/")
 
