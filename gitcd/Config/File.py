@@ -40,18 +40,27 @@ class File:
         return self.config['feature']
 
     def setFeature(self, feature: str):
+        if feature == '<none>':
+            feature = None
+
         self.config['feature'] = feature
 
     def getTest(self):
         return self.config['test']
 
     def setTest(self, test: str):
+        if test == '<none>':
+            test = None
+
         self.config['test'] = test
 
     def getTag(self):
         return self.config['tag']
 
     def setTag(self, tag: str):
+        if tag == '<none>':
+            tag = None
+
         self.config['tag'] = tag
 
     def getVersionType(self):

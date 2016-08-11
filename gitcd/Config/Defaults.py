@@ -2,10 +2,10 @@ class Defaults(object):
 
     def load(self):
         return {
-            'test': 'develop',
-            'feature': 'feature/',
+            'test': None,
+            'feature': None,
             'master': 'master',
-            'tag': 'v',
+            'tag': None,
             'versionType': 'manual',
             'versionScheme': None
         }
