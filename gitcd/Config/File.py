@@ -12,6 +12,12 @@ class File:
     defaults = Defaults()
     config = {}
 
+    def getString(self, value):
+        if not isinstance(value, str):
+            return ''
+        else:
+            return value
+
     def setFilename(self, configFilename: str):
         self.filename = configFilename
 
