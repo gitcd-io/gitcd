@@ -30,13 +30,19 @@ class Command(Abstract):
                     " Checkout a feature branch or pass one as param."
                 )
         else:
-            featureBranch = "%s%s" % (self.config.getFeature(), branch)
+            featureBranch = "%s%s" % (
+                self.config.getString(self.config.getFeature()),
+                branch
+            )
 
         return featureBranch
 
     def readDevelopmentBranches(self):
         output = self.quietCli.execute("git branch -r")
         if not output:
+            return []
+
+        if self.config.getTest() is None:
             return []
 
         lines = output.split("\n")

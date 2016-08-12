@@ -30,7 +30,7 @@ class Feature(Command):
                 % self.config.getString(self.config.getFeature())
             )
 
-        if not testBranch == None:
+        if testBranch is not None:
             if branch == testBranch:
                 # maybe i should use recursion here
                 # if anyone passes develop again, i wouldnt notice
@@ -47,7 +47,7 @@ class Feature(Command):
                 please give a different name."
             )
 
-        if not featurePrefix == None:
+        if featurePrefix is not None:
             if branch.startswith(featurePrefix):
                 fixFeatureBranch = self.interface.askFor(
                     "Your feature branch already starts" +
@@ -60,7 +60,10 @@ class Feature(Command):
                 if fixFeatureBranch == "yes":
                     branch = branch.replace(self.config.getFeature(), "")
 
-        featureBranch = "%s%s" % (self.config.getString(self.config.getFeature()), branch)
+        featureBranch = "%s%s" % (
+            self.config.getString(self.config.getFeature()),
+            branch
+        )
 
         self.cli.execute(
             "git checkout %s" % (self.config.getMaster())
@@ -110,7 +113,7 @@ class Feature(Command):
         if self.isBehindOrigin(origin, branch):
 
             pushFeatureBranch = self.interface.askFor(
-                "Your feature branch is behind the origin/feature." +
+                "Your feature branch is behind the origin/branch." +
                 " Do you want me to push the changes?",
                 ["yes", "no"],
                 "yes"

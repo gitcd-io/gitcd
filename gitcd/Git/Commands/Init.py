@@ -15,7 +15,7 @@ class Init(Command):
         )
 
         featureDefault = self.config.getFeature()
-        if featureDefault == None:
+        if featureDefault is None:
             featureDefault = '<none>'
         self.config.setFeature(
             self.interface.askFor(
@@ -26,7 +26,7 @@ class Init(Command):
         )
 
         testDefault = self.config.getTest()
-        if testDefault == None:
+        if testDefault is None:
             testDefault = '<none>'
         self.config.setTest(
             self.interface.askFor(
@@ -37,7 +37,7 @@ class Init(Command):
         )
 
         tagDefault = self.config.getTag()
-        if tagDefault == None:
+        if tagDefault is None:
             tagDefault = '<none>'
         self.config.setTag(
             self.interface.askFor(
