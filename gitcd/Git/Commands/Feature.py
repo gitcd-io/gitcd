@@ -20,27 +20,50 @@ class Feature(Command):
         self.interface.header("gitcd feature start")
 
         origin = self.getOrigin()
-
+        featurePrefix = self.config.getFeature()
+        testBranch = self.config.getTest()
+        masterBranch = self.config.getMaster()
         # ask for branch if nothing passed
         if branch == "*":
             branch = self.interface.askFor(
                 "Name for your new feature-branch? (without %s prefix)"
-                % self.config.getFeature()
+                % self.config.getString(self.config.getFeature())
             )
 
-        if branch.startswith(self.config.getFeature()):
-            fixFeatureBranch = self.interface.askFor(
-                "Your feature branch already starts" +
-                " with your feature prefix," +
-                " should i remove it for you?",
-                ["yes", "no"],
-                "yes"
+        if testBranch is not None:
+            if branch == testBranch:
+                # maybe i should use recursion here
+                # if anyone passes develop again, i wouldnt notice
+                branch = self.interface.askFor(
+                    "You passed your test branch name as feature branch,\
+                    please give a different name."
+                )
+
+        if branch == masterBranch:
+            # maybe i should use recursion here
+            # if anyone passes master again, i wouldnt notice
+            branch = self.interface.askFor(
+                "You passed your master branch name as feature branch,\
+                please give a different name."
             )
 
-            if fixFeatureBranch == "yes":
-                branch = branch.replace(self.config.getFeature(), "")
+        if featurePrefix is not None:
+            if branch.startswith(featurePrefix):
+                fixFeatureBranch = self.interface.askFor(
+                    "Your feature branch already starts" +
+                    " with your feature prefix," +
+                    " should i remove it for you?",
+                    ["yes", "no"],
+                    "yes"
+                )
 
-        featureBranch = "%s%s" % (self.config.getFeature(), branch)
+                if fixFeatureBranch == "yes":
+                    branch = branch.replace(self.config.getFeature(), "")
+
+        featureBranch = "%s%s" % (
+            self.config.getString(self.config.getFeature()),
+            branch
+        )
 
         self.cli.execute(
             "git checkout %s" % (self.config.getMaster())
@@ -90,7 +113,7 @@ class Feature(Command):
         if self.isBehindOrigin(origin, branch):
 
             pushFeatureBranch = self.interface.askFor(
-                "Your feature branch is behind the origin/feature." +
+                "Your feature branch is behind the origin/branch." +
                 " Do you want me to push the changes?",
                 ["yes", "no"],
                 "yes"

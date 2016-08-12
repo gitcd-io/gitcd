@@ -14,27 +14,36 @@ class Init(Command):
             )
         )
 
+        featureDefault = self.config.getFeature()
+        if featureDefault is None:
+            featureDefault = '<none>'
         self.config.setFeature(
             self.interface.askFor(
                 "Branch name for feature development?",
                 False,
-                self.config.getFeature()
+                featureDefault
             )
         )
 
+        testDefault = self.config.getTest()
+        if testDefault is None:
+            testDefault = '<none>'
         self.config.setTest(
             self.interface.askFor(
                 "Branch name for test releases?",
                 False,
-                self.config.getTest()
+                testDefault
             )
         )
 
+        tagDefault = self.config.getTag()
+        if tagDefault is None:
+            tagDefault = '<none>'
         self.config.setTag(
             self.interface.askFor(
                 "Version tag prefix?",
                 False,
-                self.config.getTag()
+                tagDefault
             )
         )
 

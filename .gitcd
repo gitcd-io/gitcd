@@ -1,6 +1,6 @@
-feature: feature/
+feature: null
 master: master
-tag: v
-test: develop
+tag: null
+test: null
 versionScheme: null
 versionType: manual
