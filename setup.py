@@ -9,11 +9,11 @@ setup(
     author='Claudio Walser',
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/gitcd',
-    packages = ['.', 'gitcd', 'gitcd.Cli','gitcd.Config','gitcd.Git'],
-    install_requires=['pyyaml', 'argcomplete', 'requests'],
+    packages = ['.', 'gitcd', 'gitcd.Cli', 'gitcd.Config', 'gitcd.Git', 'gitcd.Git.Commands'],
+    install_requires=['pyyaml', 'argparse', 'argcomplete', 'requests'],
     entry_points={
         'console_scripts': [
-            'my_project = gitcd.__main__:main'
+            'git-cdd = gitcd.__main__:main'
         ]
     }
 )
