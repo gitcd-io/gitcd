@@ -20,7 +20,7 @@ setup(
     install_requires=['pyyaml', 'argparse', 'argcomplete', 'requests'],
     entry_points={
         'console_scripts': [
-            'git-cdd = gitcd.__main__:main'
+            'git-cd = gitcd.__main__:main'
         ]
     }
 )
