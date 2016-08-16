@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # PYTHON_ARGCOMPLETE_OK
 
 import sys
@@ -50,12 +49,11 @@ parser.add_argument(
 argcomplete.autocomplete(parser)
 
 
-def main(command: str, action: str, branch: str):
+def main():
+    arguments = parser.parse_args()
+    command = arguments.command
+    action = arguments.action
+    branch = arguments.branch
     gitcd.dispatch(command, action, branch)
 
     sys.exit(0)
-
-
-if __name__ == '__main__':
-    arguments = parser.parse_args()
-    main(arguments.command, arguments.action, arguments.branch)
