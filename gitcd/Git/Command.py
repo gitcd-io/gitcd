@@ -21,6 +21,51 @@ class Command(Abstract):
     def getCurrentBranch(self):
         return self.quietCli.execute("git rev-parse --abbrev-ref HEAD")
 
+    def checkBranch(self, origin: str, branch: str):
+        # uncomitted changes
+        if self.hasUncommitedChanges():
+            abort = self.interface.askFor(
+                "You currently have uncomitted changes." +
+                " Do you want me to abort and let you commit first?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if abort == "yes":
+                return False
+
+        # will fail if the branch does not exists locally
+        self.cli.execute("git checkout %s" % (branch))
+
+        # check remote existence
+        if not self.remoteHasBranch(origin, branch):
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch does not exists on origin." +
+                " Do you want me to push it remote?", ["yes", "no"], "yes"
+            )
+
+            if pushFeatureBranch == "yes":
+                self.cli.execute(
+                    "git push %s %s" % (origin, branch)
+                )
+
+        # check behind origin
+        if self.isBehindOrigin(origin, branch):
+
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch is behind the origin/branch." +
+                " Do you want me to push the changes?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if pushFeatureBranch == "yes":
+                self.cli.execute(
+                    "git push %s %s" % (origin, branch)
+                )
+
+        return True
+
     def getFeatureBranch(self, branch: str):
         if branch == "*":
             featureBranch = self.getCurrentBranch()

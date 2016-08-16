@@ -3,7 +3,7 @@ from gitcd.Git.Command import Command
 
 class Clean(Command):
 
-    def run(self, dummy: str):
+    def execute(self, dummy: str):
         self.update()
         origin = self.getOrigin()
         self.quietCli.execute("git remote prune %s" % origin)

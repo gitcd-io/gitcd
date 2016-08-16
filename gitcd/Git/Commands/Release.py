@@ -4,7 +4,7 @@ import time
 
 class Release(Command):
 
-    def run(self, dummy: str):
+    def execute(self, dummy: str):
         self.interface.header("gitcd release")
 
         origin = self.getOrigin()
