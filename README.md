@@ -41,7 +41,7 @@ It only deletes local branches and doesent touch remote ones. If one of the bran
 
 Starts a new feature branch from your master branch
 ```console
-git cd feature start <branchname>
+git cd start <branchname>
 ```
 
 
@@ -49,7 +49,7 @@ git cd feature start <branchname>
 
 Merges a feature branch into your development branch
 ```console
-git cd feature test <branchname>
+git cd test <branchname>
 ```
 
 
@@ -57,7 +57,7 @@ git cd feature test <branchname>
 
 Opens a pull request to your master branch - not working yet
 ```console
-git cd feature review <branchname>
+git cd review <branchname>
 ```
 
 
@@ -65,7 +65,7 @@ git cd feature review <branchname>
 
 Merges it into your master and asks for permission to delete your feature branch
 ```console
-git cd feature finish <branchname>
+git cd finish <branchname>
 ```
 
 **Tagging the master branch**
@@ -93,10 +93,10 @@ send us a pull request.
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`gitcd feature start my-new-feature`)
+2. Create your feature branch (`git cd start my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin feature/my-new-feature`)
-5. Create new Pull Request (`gitcd feature review my-new-feature`)
+5. Create new Pull Request (`git cd review my-new-feature`)
 
 
 ## License
