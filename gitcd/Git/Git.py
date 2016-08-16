@@ -21,6 +21,7 @@ class Git(Abstract):
     }
 
     def setupCommands(self):
-        for command in self.commands:
+        for commandKey in self.commands:
+            command = self.commands[commandKey]
             command.setConfig(self.config)
             command.setConfigPersonal(self.configPersonal)

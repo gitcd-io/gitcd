@@ -69,7 +69,7 @@ class Command(Abstract):
     def getFeatureBranch(self, branch: str):
         if branch == "*":
             featureBranch = self.getCurrentBranch()
-            if not featureBranch.startswith(self.config.getFeature()):
+            if not featureBranch.startswith(self.config.getString(self.config.getFeature())):
                 raise GitcdNoFeatureBranchException(
                     "Your current branch is not a valid feature branch." +
                     " Checkout a feature branch or pass one as param."
@@ -78,6 +78,26 @@ class Command(Abstract):
             featureBranch = "%s%s" % (
                 self.config.getString(self.config.getFeature()),
                 branch
+            )
+
+        testBranch = self.config.getTest()
+        masterBranch = self.config.getMaster()
+
+        if testBranch is not None:
+            if featureBranch == testBranch:
+                # maybe i should use recursion here
+                # if anyone passes develop again, i wouldnt notice
+                featureBranch = self.interface.askFor(
+                    "You passed your test branch name as feature branch,\
+                    please give a different name."
+                )
+
+        if featureBranch == masterBranch:
+            # maybe i should use recursion here
+            # if anyone passes master again, i wouldnt notice
+            featureBranch = self.interface.askFor(
+                "You passed your master branch name as feature branch,\
+                please give a different name."
             )
 
         return featureBranch
