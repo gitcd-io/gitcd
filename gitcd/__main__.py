@@ -5,7 +5,6 @@ import argcomplete
 import argparse
 from gitcd.Gitcd import Gitcd
 
-
 gitcd = Gitcd()
 gitcd.setConfigFilename(".gitcd")
 gitcd.setConfigFilenamePersonal(".gitcd-personal")
@@ -31,10 +30,10 @@ parser.add_argument(
 )
 argcomplete.autocomplete(parser)
 
+
 def main():
     arguments = parser.parse_args()
     command = arguments.command
     branch = arguments.branch
     gitcd.dispatch(command, branch)
-
     sys.exit(0)

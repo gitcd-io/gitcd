@@ -69,7 +69,9 @@ class Command(Abstract):
     def getFeatureBranch(self, branch: str):
         if branch == "*":
             featureBranch = self.getCurrentBranch()
-            if not featureBranch.startswith(self.config.getString(self.config.getFeature())):
+            if not featureBranch.startswith(
+                self.config.getString(self.config.getFeature())
+            ):
                 raise GitcdNoFeatureBranchException(
                     "Your current branch is not a valid feature branch." +
                     " Checkout a feature branch or pass one as param."
