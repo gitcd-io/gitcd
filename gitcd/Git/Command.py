@@ -19,7 +19,7 @@ class Command(Abstract):
 
     def getTokenOrAskFor(self):
         token = self.configPersonal.getToken()
-        if token == None:
+        if token is None:
             token = self.interface.askFor(
                 "Your personal Github token?",
                 False,
