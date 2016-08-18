@@ -15,7 +15,7 @@ class Review(Command):
         master = self.config.getMaster()
         repo = self.getRepository(origin)
         username = self.getUsername(origin)
-        token = self.configPersonal.getToken()
+        token = self.getTokenOrAskFor()
 
         if isinstance(token, str):
             url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)
