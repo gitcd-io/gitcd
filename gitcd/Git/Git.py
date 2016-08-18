@@ -5,6 +5,7 @@ from gitcd.Git.Commands.Test import Test
 from gitcd.Git.Commands.Review import Review
 from gitcd.Git.Commands.Finish import Finish
 from gitcd.Git.Commands.Release import Release
+from gitcd.Git.Commands.Status import Status
 from gitcd.Git.Abstract import Abstract
 
 
@@ -17,7 +18,8 @@ class Git(Abstract):
         'test': Test(),
         'review': Review(),
         'finish': Finish(),
-        'release': Release()
+        'release': Release(),
+        'status': Status()
     }
 
     def setupCommands(self):
