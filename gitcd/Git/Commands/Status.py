@@ -21,48 +21,27 @@ class Status(Command):
 
         if isinstance(token, str):
             url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)
-            title = self.interface.askFor("Pull-Request title?")
-            body = self.interface.askFor("Pull-Request body?")
 
             data = {
-                "title": title,
-                "body": body,
+                "state": 'open',
                 "head": featureBranch,
                 "base": master
             }
 
-            self.interface.warning("Opening pull-request on %s" % (url))
+            self.interface.warning("Fetch pull-request infos on %s" % (url))
 
             headers = {'Authorization': 'token %s' % token}
-            response = requests.post(
+            response = requests.get(
                 url,
                 headers=headers,
-                data=json.dumps(data),
+                params=json.dumps(data),
             )
 
-            pprint(response)
-            sys.exit(1)
+            pprint(response.status_code)
 
-            if response.status_code != 201:
-                # todo better handling of errors here, ie. pull-request already
-                # existss
+            if response.status_code != 200:
                 raise GitcdGithubApiException(
-                    "Could not create a pull request," +
-                    " please create it manually."
+                    "Could not fetch open pull requests," +
+                    " please have a look manually."
                 )
-
-            defaultBrowser = self.getDefaultBrowserCommand()
-            self.cli.execute("%s %s" % (
-                defaultBrowser,
-                response.json()["html_url"]
-            ))
-
-        else:
-            defaultBrowser = self.getDefaultBrowserCommand()
-            self.cli.execute("%s https://github.com/%s/%s/compare/%s...%s" % (
-                defaultBrowser,
-                username,
-                repo,
-                master,
-                featureBranch
-            ))
+            pprint(response.json())
