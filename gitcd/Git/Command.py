@@ -20,9 +20,6 @@ class Command(Abstract):
     def getTokenOrAskFor(self):
         token = self.configPersonal.getToken()
         if token == None:
-            # pass version scheme to config
-            self.config.setVersionScheme(versionScheme)
-
             token = self.interface.askFor(
                 "Your personal Github token?",
                 False,
