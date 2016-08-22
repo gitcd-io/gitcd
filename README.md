@@ -31,6 +31,13 @@ git cd init
 ```
 After passing all your configuration data, start working with it
 
+**Pull request status**
+You are able to see the status of a feature branch including the pull request and if it has been already reviewed by someone.
+```console
+git cd status
+```
+
+**Clean up local branches***
 The tool is able to cleanup all local branches which doesent exist on the origins. This is done with:
 ```console
 git cd clean
