@@ -72,13 +72,3 @@ class Init(Command):
         # pass version scheme to config
         self.config.setVersionScheme(versionScheme)
 
-        self.configPersonal.setToken(
-            self.interface.askFor(
-                "Your personal Github token?",
-                False,
-                self.configPersonal.getToken()
-            )
-        )
-
-        self.configPersonal.write()
-        self.config.write()
