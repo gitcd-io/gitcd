@@ -7,6 +7,7 @@ from gitcd.Exceptions import GitcdGithubApiException
 from pprint import pprint
 import sys
 
+
 class Status(Command):
 
     def execute(self, branch: str):
@@ -18,13 +19,14 @@ class Status(Command):
         repo = self.getRepository(origin)
         username = self.getUsername(origin)
         token = self.getTokenOrAskFor()
-
+        ref = "%s:refs/heads/%s" % (username, featureBranch)
+        # claudio-walser:refs/heads/implement-status
         if isinstance(token, str):
             url = "https://api.github.com/repos/%s/%s/pulls" % (username, repo)
 
             data = {
                 "state": 'open',
-                "head": featureBranch,
+                "head": ref,
                 "base": master
             }
 
@@ -34,14 +36,69 @@ class Status(Command):
             response = requests.get(
                 url,
                 headers=headers,
-                params=json.dumps(data),
+                params=data
             )
-
-            pprint(response.status_code)
 
             if response.status_code != 200:
                 raise GitcdGithubApiException(
                     "Could not fetch open pull requests," +
                     " please have a look manually."
                 )
+
+            result = response.json()
+
+            if len(result) == 1:
+                reviewedBy = self.isReviewedBy(
+                    result[0]['review_comments_url']
+                )
+                self.interface.ok("Pull Request Info")
+                self.interface.info("Branches: %s...%s" % (
+                    featureBranch,
+                    master)
+                )
+                self.interface.info("Number:   %s" % (result[0]['number']))
+                self.interface.info("Reviewd by: %s" % (reviewedBy))
+                self.interface.info("URL: %s" % (result[0]['html_url']))
+
+                # if not reviewed yet
+                if reviewedBy is '':
+                    reviewPullRequest = self.interface.askFor(
+                        "Do you want to review this pull \
+                        request in your Browser?", [
+                            "yes",
+                            "no"
+                        ], "yes"
+                    )
+
+                    if reviewPullRequest == "yes":
+                        # delete feature branch remote and locally
+                        defaultBrowser = self.getDefaultBrowserCommand()
+                        self.cli.execute("%s %s" % (
+                            defaultBrowser,
+                            "%s/files" % (result[0]['html_url'])
+                        ))
+            else:
+                self.interface.Error(
+                    "No pull request exists for %s...%s" % (
+                        featureBranch,
+                        master
+                    )
+                )
+                self.interface.info(
+                    "Run git-cd review %s to create a pull request" % (
+                        featureBranch
+                    )
+                )
+
+    def isReviewedBy(self, commentsUrl):
+        token = self.getTokenOrAskFor()
+        pprint(commentsUrl)
+        if token is not None:
+            headers = {'Authorization': 'token %s' % token}
+            response = requests.get(
+                commentsUrl,
+                headers=headers
+            )
             pprint(response.json())
+
+        return ''
