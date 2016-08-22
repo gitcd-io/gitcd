@@ -52,13 +52,13 @@ class Status(Command):
                     result[0]['comments_url']
                 )
                 self.interface.ok("Pull Request Info")
-                self.interface.info("Branches: %s...%s" % (
+                self.interface.writeOut("Branches: %s...%s" % (
                     featureBranch,
                     master)
                 )
-                self.interface.info("Number:   %s" % (result[0]['number']))
-                self.interface.info("Reviewd by: %s" % (reviewedBy))
-                self.interface.info("URL: %s" % (result[0]['html_url']))
+                self.interface.writeOut("Number:   %s" % (result[0]['number']))
+                self.interface.writeOut("Reviewd by: %s" % (reviewedBy))
+                self.interface.writeOut("URL: %s" % (result[0]['html_url']))
 
                 # if not reviewed yet
                 if reviewedBy is '':
@@ -78,7 +78,7 @@ class Status(Command):
                             "%s/files" % (result[0]['html_url'])
                         ))
             else:
-                self.interface.info(
+                self.interface.writeOut(
                     "No pull request exists for %s...%s" % (
                         featureBranch,
                         master
