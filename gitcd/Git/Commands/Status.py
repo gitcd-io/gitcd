@@ -49,16 +49,16 @@ class Status(Command):
 
             if len(result) == 1:
                 reviewedBy = self.isReviewedBy(
-                    result[0]['review_comments_url']
+                    result[0]['comments_url']
                 )
                 self.interface.ok("Pull Request Info")
-                self.interface.info("Branches: %s...%s" % (
+                self.interface.writeOut("Branches: %s...%s" % (
                     featureBranch,
                     master)
                 )
-                self.interface.info("Number:   %s" % (result[0]['number']))
-                self.interface.info("Reviewd by: %s" % (reviewedBy))
-                self.interface.info("URL: %s" % (result[0]['html_url']))
+                self.interface.writeOut("Number:   %s" % (result[0]['number']))
+                self.interface.writeOut("Reviewd by: %s" % (reviewedBy))
+                self.interface.writeOut("URL: %s" % (result[0]['html_url']))
 
                 # if not reviewed yet
                 if reviewedBy is '':
@@ -78,7 +78,7 @@ class Status(Command):
                             "%s/files" % (result[0]['html_url'])
                         ))
             else:
-                self.interface.Error(
+                self.interface.writeOut(
                     "No pull request exists for %s...%s" % (
                         featureBranch,
                         master
@@ -93,12 +93,16 @@ class Status(Command):
     def isReviewedBy(self, commentsUrl):
         token = self.getTokenOrAskFor()
         pprint(commentsUrl)
+        reviewer = ''
         if token is not None:
             headers = {'Authorization': 'token %s' % token}
             response = requests.get(
                 commentsUrl,
                 headers=headers
             )
-            pprint(response.json())
+            comments = response.json()
+            for comment in comments:
+                if 'lgtm' in comment['body'].lower():
+                    reviewer = comment['user']['login']
 
-        return ''
+        return reviewer
