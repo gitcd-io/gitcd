@@ -49,7 +49,7 @@ class Status(Command):
 
             if len(result) == 1:
                 reviewedBy = self.isReviewedBy(
-                    result[0]['review_comments_url']
+                    result[0]['comments_url']
                 )
                 self.interface.ok("Pull Request Info")
                 self.interface.info("Branches: %s...%s" % (
@@ -78,7 +78,7 @@ class Status(Command):
                             "%s/files" % (result[0]['html_url'])
                         ))
             else:
-                self.interface.Error(
+                self.interface.error(
                     "No pull request exists for %s...%s" % (
                         featureBranch,
                         master
