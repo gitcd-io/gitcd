@@ -78,7 +78,7 @@ class Status(Command):
                             "%s/files" % (result[0]['html_url'])
                         ))
             else:
-                self.interface.error(
+                self.interface.info(
                     "No pull request exists for %s...%s" % (
                         featureBranch,
                         master
@@ -93,12 +93,16 @@ class Status(Command):
     def isReviewedBy(self, commentsUrl):
         token = self.getTokenOrAskFor()
         pprint(commentsUrl)
+        reviewer = ''
         if token is not None:
             headers = {'Authorization': 'token %s' % token}
             response = requests.get(
                 commentsUrl,
                 headers=headers
             )
-            pprint(response.json())
+            comments = response.json()
+            for comment in comments:
+                if 'lgtm' in comment['body'].lower():
+                    reviewer = comment['user']['login']
 
-        return ''
+        return reviewer
