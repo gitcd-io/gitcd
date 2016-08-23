@@ -4,7 +4,7 @@ from gitcd.Config.FilePersonal import FilePersonal as ConfigFilePersonal
 from gitcd.Cli.Interface import Interface
 from gitcd.Git.Git import Git
 from gitcd.Git.Command import Command
-from gitcd.Exceptions import GitcdCliExecutionException
+from gitcd.Exceptions import GitcdException
 
 
 class Gitcd(object):
@@ -56,5 +56,5 @@ class Gitcd(object):
             self.git.update()
             commandObject.execute(branch)
         # catch cli executino errors here
-        except GitcdCliExecutionException as e:
+        except GitcdException as e:
             self.interface.error(format(e))

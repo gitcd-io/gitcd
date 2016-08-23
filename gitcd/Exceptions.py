@@ -2,29 +2,29 @@ class GitcdException(Exception):
     pass
 
 
-class GitcdArgumentsException(Exception):
+class GitcdArgumentsException(GitcdException):
     pass
 
 
-class GitcdFileNotFoundException(Exception):
+class GitcdFileNotFoundException(GitcdException):
     pass
 
 
-class GitcdNoRepositoryException(Exception):
+class GitcdNoRepositoryException(GitcdException):
     pass
 
 
-class GitcdNoFeatureBranchException(Exception):
+class GitcdNoFeatureBranchException(GitcdException):
     pass
 
 
-class GitcdNoDevelopmentBranchDefinedException(Exception):
+class GitcdNoDevelopmentBranchDefinedException(GitcdException):
     pass
 
 
-class GitcdCliExecutionException(Exception):
+class GitcdCliExecutionException(GitcdException):
     pass
 
 
-class GitcdGithubApiException(Exception):
+class GitcdGithubApiException(GitcdException):
     pass

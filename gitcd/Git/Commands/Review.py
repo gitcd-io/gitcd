@@ -41,11 +41,12 @@ class Review(Command):
                 data=json.dumps(data),
             )
             if response.status_code != 201:
-                # todo better handling of errors here, ie. pull-request already
-                # existss
+                jsonResponse = response.json()
+                message = jsonResponse['errors'][0]['message']
                 raise GitcdGithubApiException(
-                    "Could not create a pull request," +
-                    " please create it manually."
+                    "Open a pull request failed with message: %s" % (
+                        message
+                    )
                 )
 
             defaultBrowser = self.getDefaultBrowserCommand()
