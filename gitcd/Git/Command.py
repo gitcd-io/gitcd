@@ -260,6 +260,12 @@ class Command(Abstract):
 
         return remoteTags
 
+    def getLatestTag(self):
+        output = self.quietCli.execute("git describe --abbrev=0")
+        if not output:
+            return self.config.getMaster()
+        return output.strip()
+
     def getRemote(self, origin: str):
         output = self.quietCli.execute("git config -l")
         if not output:
