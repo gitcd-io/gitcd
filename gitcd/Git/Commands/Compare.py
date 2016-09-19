@@ -14,4 +14,7 @@ class Compare(Command):
         if branchToCompare == "*":
             branchToCompare = self.getLatestTag()
 
-        self.cli.execute("git diff %s %s --color" % (branchToCompare, currentBranch))
+        self.cli.execute("git diff %s %s --color" % (
+            branchToCompare,
+            currentBranch
+        ))
