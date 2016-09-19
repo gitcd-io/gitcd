@@ -75,6 +75,14 @@ Merges it into your master and asks for permission to delete your feature branch
 git cd finish <branchname>
 ```
 
+
+**Compare your current branch**
+
+Compares your current branch against the given branchname or the latest tag if none is given
+```console
+git cd compare <branchname>
+```
+
 **Tagging the master branch**
 
 Creates a tag from your master branch and pushes it to remote
