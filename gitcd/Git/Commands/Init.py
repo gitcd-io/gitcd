@@ -71,3 +71,5 @@ class Init(Command):
 
         # pass version scheme to config
         self.config.setVersionScheme(versionScheme)
+
+        self.config.write()
