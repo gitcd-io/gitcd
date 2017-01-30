@@ -19,6 +19,7 @@ class Test(Command):
             self.cli.execute("git pull %s %s" % (origin, developmentBranch))
             self.cli.execute("git merge %s/%s" % (origin, featureBranch))
             self.cli.execute("git push %s %s" % (origin, developmentBranch))
+            self.cli.execute("git checkout %s" % (featureBranch))
 
         except GitcdNoDevelopmentBranchDefinedException as e:
             self.interface.writeOut("gitcd error: %s" % (format(e)))
