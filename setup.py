@@ -4,8 +4,8 @@ from setuptools import setup
 
 setup(
     name='gitcd',
-    version='1.5.3',
-    description='Tool for continous delivery using git',
+    version='1.5.5',
+    description='Tool for continuous delivery using git',
     author='Claudio Walser',
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/gitcd',

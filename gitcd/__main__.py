@@ -4,8 +4,12 @@ import sys
 import argcomplete
 import argparse
 from gitcd.Gitcd import Gitcd
+from gitcd.Cli.Interface import Interface
+
+interface = Interface()
 
 gitcd = Gitcd()
+gitcd.setInterface(interface)
 gitcd.setConfigFilename(".gitcd")
 gitcd.setConfigFilenamePersonal(".gitcd-personal")
 gitcd.loadConfig()
@@ -32,8 +36,12 @@ argcomplete.autocomplete(parser)
 
 
 def main():
-    arguments = parser.parse_args()
-    command = arguments.command
-    branch = arguments.branch
-    gitcd.dispatch(command, branch)
-    sys.exit(0)
+    try:
+        arguments = parser.parse_args()
+        command = arguments.command
+        branch = arguments.branch
+        gitcd.dispatch(command, branch)
+        sys.exit(0)
+    except KeyboardInterrupt:
+        interface.ok("So sad to say goodbye already...")
+        sys.exit(1)

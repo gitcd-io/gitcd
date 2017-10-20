@@ -1,7 +1,6 @@
 import sys
 from gitcd.Config.File import File as ConfigFile
 from gitcd.Config.FilePersonal import FilePersonal as ConfigFilePersonal
-from gitcd.Cli.Interface import Interface
 from gitcd.Git.Git import Git
 from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdException
@@ -9,7 +8,6 @@ from gitcd.Exceptions import GitcdException
 
 class Gitcd(object):
 
-    interface = Interface()
     config = ConfigFile()
     configPersonal = ConfigFilePersonal()
     git = Git()
@@ -18,6 +16,9 @@ class Gitcd(object):
         self.git.setConfig(self.config)
         self.git.setConfigPersonal(self.configPersonal)
         self.git.setupCommands()
+
+    def setInterface(self, interface):
+        self.interface = interface
 
     def setConfigFilename(self, configFilename: str):
         self.config.setFilename(configFilename)
@@ -55,6 +56,6 @@ class Gitcd(object):
             # good but takes some time
             self.git.update()
             commandObject.execute(branch)
-        # catch cli executino errors here
+        # catch cli execution errors here
         except GitcdException as e:
             self.interface.error(format(e))
