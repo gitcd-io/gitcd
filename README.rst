@@ -40,84 +40,92 @@ Afterwards you might be able to also just run:
 Usage
 -----
 
-Afterwards you have to cd into one of your local directories
-representing a git repository and run the init command
+**Initialize a project**
+
+cd into one of your local directories
+representing a git repository and run the init command. Pass your configuration, for most cases the default values should be ok.
 
 .. code:: console
 
     git cd init
 
-After passing all your configuration data, start working with it
 
-**Pull request status** You are able to see the status of a feature
-branch including the pull request and if it has been already reviewed by
+**Pull request status**
+
+You are able to see the status of a feature
+branch including the pull request and if it has already been reviewed by
 someone.
 
 .. code:: console
 
     git cd status
 
-**Clean up local branches**\ \* The tool is able to cleanup all local
-branches which doesent exist on the origins. This is done with:
+
+**Clean up local branches**
+
+The tool is able to cleanup all local
+branches which doesent exist on the origins. This is done with the clean command.
 
 .. code:: console
 
     git cd clean
 
-It only deletes local branches and doesent touch remote ones. If one of
-the branches to delete is your current checked-out branch, the tool
-checkout the master branch locally in order to delete the feature
-branch.
 
 **Start new feature**
 
-Starts a new feature branch from your master branch
+Starts a new feature branch from your master branch. If you dont pass a branchname, you will be asked later.
 
 .. code:: console
 
     git cd start <branchname>
 
+
 **Test a feature branch**
 
-Merges a feature branch into your development branch
+Merges a feature branch into your development branch. If you dont pass a branchname, your current branch will be taken.
 
 .. code:: console
 
     git cd test <branchname>
 
+
 **Open a pull request for code review**
 
-Opens a pull request to your master branch - not working yet
+Opens a pull request to your master branch. If you dont pass a branchname, your current branch will be taken.
 
 .. code:: console
 
     git cd review <branchname>
 
+
 **Finish a feature branch**
 
 Merges it into your master and asks for permission to delete your
-feature branch
+feature branch. If you dont pass a branchname, your current branch will be taken.
 
 .. code:: console
 
     git cd finish <branchname>
 
+
 **Compare your current branch**
 
 Compares your current branch against the given branchname or the latest
-tag if none is given
+tag if none is given.
 
 .. code:: console
 
     git cd compare <branchname>
 
+
 **Tagging the master branch**
 
-Creates a tag from your master branch and pushes it to remote
+Creates a tag from your master branch and pushes it to remote.
 
 .. code:: console
 
     git cd release
+
 
 Known Issues
 ~~~~~~~~~~~~
@@ -127,11 +135,13 @@ and send us a pull request.
 
 `Issues List`_.
 
+
 Authors
 -------
 
 -  Claudio Walser (https://github.com/claudio-walser)
 -  Gianni Carafa (https://github.com/mms-gianni)
+
 
 Contributing
 ------------
@@ -141,6 +151,7 @@ Contributing
 3. Commit your changes (``git commit -am 'Add some feature'``)
 4. Push to the branch (``git push origin feature/my-new-feature``)
 5. Create new Pull Request (``git cd review my-new-feature``)
+
 
 License
 -------
