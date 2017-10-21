@@ -166,6 +166,3 @@ texinfo_documents = [
      author, 'Gitcd', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-
