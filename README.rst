@@ -12,23 +12,27 @@ Installation
 
 Since gitcd is using python3 by default, you better upgrade.
 
-Run the following command to install gitcd directly in the workspace:
+After successful installation of python3 and pip for pyhton3, run the following command to install and upgrade gitcd:
 
 .. code:: console
 
     pip3 install gitcd --upgrade
 
-Run the following command to install argument completion on linux:
+Argument Completion
+-------------------
+
+Gitcd supports argument completion, to activate this feature in linux run:
 
 .. code:: console
 
     sudo activate-global-python-argcomplete3
 
-Run the following command to install argument completion on mac:
+Under OSX it isn't that simple unfortunately. Global completion requires bash support for complete -D, which was introduced in bash 4.2. On OS X or older Linux systems, you will need to update bash to use this feature. Check the version of the running copy of bash with echo $BASH_VERSION. On OS X, install bash via Homebrew (brew install bash), add /usr/local/bin/bash to /etc/shells, and run chsh to change your shell.
+Afterwards you might be able to also just run:
 
 .. code:: console
 
-    sudo rm -rf /
+    sudo activate-global-python-argcomplete3
 
 Usage
 -----
