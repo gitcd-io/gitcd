@@ -29,7 +29,7 @@ setup(
     license='Apache License',
     keywords=['git', 'application', 'continuos delivery'],
     classifiers=[
-        'Development Status :: Production/Stable',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache License',
