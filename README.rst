@@ -1,0 +1,144 @@
+Continuous tool for working with git
+====================================
+
+Description
+-----------
+
+**gitcd** is a little helper for continuous integration workflows using
+git as scm.
+
+Installation
+------------
+
+Since gitcd is using python3 by default, you better upgrade.
+
+Run the following command to install gitcd directly in the workspace:
+
+.. code:: console
+
+    pip3 install gitcd --upgrade
+
+Run the following command to install argument completion on linux:
+
+.. code:: console
+
+    sudo activate-global-python-argcomplete3
+
+Run the following command to install argument completion on mac:
+
+.. code:: console
+
+    sudo rm -rf /
+
+Usage
+-----
+
+Afterwards you have to cd into one of your local directories
+representing a git repository and run the init command
+
+.. code:: console
+
+    git cd init
+
+After passing all your configuration data, start working with it
+
+**Pull request status** You are able to see the status of a feature
+branch including the pull request and if it has been already reviewed by
+someone.
+
+.. code:: console
+
+    git cd status
+
+**Clean up local branches**\ \* The tool is able to cleanup all local
+branches which doesent exist on the origins. This is done with:
+
+.. code:: console
+
+    git cd clean
+
+It only deletes local branches and doesent touch remote ones. If one of
+the branches to delete is your current checked-out branch, the tool
+checkout the master branch locally in order to delete the feature
+branch.
+
+**Start new feature**
+
+Starts a new feature branch from your master branch
+
+.. code:: console
+
+    git cd start <branchname>
+
+**Test a feature branch**
+
+Merges a feature branch into your development branch
+
+.. code:: console
+
+    git cd test <branchname>
+
+**Open a pull request for code review**
+
+Opens a pull request to your master branch - not working yet
+
+.. code:: console
+
+    git cd review <branchname>
+
+**Finish a feature branch**
+
+Merges it into your master and asks for permission to delete your
+feature branch
+
+.. code:: console
+
+    git cd finish <branchname>
+
+**Compare your current branch**
+
+Compares your current branch against the given branchname or the latest
+tag if none is given
+
+.. code:: console
+
+    git cd compare <branchname>
+
+**Tagging the master branch**
+
+Creates a tag from your master branch and pushes it to remote
+
+.. code:: console
+
+    git cd release
+
+Known Issues
+~~~~~~~~~~~~
+
+If you discover any bugs, feel free to create an issue on GitHub fork
+and send us a pull request.
+
+`Issues List`_.
+
+Authors
+-------
+
+-  Claudio Walser (https://github.com/claudio-walser)
+-  Gianni Carafa (https://github.com/mms-gianni)
+
+Contributing
+------------
+
+1. Fork it
+2. Create your feature branch (``git cd start my-new-feature``)
+3. Commit your changes (``git commit -am 'Add some feature'``)
+4. Push to the branch (``git push origin feature/my-new-feature``)
+5. Create new Pull Request (``git cd review my-new-feature``)
+
+License
+-------
+
+Apache License 2.0 see
+https://github.com/claudio-walser/gitcd/blob/master/LICENSE
+
+.. _Issues List: https://github.com/claudio-walser/gitcd/issues

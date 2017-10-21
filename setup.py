@@ -2,10 +2,18 @@
 
 from setuptools import setup, find_packages
 
+def read(fpath):
+    with open(fpath, 'r') as f:
+        return f.read()
+
+def version(fpath):
+    return read(fpath).strip()
+
 setup(
     name='gitcd',
-    version='1.5.5',
+    version=version('version.txt'),
     description='Tool for continuous delivery using git',
+    long_description = read('README.rst'),
     author='Claudio Walser',
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/gitcd',
