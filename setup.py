@@ -2,9 +2,11 @@
 
 from setuptools import setup, find_packages
 
+
 def read(fpath):
     with open(fpath, 'r') as f:
         return f.read()
+
 
 def version(fpath):
     return read(fpath).strip()
@@ -13,7 +15,7 @@ setup(
     name='gitcd',
     version=version('version.txt'),
     description='Tool for continuous delivery using git',
-    long_description = read('README.rst'),
+    long_description=read('README.rst'),
     author='Claudio Walser',
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/gitcd',
@@ -24,9 +26,9 @@ setup(
             'git-cd = gitcd.__main__:main'
         ]
     },
-    license = 'Apache License',
-    keywords = ['git', 'application', 'continuos delivery'],
-    classifiers = [
+    license='Apache License',
+    keywords=['git', 'application', 'continuos delivery'],
+    classifiers=[
         'Development Status :: Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
