@@ -27,9 +27,15 @@ After successful installation of python3 and pip for pyhton3, run the following 
 
 If you are on mac osx and your local python folder isn't in your PATH variable you might add it to $PATH or symlink it in /usr/local/bin with sudo.
 
+**Max OSX**
 .. code:: console
 
     sudo ln -s /Users/<username>/Library/Python/<python-version>/bin/git-cd /usr/local/bin/
+
+The same applies to linux, however, the path is different. (On usual Distributions this is in $PATH already)
+.. code:: console
+
+    sudo ln -s /home/<username>/.local/bin/git-cd /usr/local/bin/
 
 Argument Completion
 -------------------
