@@ -7,6 +7,7 @@ from gitcd.Git.Commands.Finish import Finish
 from gitcd.Git.Commands.Release import Release
 from gitcd.Git.Commands.Status import Status
 from gitcd.Git.Commands.Compare import Compare
+from gitcd.Git.Commands.Version import Version
 from gitcd.Git.Abstract import Abstract
 
 
@@ -21,7 +22,8 @@ class Git(Abstract):
         'finish': Finish(),
         'release': Release(),
         'status': Status(),
-        'compare': Compare()
+        'compare': Compare(),
+        'version': Version()
     }
 
     def setupCommands(self):

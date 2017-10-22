@@ -13,9 +13,11 @@ class Command(Abstract):
     def getSubcommands(self):
         return ['run']
 
-    # basic default maethod for any command
-    def run(self):
-        return False
+    def setGit(self, git):
+        self.git = git
+
+    def update(self):
+        self.git.update()
 
     def getTokenOrAskFor(self):
         token = self.configPersonal.getToken()

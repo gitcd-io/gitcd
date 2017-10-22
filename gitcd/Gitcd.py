@@ -38,12 +38,12 @@ class Gitcd(object):
             commandObject = self.git.commands[command]
         except:
             commandObject = Command()
-
+        commandObject.setGit(self.git)
         return commandObject
 
     def dispatch(self, command: str, branch: str):
         try:
-            commandObject = self.git.commands[command]
+            commandObject = self.getCommand(command)
         except:
             self.interface.error(
                 "Command %s does not exists," +
@@ -54,7 +54,7 @@ class Gitcd(object):
         try:
             # not sure if its really necessary to update everytime here, its
             # good but takes some time
-            self.git.update()
+            commandObject.update()
             commandObject.execute(branch)
         # catch cli execution errors here
         except GitcdException as e:
