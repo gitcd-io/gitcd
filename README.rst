@@ -44,7 +44,8 @@ Afterwards you might be able to also just run:
 Usage
 -----
 
-**Initialize a project**
+Initialize a project
+~~~~~~~~~~~~~~~~~~~~
 
 cd into one of your local directories
 representing a git repository and run the init command. Pass your configuration, for most cases the default values should be ok.
@@ -54,7 +55,8 @@ representing a git repository and run the init command. Pass your configuration,
     git cd init
 
 
-**Pull request status**
+Pull request status
+~~~~~~~~~~~~~~~~~~~
 
 You are able to see the status of a feature
 branch including the pull request and if it has already been reviewed by
@@ -65,7 +67,8 @@ someone.
     git cd status
 
 
-**Clean up local branches**
+Clean up local branches
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The tool is able to cleanup all local
 branches which doesent exist on the origins. This is done with the clean command.
@@ -75,7 +78,8 @@ branches which doesent exist on the origins. This is done with the clean command
     git cd clean
 
 
-**Start new feature**
+Start new feature
+~~~~~~~~~~~~~~~~~
 
 Starts a new feature branch from your master branch. If you dont pass a branchname, you will be asked later.
 
@@ -84,7 +88,8 @@ Starts a new feature branch from your master branch. If you dont pass a branchna
     git cd start <branchname>
 
 
-**Test a feature branch**
+Test a feature branch
+~~~~~~~~~~~~~~~~~~~~~
 
 Merges a feature branch into your development branch. If you dont pass a branchname, your current branch will be taken.
 
@@ -93,7 +98,8 @@ Merges a feature branch into your development branch. If you dont pass a branchn
     git cd test <branchname>
 
 
-**Open a pull request for code review**
+Open a pull request for code review
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Opens a pull request to your master branch. If you dont pass a branchname, your current branch will be taken.
 
@@ -102,7 +108,8 @@ Opens a pull request to your master branch. If you dont pass a branchname, your 
     git cd review <branchname>
 
 
-**Finish a feature branch**
+Finish a feature branch
+~~~~~~~~~~~~~~~~~~~~~~~
 
 Merges it into your master and asks for permission to delete your
 feature branch. If you dont pass a branchname, your current branch will be taken.
@@ -112,7 +119,8 @@ feature branch. If you dont pass a branchname, your current branch will be taken
     git cd finish <branchname>
 
 
-**Compare your current branch**
+Compare your current branch
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Compares your current branch against the given branchname or the latest
 tag if none is given.
@@ -122,7 +130,8 @@ tag if none is given.
     git cd compare <branchname>
 
 
-**Tagging the master branch**
+Tagging the master branch
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Creates a tag from your master branch and pushes it to remote.
 
@@ -132,7 +141,7 @@ Creates a tag from your master branch and pushes it to remote.
 
 
 Known Issues
-~~~~~~~~~~~~
+------------
 
 If you discover any bugs, feel free to create an issue on GitHub fork
 and send us a pull request.
