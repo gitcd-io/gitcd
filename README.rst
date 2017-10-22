@@ -19,11 +19,11 @@ Installation
 
 Since gitcd is using python3 by default, you better upgrade.
 
-After successful installation of python3 and pip for pyhton3, run the following command to install and upgrade gitcd:
+After successful installation of python3 and pip for pyhton3, run the following command to install or upgrade gitcd:
 
 .. code:: console
 
-    pip3 install gitcd --upgrade
+    pip3 install --user --upgrade gitcd
 
 Argument Completion
 -------------------

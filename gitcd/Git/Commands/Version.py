@@ -38,7 +38,7 @@ class Version(Command):
             )
             if upgrade == 'yes':
                 try:
-                    pip.main(['install', '--user', 'gitcd', '--upgrade'])
+                    pip.main(['install', '--user', '--upgrade', 'gitcd'])
                     return
                 except SystemExit as e:
                     self.interface.error('An error occured during the update!')
