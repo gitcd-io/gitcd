@@ -4,6 +4,10 @@ Continuous tool for working with git
 .. image:: https://travis-ci.org/claudio-walser/gitcd.svg?branch=master
     :target: https://travis-ci.org/claudio-walser/gitcd
 
+.. image:: https://readthedocs.org/projects/gitcd/badge/?version=latest
+    :target: https://gitcd.readthedocs.org/en/latest/?badge=latest
+
+
 Description
 -----------
 
