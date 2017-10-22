@@ -1,6 +1,7 @@
 from gitcd.Git.Command import Command
 import pkg_resources
 import requests
+import pip
 from packaging import version
 from gitcd.Exceptions import GitcdPyPiApiException
 
@@ -30,7 +31,22 @@ class Version(Command):
             return
 
         if version.parse(local) < version.parse(pypi):
-            self.interface.error('You need to upgrade')
+            upgrade = self.interface.askFor(
+                "Do you want me to upgrade gitcd for you?",
+                ["yes", "no"],
+                "yes"
+            )
+            if upgrade == 'yes':
+                try:
+                    pip.main(['install', '--user', 'gitcd', '--upgrade'])
+                    return
+                except SystemExit as e:
+                    self.interface.error('An error occured during the update!')
+                    pass
+
+            self.interface.info(
+                'Please upgrade by running pip3 install gitcd --upgrade'
+            )
         else:
             self.interface.ok(
                 'You seem to be on the most recent version, congrats'
