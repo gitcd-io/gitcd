@@ -20,7 +20,7 @@ setup(
     author_email='claudio.walser@srf.ch',
     url='https://github.com/claudio-walser/gitcd',
     packages=find_packages(),
-    install_requires=['pyyaml', 'argparse', 'argcomplete', 'requests'],
+    install_requires=['pyyaml', 'argparse', 'argcomplete', 'requests', 'packaging'],
     entry_points={
         'console_scripts': [
             'git-cd = gitcd.__main__:main'
