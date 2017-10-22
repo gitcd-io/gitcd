@@ -29,5 +29,6 @@ class GitcdCliExecutionException(GitcdException):
 class GitcdGithubApiException(GitcdException):
     pass
 
+
 class GitcdPyPiApiException(GitcdException):
-	pass
+    pass

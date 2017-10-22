@@ -31,8 +31,10 @@ class Version(Command):
 
         if version.parse(local) < version.parse(pypi):
             self.interface.error('You need to upgrade')
-        else: 
-            self.interface.ok('You seem to be on the most recent version, congrats')
+        else:
+            self.interface.ok(
+                'You seem to be on the most recent version, congrats'
+            )
 
     def getLocalVersion(self):
         return pkg_resources.get_distribution("gitcd").version
