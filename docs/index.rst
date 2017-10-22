@@ -7,6 +7,7 @@ Welcome to Gitcd's documentation!
 =================================
 
 .. include:: ../README.rst
+.. include:: ../TODO.rst
 
 .. toctree::
    :maxdepth: 2
