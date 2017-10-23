@@ -55,4 +55,4 @@ class Release(Command):
         if not os.path.isfile(versionFile):
             raise GitcdVersionFileNotFoundException('Version file not found!')
         with open(versionFile, 'r') as f:
-            return f.read().strip
+            return f.read().strip()
