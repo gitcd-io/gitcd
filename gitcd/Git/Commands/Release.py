@@ -16,7 +16,7 @@ class Release(Command):
 
         # push new tag
         askForVersion = True
-        if self.config.getVersionType == 'file':
+        if self.config.getVersionType() == 'file':
             try:
                 tagNumber = self.readVersionFile(
                     self.config.getVersionScheme()
@@ -28,7 +28,7 @@ class Release(Command):
                     'please pass a version manually.'
                 )
                 askForVersion = True
-        else:
+        elif self.config.getVersionType == 'date':
             tagNumber = time.strftime(self.config.getVersionScheme())
 
         if askForVersion is True:
