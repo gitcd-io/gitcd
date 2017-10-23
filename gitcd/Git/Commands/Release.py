@@ -21,6 +21,7 @@ class Release(Command):
                 tagNumber = self.readVersionFile(
                     self.config.getVersionScheme()
                 )
+                self.interface.info('Release version "%s"' % tagNumber)
                 askForVersion = False
             except GitcdVersionFileNotFoundException:
                 self.interface.info(
