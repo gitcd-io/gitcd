@@ -1,6 +1,7 @@
 from gitcd.Git.Command import Command
 import os
 
+
 class Init(Command):
 
     # no special subcommands, only run which is meant to be default
@@ -70,7 +71,10 @@ class Init(Command):
                 "From what file do you want to load your version?"
             )
             if not os.path.isfile(versionScheme):
-                self.interface.error('Could not find your version file, stick back to manual tag number!')
+                self.interface.error(
+                    'Could not find your version file, ' +
+                    'stick back to manual tag number!'
+                )
                 versionScheme = None
                 versionType = 'manual'
         else:

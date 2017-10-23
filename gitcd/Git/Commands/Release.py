@@ -18,15 +18,20 @@ class Release(Command):
         askForVersion = True
         if self.config.getVersionType == 'file':
             try:
-                tagNumber = self.readVersionFile(self.config.getVersionScheme())
+                tagNumber = self.readVersionFile(
+                    self.config.getVersionScheme()
+                )
                 askForVersion = False
             except GitcdVersionFileNotFoundException:
-                self.interface.info('Could not load version file "%s", please pass a version manually.')
+                self.interface.info(
+                    'Could not load version file "%s", ' +
+                    'please pass a version manually.'
+                )
                 askForVersion = True
         else:
             tagNumber = time.strftime(self.config.getVersionScheme())
 
-        if askForVersion == True:
+        if askForVersion is True:
             tagNumber = self.interface.askFor(
                 "Whats the current tag number you want to deliver?")
 
