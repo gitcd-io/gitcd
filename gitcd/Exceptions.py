@@ -32,3 +32,7 @@ class GitcdGithubApiException(GitcdException):
 
 class GitcdPyPiApiException(GitcdException):
     pass
+
+
+class GitcdVersionFileNotFoundException(GitcdException):
+    pass

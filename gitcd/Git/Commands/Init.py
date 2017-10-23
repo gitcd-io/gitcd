@@ -1,5 +1,5 @@
 from gitcd.Git.Command import Command
-
+import os
 
 class Init(Command):
 
@@ -50,8 +50,8 @@ class Init(Command):
         # ask for version type, manual or date
         versionType = self.interface.askFor(
             "Version type? You can either set your tag number" +
-            " manually or generate it by date.",
-            ['manual', 'date'],
+            " manually, read it from a version file or generate it by date.",
+            ['manual', 'date', 'file'],
             self.config.getVersionType()
         )
         self.config.setVersionType(versionType)
@@ -65,6 +65,14 @@ class Init(Command):
                 '%Y.%m.%d%H%M',
                 self.config.getVersionScheme()
             )
+        elif versionType == 'file':
+            versionScheme = self.interface.askFor(
+                "From what file do you want to load your version?"
+            )
+            if not os.path.isfile(versionScheme):
+                self.interface.error('Could not find your version file, stick back to manual tag number!')
+                versionScheme = None
+                versionType = 'manual'
         else:
             # you'll be asked for it while a release
             versionScheme = None
