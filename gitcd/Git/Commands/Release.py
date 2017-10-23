@@ -24,8 +24,10 @@ class Release(Command):
                 self.interface.info('Release version "%s"' % tagNumber)
                 askForVersion = False
             except GitcdVersionFileNotFoundException:
-                self.interface.info(
-                    'Could not load version file "%s", ' +
+                self.interface.error(
+                    'Could not load version file "%s", ' % (
+                        self.config.getVersionScheme()
+                    ) +
                     'please pass a version manually.'
                 )
                 askForVersion = True
