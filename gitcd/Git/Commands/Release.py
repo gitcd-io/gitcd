@@ -33,6 +33,8 @@ class Release(Command):
                 askForVersion = True
         elif self.config.getVersionType() == 'date':
             tagNumber = time.strftime(self.config.getVersionScheme())
+            askForVersion = False
+            self.interface.info('Release version "%s"' % tagNumber)
 
         if askForVersion is True:
             tagNumber = self.interface.askFor(
