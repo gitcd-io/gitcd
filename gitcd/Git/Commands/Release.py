@@ -31,7 +31,7 @@ class Release(Command):
                     'please pass a version manually.'
                 )
                 askForVersion = True
-        elif self.config.getVersionType == 'date':
+        elif self.config.getVersionType() == 'date':
             tagNumber = time.strftime(self.config.getVersionScheme())
 
         if askForVersion is True:
