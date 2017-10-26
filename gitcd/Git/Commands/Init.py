@@ -81,6 +81,17 @@ class Init(Command):
             # you'll be asked for it while a release
             versionScheme = None
 
+        extraReleaseCommandDefault = self.config.getExtraReleaseCommand()
+        if extraReleaseCommandDefault is None:
+            extraReleaseCommandDefault = '<none>'
+        self.config.setExtraReleaseCommand(
+            self.interface.askFor(
+                "Do you want to execute some additional commands after a release?",
+                False,
+                extraReleaseCommandDefault
+            )
+        )
+
         # pass version scheme to config
         self.config.setVersionScheme(versionScheme)
 

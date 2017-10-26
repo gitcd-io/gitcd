@@ -80,3 +80,9 @@ class File:
 
     def setVersionScheme(self, versionType: str):
         self.config['versionScheme'] = versionType
+
+    def setExtraReleaseCommand(self, releaseCommand: str):
+        self.config['extraReleaseCommand'] = releaseCommand
+
+    def getExtraReleaseCommand(self):
+        return self.config['extraReleaseCommand']

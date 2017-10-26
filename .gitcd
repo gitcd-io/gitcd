@@ -4,3 +4,4 @@ tag: v
 test: null
 versionScheme: version.txt
 versionType: file
+extraReleaseCommand: null

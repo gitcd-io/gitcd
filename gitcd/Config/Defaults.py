@@ -7,5 +7,6 @@ class Defaults(object):
             'master': 'master',
             'tag': None,
             'versionType': 'manual',
-            'versionScheme': None
+            'versionScheme': None,
+            'extraReleaseCommand': None
         }
