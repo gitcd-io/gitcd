@@ -11,6 +11,7 @@ def read(fpath):
 def version(fpath):
     return read(fpath).strip()
 
+
 setup(
     name='gitcd',
     version=version('version.txt'),

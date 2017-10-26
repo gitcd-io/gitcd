@@ -36,7 +36,7 @@ class Gitcd(object):
     def getCommand(self, command: str):
         try:
             commandObject = self.git.commands[command]
-        except:
+        except Exception:
             commandObject = Command()
         commandObject.setGit(self.git)
         return commandObject
@@ -44,7 +44,7 @@ class Gitcd(object):
     def dispatch(self, command: str, branch: str):
         try:
             commandObject = self.getCommand(command)
-        except:
+        except Exception:
             self.interface.error(
                 "Command %s does not exists," +
                 " see gitcd --help for more information." %
