@@ -88,7 +88,8 @@ class Init(Command):
             extraReleaseCommandDefault = '<none>'
         self.config.setExtraReleaseCommand(
             self.interface.askFor(
-                "Do you want to execute some additional commands after a release?",
+                "Do you want to execute some additional" +
+                "commands after a release?",
                 False,
                 extraReleaseCommandDefault
             )

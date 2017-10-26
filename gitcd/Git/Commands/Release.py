@@ -61,7 +61,6 @@ class Release(Command):
                 self.config.getExtraReleaseCommand()
             )
 
-
     def readVersionFile(self, versionFile: str):
         if not os.path.isfile(versionFile):
             raise GitcdVersionFileNotFoundException('Version file not found!')
