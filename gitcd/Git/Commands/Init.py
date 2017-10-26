@@ -68,7 +68,9 @@ class Init(Command):
             )
         elif versionType == 'file':
             versionScheme = self.interface.askFor(
-                "From what file do you want to load your version?"
+                "From what file do you want to load your version?",
+                False,
+                self.config.getVersionScheme()
             )
             if not os.path.isfile(versionScheme):
                 self.interface.error(

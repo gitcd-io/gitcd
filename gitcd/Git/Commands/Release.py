@@ -2,6 +2,7 @@ from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdVersionFileNotFoundException
 import time
 import os
+from pprint import pprint
 
 
 class Release(Command):
@@ -54,6 +55,12 @@ class Release(Command):
             "git push %s %s%s"
             % (origin, self.config.getString(self.config.getTag()), tagNumber)
         )
+
+        if self.config.getExtraReleaseCommand() is not None:
+            self.cli.execute(
+                self.config.getExtraReleaseCommand()
+            )
+
 
     def readVersionFile(self, versionFile: str):
         if not os.path.isfile(versionFile):
