@@ -2,7 +2,6 @@ from gitcd.Git.Command import Command
 from gitcd.Exceptions import GitcdVersionFileNotFoundException
 import time
 import os
-from pprint import pprint
 
 
 class Release(Command):
@@ -56,7 +55,8 @@ class Release(Command):
             % (origin, self.config.getString(self.config.getTag()), tagNumber)
         )
 
-        if self.config.getExtraReleaseCommand() is not None:
+        extraCommand = self.config.getExtraReleaseCommand()
+        if extraCommand is not None:
             self.cli.execute(
                 self.config.getExtraReleaseCommand()
             )
