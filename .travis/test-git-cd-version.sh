@@ -1,4 +1,7 @@
-. .travis/exit-on-error.sh
+# . .travis/exit-on-error.sh
 
 git-cd version
-exitOnError()
+#exitOnError()
+if [ $? != 0 ]; then
+    exit $?
+fi
