@@ -17,9 +17,10 @@ script:
   
   # run tests
   - |
-
       bash .travis/setup-ssh.sh
+  - |
       bash .travis/clone-test-repo.sh
+  - |
       bash .travis/test-git-cd.sh
 
 
