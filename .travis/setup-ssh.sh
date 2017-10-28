@@ -12,8 +12,3 @@ chmod 600 "$SSH_FILE" \
     "Host github.com" \
     "  IdentityFile $SSH_FILE" \
     "  LogLevel ERROR" >> ~/.ssh/config
-
-git clone git@github.com:claudio-walser/travis-gitcd.git
-pwd
-ls -hal
-which git-cd

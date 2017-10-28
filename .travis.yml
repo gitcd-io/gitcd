@@ -19,6 +19,7 @@ script:
   - |
 
       bash .travis/setup-ssh.sh
+      bash .travis/clone-test-repo.sh
 
 
 env:
