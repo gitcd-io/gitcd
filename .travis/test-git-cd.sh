@@ -1,5 +1,5 @@
 # change workdir to travis-gitcd
-. exit-on-error.sh
+. .travis/exit-on-error.sh
 
 cd ~/build/claudio-walser/travis-gitcd
 

@@ -1,4 +1,4 @@
-. exit-on-error.sh
+. .travis/exit-on-error.sh
 
 git-cd version
 exitOnError()

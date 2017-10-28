@@ -1,5 +1,5 @@
 exitOnError() {
     if [ $? != 0 ]; then
-        exit 1
+        exit $?
     fi
 }
