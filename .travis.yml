@@ -3,10 +3,10 @@ branches:
   only: 
     - master
 python:
-  - "3.2"
-  - "3.3"
-  - "3.4"
-  - "3.5"
+  # - "3.2"
+  # - "3.3"
+  # - "3.4"
+  # - "3.5"
   - "3.6"
 before_install:
   - sudo apt-get -qq update
@@ -33,9 +33,13 @@ script:
   - |
       bash .travis/test-git-cd-start.sh
   - |
+      bash .travis/git-add-build.sh
+  - |
+      bash .travis/test-git-cd-review.sh
+  - |
       bash .travis/test-git-cd-finish.sh
 
 
 env:
   global:
-    - secure: "P72+wz8xMFMyqIvKYI+5PSvvsBouGCpJXtEzweA0apu6ine/6lUJzDpQ+Ef+3DVBHpzKHJzAzKFG1jYXr81NsnA8beigOq2SMYHnwq0VCITUqJ1N1cmEO41aU0KVd2mkZ7F5oNA7wxzg4W9LdLggD+KHuzWeXsffSCrcBhZ7drwnvTSzxUKSflxabmjBAyMBIPVwn+xU6l0Rq5s7WkPlwLLW+PobzySw8cNlDkRLkBPsS8cO4aQeR4NEw+LRSnBODvY9fyIGcsqw9kTO2feiYfdJMMXNO1ZDN3/vR8bDThWs+sHvaG4ZlWs6QvAo8lzXi7j4p+KHirhOrjccIgO2JwYNqJ4kKVgrcFw6nFdd+ogq1hj65cL3GrNsyEfcxKwn/wXa8Q4pM6pXpKFe+CFVftQrrN4uuQQa8NMV78poRRTrkDnVlVdjj4tITMxtHVEAWHJit9fAM0jPmXHsleujTdPDLWl05uCzpx0UF+qyg2gmCSfy9syObAJVIGmU5okC95dRwzDeEi4ES7wSyDxt72oLc0mZd43qSpQqaX+jRk01n6OewMmuU3pxNYyPwj78NKYWv3EQpFw0+m4dtldXtFvuWt0SHCv60RSBscw0dvYs+wFKNdMwT2U9Pdw509Ss2pnYjEfZOpt700Wu0zNx4ERh0Bw5+dsEaDdGZVa3dH4="
+    - secure: "gh+8ceEarA3KYPg/Fg1vS52a8+KOdj//UwOL48ZfumOagXs2u8d3mSa61BVukroa34QKJa89UY318AtXU+LCeQk/w7SMUpL0bCqLxefdo2/DfJZqAiX74Ema5VYENi6mbRdzC9dS5rRbG04m7p3vWxahs2LPZF7J+NFZAdgZqyThbDYfb9Qa/lKunq86b60iUmlj+rfLGfRJLlm/o5Iet3SBq0ktUXflEjltWuPLNwgPPoxOITrFNZG+GPsATepKKWIweLr/jJIoSa1SpHCcxMuHrdsFPhpIFLffmCnVIORSZe4l6tbDhGntQjR4J7mhULT8uqrG92Nl6QoNBpEP4UYigI+9qLnVdQGvKznbps9M4udvGBjs4UvR91d5Kjhbr7upH+DzRuVzRxfNNCLF4j+p9Vr2uZbXoaZovGExVcraUbNJBUW/xlDHXntRzytQhomoaaBWheODrSAvBXUx0j3QlGJMcFhHdHQs5hX7EwRY2xb8Dzd83B0iqAMDizeXuQuObjIUKq0CzD1z7viaBUhDFgDyzWiWB7vKHb2L4Lxfwb0JK0cw81l9XkbsYB99DD2MaO78yR/DzYUjHXqi9EPSZslGYum4YY46gUrdoaUSqcN+pmbpdUfjIVPM/o6ap9j2mScHn3uUKDXn9qRTRecOEwleT9uNohKBRFjA0wM="
