@@ -2,8 +2,9 @@ set -e
 
 # change workdir to travis-gitcd
 cd ~/build/claudio-walser/travis-gitcd
+echo "before status"
 git status --porcelain
-git diff
+echo "after status"
 
 /usr/bin/expect <<EOD
 spawn git-cd review
