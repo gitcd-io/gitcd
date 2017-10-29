@@ -1,5 +1,9 @@
-exitOnError() {
+trap "exit 1" TERM
+export TOP_PID=$$
+
+function exitOnError()
+{
     if [ $? != 0 ]; then
-        exit $?
+        kill -s TERM $TOP_PID
     fi
 }
