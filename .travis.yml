@@ -30,6 +30,10 @@ script:
       bash .travis/test-git-cd-version.sh
   - |
       bash .travis/test-git-cd-init.sh
+  - |
+      bash .travis/test-git-cd-start.sh
+  - |
+      bash .travis/test-git-cd-finish.sh
 
 
 env:
