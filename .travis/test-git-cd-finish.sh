@@ -7,7 +7,7 @@ cd ~/build/claudio-walser/travis-gitcd
 /usr/bin/expect <<EOD
 spawn git-cd finish
 expect "Delete your feature branch?"
-send "\n"
+send "yes"
 EOD
 
 # change back to original workdir
