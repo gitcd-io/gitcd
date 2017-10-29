@@ -7,7 +7,7 @@ from gitcd.Config.DefaultsPersonal import DefaultsPersonal
 class FilePersonal:
 
     loaded = False
-    filename = ".gitcd-personal"
+    filename = ".gitcd-personal"getTokenOrAskFor
     parser = Parser()
     defaults = DefaultsPersonal()
     config = {}
@@ -38,7 +38,7 @@ class FilePersonal:
             with open(gitignore, "r") as gitignoreFile:
                 gitignoreContent = gitignoreFile.read()
             # if not yet in gitignore
-            if "\n%s\n" % (self.filename) not in gitignoreContent:
+            if "%s" % (self.filename) not in gitignoreContent:
                 # add it
                 gitignoreContent = "%s\n%s\n" % (
                     gitignoreContent, self.filename)
