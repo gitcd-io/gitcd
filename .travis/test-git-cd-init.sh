@@ -1,2 +1,3 @@
 set -e
+
 which expect
