@@ -2,7 +2,7 @@ set -e
 
 # change workdir to travis-gitcd
 cd ~/build/claudio-walser/travis-gitcd
-git status
+git status --porcelain
 git diff
 
 /usr/bin/expect <<EOD
