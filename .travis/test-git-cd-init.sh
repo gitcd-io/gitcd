@@ -1,5 +1,8 @@
 set -e
 
+# change workdir to travis-gitcd
+cd ~/build/claudio-walser/travis-gitcd
+
 # git-cd init with accepting all the defaults
 /usr/bin/expect <<EOD
 spawn git-cd init
@@ -16,3 +19,6 @@ send "\n"
 expect "Do you want to execute some additionalcommands after a release?"
 send "\n"
 EOD
+
+# change back to original workdir
+cd -
