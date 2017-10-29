@@ -7,7 +7,7 @@ from gitcd.Config.DefaultsPersonal import DefaultsPersonal
 class FilePersonal:
 
     loaded = False
-    filename = ".gitcd-personal"getTokenOrAskFor
+    filename = ".gitcd-personal"
     parser = Parser()
     defaults = DefaultsPersonal()
     config = {}
