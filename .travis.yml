@@ -3,10 +3,9 @@ branches:
   only: 
     - master
 python:
-  # - "3.2"
-  # - "3.3"
-  # - "3.4"
-  # - "3.5"
+  - "3.3"
+  - "3.4"
+  - "3.5"
   - "3.6"
 before_install:
   - sudo apt-get -qq update
