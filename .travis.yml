@@ -3,11 +3,13 @@ branches:
   only: 
     - master
 python:
-  - "3.2"
   - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y expect
 # command to install dependencies
 install:
   - pip install .
@@ -17,5 +19,28 @@ script:
   # (I ignore "E402: module level import not at top of file"
   # because of use case sys.path.append('..'); import <module>)
   - find . -name \*.py -exec pycodestyle --ignore=E402 {} +
+  
   # run tests
-  - nosetests
+  - |
+      bash .travis/setup-ssh.sh
+  - |
+      bash .travis/clone-test-repo.sh
+  - |
+      bash .travis/test-git-cd-version.sh
+  - |
+      bash .travis/test-git-cd-init.sh
+  - |
+      bash .travis/test-git-cd-start.sh
+  - |
+      bash .travis/git-add-build.sh
+  - |
+      bash .travis/test-git-cd-review.sh
+  - |
+      bash .travis/test-git-cd-finish.sh
+  - |
+      bash .travis/test-git-cd-release.sh
+
+
+env:
+  global:
+    - secure: "gh+8ceEarA3KYPg/Fg1vS52a8+KOdj//UwOL48ZfumOagXs2u8d3mSa61BVukroa34QKJa89UY318AtXU+LCeQk/w7SMUpL0bCqLxefdo2/DfJZqAiX74Ema5VYENi6mbRdzC9dS5rRbG04m7p3vWxahs2LPZF7J+NFZAdgZqyThbDYfb9Qa/lKunq86b60iUmlj+rfLGfRJLlm/o5Iet3SBq0ktUXflEjltWuPLNwgPPoxOITrFNZG+GPsATepKKWIweLr/jJIoSa1SpHCcxMuHrdsFPhpIFLffmCnVIORSZe4l6tbDhGntQjR4J7mhULT8uqrG92Nl6QoNBpEP4UYigI+9qLnVdQGvKznbps9M4udvGBjs4UvR91d5Kjhbr7upH+DzRuVzRxfNNCLF4j+p9Vr2uZbXoaZovGExVcraUbNJBUW/xlDHXntRzytQhomoaaBWheODrSAvBXUx0j3QlGJMcFhHdHQs5hX7EwRY2xb8Dzd83B0iqAMDizeXuQuObjIUKq0CzD1z7viaBUhDFgDyzWiWB7vKHb2L4Lxfwb0JK0cw81l9XkbsYB99DD2MaO78yR/DzYUjHXqi9EPSZslGYum4YY46gUrdoaUSqcN+pmbpdUfjIVPM/o6ap9j2mScHn3uUKDXn9qRTRecOEwleT9uNohKBRFjA0wM="

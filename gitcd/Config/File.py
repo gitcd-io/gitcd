@@ -82,6 +82,8 @@ class File:
         self.config['versionScheme'] = versionType
 
     def setExtraReleaseCommand(self, releaseCommand: str):
+        if releaseCommand == '<none>':
+            releaseCommand = None
         self.config['extraReleaseCommand'] = releaseCommand
 
     def getExtraReleaseCommand(self):
