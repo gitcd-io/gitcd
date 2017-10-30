@@ -9,7 +9,7 @@ spawn git-cd init
 expect "Branch name for production releases?"
 send "\n"
 expect "Branch name for feature development?"
-send "\n"
+send "feature/\n"
 expect "Branch name for test releases?"
 send "test\n"
 expect "Version tag prefix?"
