@@ -13,5 +13,7 @@ send "New Travis Build $TRAVIS_JOB_NUMBER"
 expect
 EOD
 
+# assert that the new tag exists
+
 # change back to original workdir
 cd -

@@ -11,5 +11,7 @@ send "yes\n"
 expect
 EOD
 
+# assert that the feature branch doesent exists anymore
+
 # change back to original workdir
 cd -

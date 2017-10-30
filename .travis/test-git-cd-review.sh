@@ -14,5 +14,7 @@ send "Pull Request Body for travis build $TRAVIS_JOB_NUMBER\n"
 expect
 EOD
 
+# assert that a pull request exists
+
 # change back to original workdir
 cd -
