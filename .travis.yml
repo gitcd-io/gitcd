@@ -38,6 +38,8 @@ script:
       bash .travis/test-git-cd-review.sh
   - |
       bash .travis/test-git-cd-finish.sh
+  - |
+      bash .travis/test-git-cd-release.sh
 
 
 env:
