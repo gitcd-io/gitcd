@@ -8,6 +8,7 @@ cd ~/build/claudio-walser/travis-gitcd
 spawn git-cd finish
 expect "Delete your feature branch?"
 send "yes"
+expect
 EOD
 
 # change back to original workdir

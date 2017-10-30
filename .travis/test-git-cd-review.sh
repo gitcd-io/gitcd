@@ -11,6 +11,7 @@ expect "Pull-Request title?"
 send "Pull Request Title for travis build $TRAVIS_JOB_NUMBER\n"
 expect "Pull-Request body?"
 send "Pull Request Body for travis build $TRAVIS_JOB_NUMBER\n"
+expect
 EOD
 
 # change back to original workdir
