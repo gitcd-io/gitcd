@@ -11,7 +11,6 @@ Completing tests
 ----------------
 * implement all the assertions mentioned in the ./travis bash scripts
 * write a test which executes a git-cd init with different params and assert the config has changed
-* write a test for git-cd clean
 * write a test for git-cd compare
 * write a test for git-cd status
 * write a test for git-cd test
