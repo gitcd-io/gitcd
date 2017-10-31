@@ -1,6 +1,9 @@
 Continuous tool for working with git
 ====================================
 
+.. image:: http://img.shields.io/badge/license-APACHE2-blue.svg
+    :target: License
+
 .. image:: https://travis-ci.org/claudio-walser/gitcd.svg?branch=master
     :target: https://travis-ci.org/claudio-walser/gitcd
 
