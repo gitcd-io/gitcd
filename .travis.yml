@@ -40,6 +40,8 @@ script:
   - |
       bash .travis/test-git-cd-release.sh
   - |
+      bash .travis/test-git-cd-test.sh
+  - |
       bash .travis/test-git-cd-clean.sh
 
 
