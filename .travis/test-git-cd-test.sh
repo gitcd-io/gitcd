@@ -14,6 +14,8 @@ git branch -a | grep "origin/feature/travis-test-$TRAVIS_JOB_NUMBER"
 git-cd test
 
 # assert the feature branch is checked out again
+git status | grep "origin/feature/travis-test-$TRAVIS_JOB_NUMBER"
+
 # assert there is no diff against the test branch
 
 
