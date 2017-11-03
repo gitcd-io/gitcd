@@ -1,6 +1,7 @@
 Continuous tool for working with git
 ====================================
 
+Development Status
 
 .. image:: https://img.shields.io/pypi/status/gitcd.svg
    :target: https://pypi.org/project/gitcd/
@@ -14,10 +15,11 @@ Continuous tool for working with git
 .. image:: https://img.shields.io/github/last-commit/claudio-walser/gitcd.svg
     :target: https://github.com/claudio-walser/gitcd/commits/master
 
- 
+
+ Package Info
 
 .. image:: https://badge.fury.io/py/gitcd.svg
-    :target: https://badge.fury.io/py/gitcd
+    :target: https://pypi.org/project/gitcd/
 
 .. image:: http://img.shields.io/badge/license-APACHE2-blue.svg
     :target: https://github.com/claudio-walser/gitcd/blob/master/LICENSE
