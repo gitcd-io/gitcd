@@ -13,7 +13,7 @@ Continuous tool for working with git
 .. image:: https://readthedocs.org/projects/gitcd/badge/?version=latest
     :target: https://gitcd.readthedocs.org/en/latest/?badge=latest
 
-
+-
 
 .. image:: https://img.shields.io/github/last-commit/claudio-walser/gitcd.svg
     :target: https://github.com/claudio-walser/gitcd/commits/master
