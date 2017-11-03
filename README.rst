@@ -22,13 +22,13 @@ Package Info
 .. image:: https://badge.fury.io/py/gitcd.svg
     :target: https://pypi.org/project/gitcd/
 
+.. image:: https://img.shields.io/pypi/wheel/gitcd.svg
+    :target: https://pypi.org/project/gitcd/
+
 .. image:: http://img.shields.io/badge/license-APACHE2-blue.svg
     :target: https://github.com/claudio-walser/gitcd/blob/master/LICENSE
 
 .. image:: https://img.shields.io/pypi/pyversions/gitcd.svg
-    :target: https://pypi.org/project/gitcd/
-
-.. image:: https://img.shields.io/pypi/wheel/gitcd.svg
     :target: https://pypi.org/project/gitcd/
 
 
