@@ -4,9 +4,6 @@ Continuous tool for working with git
 .. image:: https://badge.fury.io/py/gitcd.svg
     :target: https://badge.fury.io/py/gitcd
 
-.. image:: https://img.shields.io/github/last-commit/claudio-walser/gitcd.svg
-    :target: https://github.com/claudio-walser/gitcd/commits/master
-
 .. image:: http://img.shields.io/badge/license-APACHE2-blue.svg
     :target: https://github.com/claudio-walser/gitcd/blob/master/LICENSE
 
@@ -15,6 +12,10 @@ Continuous tool for working with git
 
 .. image:: https://readthedocs.org/projects/gitcd/badge/?version=latest
     :target: https://gitcd.readthedocs.org/en/latest/?badge=latest
+
+
+.. image:: https://img.shields.io/github/last-commit/claudio-walser/gitcd.svg
+    :target: https://github.com/claudio-walser/gitcd/commits/master
 
 .. image:: https://img.shields.io/pypi/pyversions/gitcd.svg
     :target: https://pypi.org/project/gitcd/
