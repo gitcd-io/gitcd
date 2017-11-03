@@ -1,8 +1,8 @@
 Continuous tool for working with git
 ====================================
 
-Development Status
-~~~~~~~~~~~~~~~~~~
+**Development Status**
+
 .. image:: https://img.shields.io/pypi/status/gitcd.svg
    :target: https://pypi.org/project/gitcd/
 
@@ -17,8 +17,8 @@ Development Status
 
 
 
-Package Info
-~~~~~~~~~~~~
+**Package Info**
+
 .. image:: https://badge.fury.io/py/gitcd.svg
     :target: https://pypi.org/project/gitcd/
 
