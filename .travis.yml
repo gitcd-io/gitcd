@@ -45,6 +45,8 @@ script:
       bash .travis/test-git-cd-compare.sh
   - |
       bash .travis/test-git-cd-clean.sh
+  - |
+      bash .travis/test-git-cd-init-diff.sh
 
 
 env:

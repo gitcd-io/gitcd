@@ -10,7 +10,6 @@ Features
 Completing tests
 ----------------
 * implement all the assertions mentioned in the ./travis bash scripts
-* write a test which executes a git-cd init with different params and assert the config has changed
 * write a test for git-cd status
 * write a test for git-cd finish without deleting the feature branch
 * write two more release tests, one with tag number by file and one with tag number by date
