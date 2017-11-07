@@ -10,9 +10,4 @@ Features
 Completing tests
 ----------------
 * implement all the assertions mentioned in the ./travis bash scripts
-* write a test for git-cd status
-* write a test for git-cd finish without deleting the feature branch
-* write two more release tests, one with tag number by file and one with tag number by date
-* implement one of the three release test with an extra bash script execution
-* try to write a test for git-cd version - at least it should always have a higher version than the pypi one
 * test it with different remotes if possible

@@ -21,13 +21,13 @@ script:
   - find . -name \*.py -exec pycodestyle --ignore=E402 {} +
   
   # run tests
-  - |
+  - | # default repo setup
       bash .travis/setup-ssh.sh
   - |
       bash .travis/clone-test-repo.sh
-  - |
+  - | # check git-cd version
       bash .travis/tests/git-cd-version.sh
-  - |
+  - | # default git-cd workflow
       bash .travis/tests/git-cd-init.sh
   - |
       bash .travis/tests/git-cd-start.sh
@@ -39,14 +39,24 @@ script:
       bash .travis/tests/git-cd-finish.sh
   - |
       bash .travis/tests/git-cd-release.sh
-  - |
+  - | # git-cd test compare and clean
       bash .travis/tests/git-cd-test.sh
   - |
       bash .travis/tests/git-cd-compare.sh
   - |
       bash .travis/tests/git-cd-clean.sh
+  - | # make a release by date format
+      bash .travis/tests/git-cd-init-releae-date.sh
   - |
-      bash .travis/tests/git-cd-init-diff.sh
+      bash .travis/tests/git-cd-release-date.sh
+  - |
+      bash .travis/git-reset.sh
+  - | # make a release by version file and extra command
+      bash .travis/tests/git-cd-init-releae-file.sh
+  - |
+      bash .travis/tests/git-cd-release-file.sh
+  - |
+      bash .travis/git-reset.sh
 
 
 env:
