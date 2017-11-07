@@ -6,12 +6,9 @@ from packaging import version
 from gitcd.Exceptions import GitcdPyPiApiException
 
 
-class Version(Command):
+class Upgrade(Command):
 
     packageUrl = 'https://pypi.org/pypi/gitcd/json'
-
-    def update(self):
-        pass
 
     def execute(self, branch: str):
         checkUpgrade = True

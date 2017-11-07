@@ -82,14 +82,14 @@ Afterwards you might be able to also just run:
 Usage
 -----
 
-Check version and update
+Check version and upgrade
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Gitcd is aware of it's local and remote versions and may update itself if you want to.
+Gitcd is aware of it's local and remote versions and may upgrade itself if you want to.
 
 .. code:: console
 
-    git cd version
+    git cd upgrade
 
 
 Initialize a project
