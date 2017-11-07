@@ -52,7 +52,7 @@ script:
   - |
       bash .travis/git-reset.sh
   - | # make a release by version file and extra command
-      bash .travis/tests/git-cd-init-releae-file.sh
+      bash .travis/tests/git-cd-init-release-file.sh
   - |
       bash .travis/tests/git-cd-release-file.sh
   - |
