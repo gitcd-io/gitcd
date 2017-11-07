@@ -4,7 +4,7 @@ set -e
 cd ~/build/claudio-walser/travis-gitcd
 
 # write version file because git-cd init checks its existence
-echo $TRAVIS_BUILD_NUMBER.1 > version.txt
+echo $TRAVIS_JOB_NUMBER.1 > version.txt
 
 # git-cd init with accepting all the defaults
 /usr/bin/expect <<EOD
