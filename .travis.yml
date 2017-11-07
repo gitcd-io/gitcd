@@ -46,7 +46,7 @@ script:
   - |
       bash .travis/tests/git-cd-clean.sh
   - | # make a release by date format
-      bash .travis/tests/git-cd-init-releae-date.sh
+      bash .travis/tests/git-cd-init-release-date.sh
   - |
       bash .travis/tests/git-cd-release-date.sh
   - |
