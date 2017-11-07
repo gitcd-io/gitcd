@@ -26,27 +26,27 @@ script:
   - |
       bash .travis/clone-test-repo.sh
   - |
-      bash .travis/test-git-cd-version.sh
+      bash .travis/tests/git-cd-version.sh
   - |
-      bash .travis/test-git-cd-init.sh
+      bash .travis/tests/git-cd-init.sh
   - |
-      bash .travis/test-git-cd-start.sh
+      bash .travis/tests/git-cd-start.sh
   - |
       bash .travis/git-add-build.sh
   - |
-      bash .travis/test-git-cd-review.sh
+      bash .travis/tests/git-cd-review.sh
   - |
-      bash .travis/test-git-cd-finish.sh
+      bash .travis/tests/git-cd-finish.sh
   - |
-      bash .travis/test-git-cd-release.sh
+      bash .travis/tests/git-cd-release.sh
   - |
-      bash .travis/test-git-cd-test.sh
+      bash .travis/tests/git-cd-test.sh
   - |
-      bash .travis/test-git-cd-compare.sh
+      bash .travis/tests/git-cd-compare.sh
   - |
-      bash .travis/test-git-cd-clean.sh
+      bash .travis/tests/git-cd-clean.sh
   - |
-      bash .travis/test-git-cd-init-diff.sh
+      bash .travis/tests/git-cd-init-diff.sh
 
 
 env:
