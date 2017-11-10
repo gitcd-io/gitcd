@@ -54,7 +54,9 @@ class Gitcd(object):
         try:
             # not sure if its really necessary to update everytime here, its
             # good but takes some time
-            commandObject.update()
+            if command != 'upgrade':
+                commandObject.update()
+
             commandObject.execute(branch)
         # catch cli execution errors here
         except GitcdException as e:
