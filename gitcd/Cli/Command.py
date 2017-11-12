@@ -22,7 +22,7 @@ class Command(object):
     def getRaiseException(self):
         return self.raiseException
 
-    def execute(self, command: str):
+    def execute(self, command: str, codeOk: int = 0):
         if self.verbose is True:
             self.interface.warning("Executing: %s" % command)
 
@@ -34,7 +34,7 @@ class Command(object):
             stderr=subprocess.PIPE
         )
         output, err = process.communicate()
-        if process.returncode != 0:
+        if process.returncode != codeOk:
             if self.raiseException is True:
                 raise GitcdCliExecutionException(err.decode("utf-8").strip())
             return False
