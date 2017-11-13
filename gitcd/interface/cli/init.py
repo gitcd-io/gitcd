@@ -1,8 +1,8 @@
-from gitcd.interface.cli.abstract import Abstract
+from gitcd.interface.cli.abstract import BaseCommand
 import os
 
 
-class Init(Abstract):
+class Init(BaseCommand):
 
     def run(self, branch: str):
         self.cli.header('git-cd init')

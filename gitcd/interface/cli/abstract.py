@@ -1,6 +1,6 @@
 import simpcli
 
-class Abstract(object):
+class BaseCommand(object):
 
     cli = simpcli.Interface()
 

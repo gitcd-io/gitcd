@@ -1,13 +1,13 @@
 import os
 from packaging import version
 
-from gitcd.interface.cli.abstract import Abstract
+from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.package import Package
 
 from gitcd.exceptions import GitcdPyPiApiException
 
 
-class Upgrade(Abstract):
+class Upgrade(BaseCommand):
 
     def run(self, branch: str):
         self.cli.header('git-cd upgrade')
