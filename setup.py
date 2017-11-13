@@ -22,6 +22,7 @@ setup(
     url='https://github.com/claudio-walser/gitcd',
     packages=find_packages(),
     install_requires=[
+        'simpcli',
         'pyyaml',
         'argparse',
         'argcomplete',
@@ -30,7 +31,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'git-cd = gitcd.__main__:main'
+            'git-cd = gitcd.bin.console:main',
+            'gitcd-ui = gitcd.bin.kivy:main',
         ]
     },
     license='Apache License',
