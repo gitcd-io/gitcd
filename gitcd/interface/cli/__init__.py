@@ -1,6 +1,7 @@
 import sys
 
 import simpcli
+
 from gitcd.interface.cli.clean import Clean
 from gitcd.interface.cli.compare import Compare
 from gitcd.interface.cli.finish import Finish
@@ -13,18 +14,7 @@ from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
 from gitcd.exceptions import GitcdException
-# from gitcd.Git.Commands.Clean import Clean
-# from gitcd.Git.Commands.Start import Start
-# from gitcd.Git.Commands.Test import Test
-# from gitcd.Git.Commands.Review import Review
-# from gitcd.Git.Commands.Finish import Finish
-# from gitcd.Git.Commands.Release import Release
-# from gitcd.Git.Commands.Status import Status
-# from gitcd.Git.Commands.Compare import Compare
-# from gitcd.Git.Commands.Upgrade import Upgrade
-# from gitcd.Git.Abstract import Abstract
 
-from pprint import pprint
 
 class Cli():
 
