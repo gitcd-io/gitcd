@@ -9,7 +9,7 @@ class Package(object):
     packageUrl = 'https://pypi.org/pypi/gitcd/json'
 
     def upgrade(self):
-    	pip.main(['install', '--user', '--upgrade', 'gitcd'])
+        pip.main(['install', '--user', '--upgrade', 'gitcd'])
 
     def getLocalVersion(self):
         return pkg_resources.get_distribution("gitcd").version

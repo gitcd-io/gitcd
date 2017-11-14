@@ -11,10 +11,10 @@ class GitcdDefaults(object):
             'extraReleaseCommand': None
         }
 
+
 class GitcdPersonalDefaults(object):
 
     def load(self):
         return {
             'token': None
         }
-

@@ -29,7 +29,6 @@ class Upgrade(BaseCommand):
             self.cli.error(message)
             return False
 
-
         if version.parse(localVersion) < version.parse(pypiVersion):
             upgrade = self.cli.askFor(
                 "Do you want me to upgrade gitcd for you?",

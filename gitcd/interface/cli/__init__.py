@@ -19,7 +19,7 @@ from gitcd.exceptions import GitcdException
 class Cli():
 
     cli = simpcli.Interface()
-    
+
     commands = {
         'init': Init(),
         'clean': Clean(),
@@ -35,7 +35,6 @@ class Cli():
 
     def getAvailableCommands(self):
         return self.commands.keys()
-
 
     def dispatch(self, command: str, branch: str):
         try:

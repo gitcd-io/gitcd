@@ -8,7 +8,6 @@ class Init(BaseCommand):
     def run(self, branch: str):
         self.cli.header('git-cd init')
 
-
         self.config.setMaster(
             self.cli.askFor(
                 "Branch name for production releases?",
