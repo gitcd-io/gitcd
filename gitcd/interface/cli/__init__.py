@@ -1,7 +1,15 @@
 import sys
 
 import simpcli
+from gitcd.interface.cli.clean import Clean
+from gitcd.interface.cli.compare import Compare
+from gitcd.interface.cli.finish import Finish
 from gitcd.interface.cli.init import Init
+from gitcd.interface.cli.release import Release
+from gitcd.interface.cli.review import Review
+from gitcd.interface.cli.start import Start
+from gitcd.interface.cli.status import Status
+from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
 from gitcd.exceptions import GitcdException
@@ -24,14 +32,14 @@ class Cli():
     
     commands = {
         'init': Init(),
-        # 'clean': Clean(),
-        # 'start': Start(),
-        # 'test': Test(),
-        # 'review': Review(),
-        # 'finish': Finish(),
-        # 'release': Release(),
-        # 'status': Status(),
-        # 'compare': Compare(),
+        'clean': Clean(),
+        'start': Start(),
+        'test': Test(),
+        'review': Review(),
+        'finish': Finish(),
+        'release': Release(),
+        'status': Status(),
+        'compare': Compare(),
         'upgrade': Upgrade()
     }
 

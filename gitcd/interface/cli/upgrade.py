@@ -1,4 +1,3 @@
-import os
 from packaging import version
 
 from gitcd.interface.cli.abstract import BaseCommand
