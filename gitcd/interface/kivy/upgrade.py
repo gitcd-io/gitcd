@@ -62,7 +62,10 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
 
     def open(self, **kwargs):
         super(GitcdUpgradeDialog, self).open(**kwargs)
-        
+        # async
+        self.loadVersions()
+
+    def loadVersions(self):
         localVersion = self.package.getLocalVersion()
 
         try:
@@ -85,7 +88,7 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
         self.add_widget(label)
 
         if version.parse(localVersion) < version.parse(pypiVersion):
-            self.ids.buttonUpgrade.disabled = False    
+            self.ids.buttonUpgrade.disabled = False
 
     def upgrade(self):
         self.package.upgrade()
