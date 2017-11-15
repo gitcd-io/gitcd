@@ -10,9 +10,8 @@ from kivymd.navigationdrawer import NavigationDrawerIconButton
 
 from gitcd.interface.kivy.upgrade import GitcdUpgradeDialog
 
-
-
 from pprint import pprint
+
 
 class GitcdNavigationDrawer(MDNavigationDrawer):
 
@@ -23,22 +22,29 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
 
     def readGitCdFolders(self):
         #find ~ -path "*/.git" -a -type d 2>/dev/null
-        cli = simpcli.Command()
-        result = cli.execute('find ~ -path "*/.gitcd" 2>/dev/null', 1)
-        folders = result.split("\n")
-        gitFolders = []
-        for folder in folders:
-            folder = folder.replace('/.gitcd', '')
-            folderParts = folder.split('/')
-            gitFolder = {
-                'name': folderParts[-1],
-                'path': folder
+        # cli = simpcli.Command()
+        # result = cli.execute('find ~ -path "*/.gitcd" 2>/dev/null', True)
+        # print(type(result))
+        # print(result)
+        # folders = result.split("\n")
+        # gitFolders = []
+        # for folder in folders:
+        #     folder = folder.replace('/.gitcd', '')
+        #     folderParts = folder.split('/')
+        #     gitFolder = {
+        #         'name': folderParts[-1],
+        #         'path': folder
+        #     }
+        #     gitFolders.append(gitFolder)
+        gitFolders = [
+            {
+                'name': 'gitcd',
+                'path': '/Users/walsercl/Development/claudio/gitcd'
             }
-            gitFolders.append(gitFolder)
+        ]
         return gitFolders
 
     def initialize(self):
-        print('wtf')
         self.app = kivy.app.App.get_running_app()
 
         gitFolders = self.readGitCdFolders()

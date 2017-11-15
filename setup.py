@@ -29,10 +29,10 @@ setup(
         'requests',
         'packaging',
         'kivy',
-        "KivyMD"
+        'KivyMD'
     ],
     dependency_links=[
-        "git+https://gitlab.com/kivymd/KivyMD@master"
+        'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'
     ],
     #
     entry_points={
