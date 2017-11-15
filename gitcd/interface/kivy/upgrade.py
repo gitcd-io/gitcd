@@ -63,7 +63,6 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
     def open(self, **kwargs):
         super(GitcdUpgradeDialog, self).open(**kwargs)
         
-        
         localVersion = self.package.getLocalVersion()
 
         try:

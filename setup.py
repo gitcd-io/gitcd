@@ -28,8 +28,13 @@ setup(
         'argcomplete',
         'requests',
         'packaging',
-        'kivy'
+        'kivy',
+        "KivyMD"
     ],
+    dependency_links=[
+        "git+https://gitlab.com/kivymd/KivyMD@master"
+    ],
+    #
     entry_points={
         'console_scripts': [
             'git-cd = gitcd.bin.console:main',
