@@ -27,12 +27,13 @@ setup(
         'argparse',
         'argcomplete',
         'requests',
-        'packaging'
+        'packaging',
+        'kivy'
     ],
     entry_points={
         'console_scripts': [
             'git-cd = gitcd.bin.console:main',
-            'gitcd-ui = gitcd.bin.kivy:main',
+            'git-cd-ui = gitcd.bin.kivy:main',
         ]
     },
     license='Apache License',

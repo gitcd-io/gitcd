@@ -1,3 +1,5 @@
+from gitcd.interface.kivy import Kivy
+
 
 def main():
-    print('start kivy app')
+	Kivy().run()
