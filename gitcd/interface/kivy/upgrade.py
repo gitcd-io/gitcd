@@ -11,6 +11,8 @@ from kivymd.label import MDLabel
 
 from gitcd.package import Package
 
+from gitcd.exceptions import GitcdPyPiApiException
+
 
 Builder.load_string('''
 #:import MDSpinner kivymd.spinner.MDSpinner
@@ -72,7 +74,7 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
         try:
             pypiVersion = self.package.getPypiVersion()
         except GitcdPyPiApiException as e:
-            pypiVersion = 'unknown'
+            pypiVersion = 'error could not fetch the api'
 
         versionText = 'Local Version: %s' % localVersion
         versionText += '\nPyPI Version: %s' % pypiVersion

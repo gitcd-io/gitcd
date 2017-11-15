@@ -14,13 +14,11 @@ class Upgrade(BaseCommand):
         package = Package()
         localVersion = package.getLocalVersion()
 
-        checkUpgrade = True
         try:
             pypiVersion = package.getPypiVersion()
         except GitcdPyPiApiException as e:
             pypiVersion = 'unknown'
             message = str(e)
-            checkUpgrade = False
 
         self.cli.info('Local %s' % localVersion)
         self.cli.info('PyPi %s' % pypiVersion)
