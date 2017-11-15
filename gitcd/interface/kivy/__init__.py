@@ -3,12 +3,9 @@ import kivy
 from kivy.lang import Builder
 from kivy.app import App
 from kivy.properties import StringProperty
-
+from kivy.clock import Clock
 from kivymd.theming import ThemeManager
 
-from gitcd.interface.kivy.upgrade import GitcdUpgradeDialog
-from gitcd.interface.kivy.navigation import GitcdNavigationDrawer
-from pprint import pprint
 
 
 class Kivy(App):
@@ -28,9 +25,11 @@ class Kivy(App):
         return self.currentRepository
     
     def build(self):
-        main_widget = Builder.load_string("""
+        return Builder.load_string("""
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker
+#:import GitcdUpgradeDialog gitcd.interface.kivy.upgrade.GitcdUpgradeDialog
+#:import GitcdNavigationDrawer gitcd.interface.kivy.navigation.GitcdNavigationDrawer
 
 
 NavigationLayout:
@@ -47,18 +46,10 @@ NavigationLayout:
             background_palette: 'Primary'
             background_hue: '500'
             left_action_items: [['folder-outline', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items: [['help', lambda x: app.showVersion()], ['format-color-fill', lambda x: MDThemePicker().open()]]
+            right_action_items: [['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
         MDLabel:
             text: "Current: " + app.currentRepository
             theme_text_color: 'Primary'
             pos_hint: {'center_x': 0.5}
             halign: 'center'
 """)
-        main_widget.ids.nav_drawer.initialize()
-        #self.root.ids.nav_drawer.initialize()
-        return main_widget
-
-
-
-    def showVersion(self):
-        GitcdUpgradeDialog().open()

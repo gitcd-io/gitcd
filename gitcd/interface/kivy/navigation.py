@@ -1,3 +1,5 @@
+import threading
+
 import kivy
 from kivy.lang import Builder
 from kivymd.navigationdrawer import MDNavigationDrawer
@@ -22,13 +24,11 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
 
     def __init__(self, **kwargs):
         super(GitcdNavigationDrawer, self).__init__(**kwargs)
+        threading.Thread(target=self.initialize).start()
 
     def readGitCdFolders(self):
-        #find ~ -path "*/.git" -a -type d 2>/dev/null
         cli = simpcli.Command()
         result = cli.execute('find ~ -path "*/.gitcd" 2>/dev/null', True)
-        print(type(result))
-        print(result)
         folders = result.split("\n")
         gitFolders = []
         for folder in folders:
@@ -39,18 +39,11 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
                 'path': folder
             }
             gitFolders.append(gitFolder)
-        # gitFolders = [
-        #     {
-        #         'name': 'gitcd',
-        #         'path': '/Users/walsercl/Development/claudio/gitcd'
-        #     }
-        # ]
         return gitFolders
 
     def initialize(self):
         self.app = kivy.app.App.get_running_app()
 
-        # async
         gitFolders = self.readGitCdFolders()
 
         for folder in gitFolders:

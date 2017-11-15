@@ -1,6 +1,8 @@
 from packaging import version
+import threading
 
 from kivy.lang import Builder
+from kivy.clock import Clock
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.modalview import ModalView
@@ -44,13 +46,13 @@ Builder.load_string('''
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         active: True
 
-    MDFlatButton:
+    MDRaisedButton:
         id: buttonUpgrade
         pos: root.pos[0] + dp(10), root.pos[1] + dp(10)
         text: "Upgrade"
         on_release: root.upgrade()
         disabled: True
-    MDFlatButton:
+    MDRaisedButton:
         pos: root.pos[0]+root.size[0]-self.width-dp(10), root.pos[1] + dp(10)
         text: "Close"
         on_release: root.dismiss()
@@ -62,8 +64,7 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
 
     def open(self, **kwargs):
         super(GitcdUpgradeDialog, self).open(**kwargs)
-        # async
-        self.loadVersions()
+        threading.Thread(target=self.loadVersions).start()
 
     def loadVersions(self):
         localVersion = self.package.getLocalVersion()
