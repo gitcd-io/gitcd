@@ -1,4 +1,7 @@
 .. image:: logo.svg
+    :height: 100px
+    :width: 100px
+
 
 Continuous tool for working with git
 ====================================
