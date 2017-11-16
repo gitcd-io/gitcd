@@ -1,6 +1,6 @@
 .. image:: logo.svg
-    :height: 100px
-    :width: 100px
+    :height: 150px
+    :width: 150px
 
 
 Continuous tool for working with git
