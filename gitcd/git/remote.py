@@ -8,6 +8,11 @@ from gitcd.git.tag import Tag
 
 class Remote(Git):
 
+    name = 'origin'
+
+    def __init__(self, name: str):
+        self.name = name
+
     def getName(self) -> str:
         pass
 
@@ -17,14 +22,8 @@ class Remote(Git):
     def getUsername(self) -> str:
         pass
 
-    def getBranches(self) -> List[Branch]:
+    def hasBranch(self, branch: Branch) -> bool:
         pass
 
-    def getBranch(self) -> Branch:
-        pass
-
-    def getTags(self) -> List[Tag]:
-        pass
-
-    def getTag(self) -> Tag:
+    def hasTag(self, tag: Tag) -> bool:
         pass

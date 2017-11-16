@@ -11,9 +11,17 @@ class Branch(Git):
     def isBehindRemote(self) -> bool:
         pass
 
-    def isRemote(self) -> bool:
+    def isMaster(self) -> bool:
         pass
 
-    def isLocal(self) -> bool:
+    def isTest(self) -> bool:
         pass
 
+    def isFeature(self) -> bool:
+        pass
+
+    def getName(self) -> str:
+        pass
+
+    def delete(self) -> bool:
+        pass

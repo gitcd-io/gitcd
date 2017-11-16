@@ -6,6 +6,6 @@ from gitcd.config import GitcdPersonal as GitcdPersonalConfig
 
 class Git(object):
 
-    cli = simpcli.Interface()
+    cli = simpcli.Command()
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
