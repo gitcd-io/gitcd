@@ -5,8 +5,8 @@ class Tag(Git):
 	def getName(self) -> str:
 		pass
 
-    def isRemote(self) -> bool:
-        pass
+    # def isRemote(self) -> bool:
+    #     pass
 
-    def isLocal(self) -> bool:
-        pass
+    # def isLocal(self) -> bool:
+    #     pass

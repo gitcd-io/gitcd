@@ -1,3 +1,5 @@
+.. image:: logo.svg
+
 Continuous tool for working with git
 ====================================
 

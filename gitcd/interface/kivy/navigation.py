@@ -7,15 +7,24 @@ from kivymd.navigationdrawer import NavigationDrawerIconButton
 
 import simpcli
 
+import time
+
 Builder.load_string('''
 #:import NavigationDrawerToolbar kivymd.navigationdrawer.NavigationDrawerToolbar
 
 <GitcdNavigationDrawer>:
     id: nav_drawer
     NavigationDrawerToolbar:
+        id: toolbar
         title: "Your repositories"
-        #right_action_items: [['folder-plus', lambda x: app.root.toggle_nav_drawer()]]
+        right_action_items: [['folder-plus', lambda x: app.root.toggle_nav_drawer()]]
         left_action_items: [['close', lambda x: app.root.toggle_nav_drawer()]]
+        MDSpinner:
+            id: spinner
+            size_hint: None, None
+            size: dp(25), dp(25)
+            pos_hint: {'center_x': 1, 'center_y': 0.5}
+            active: True
 ''')
 
 class GitcdNavigationDrawer(MDNavigationDrawer):
@@ -46,6 +55,7 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
 
         gitFolders = self.readGitCdFolders()
 
+        self.ids.toolbar.remove_widget(self.ids.spinner)
         for folder in gitFolders:
             button = NavigationDrawerIconButton(
                 text = folder['name'],
@@ -54,6 +64,7 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
             button.icon = 'github-circle'
             button.path = folder['path']
             self.add_widget(button)
+            time.sleep(0.2)
 
     def onRelease(self, button):
         self.app.setCurrentRepository(button.path)
