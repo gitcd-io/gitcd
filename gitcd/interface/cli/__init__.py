@@ -14,6 +14,7 @@ from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
 from gitcd.exceptions import GitcdException
+from simpcli import CliException
 
 
 class Cli():
@@ -55,5 +56,5 @@ class Cli():
         try:
             commandObject.run(branch)
         # catch cli execution errors here
-        except GitcdException as e:
+        except (GitcdException, CliException) as e:
             self.cli.error(format(e))
