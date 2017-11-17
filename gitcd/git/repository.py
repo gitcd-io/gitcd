@@ -22,6 +22,9 @@ class Repository(Git):
         self.directory = repositoryDirectory
         self.setCwd()
 
+    def getDirectory(self) -> str:
+        return self.directory
+
     def setCwd(self) -> bool:
         try:
             os.chdir(self.directory)
@@ -36,8 +39,6 @@ class Repository(Git):
         return True
 
     def getRemotes(self) -> List[Remote]:
-        self.setCwd()
-
         output = self.cli.execute('git remote')
         if not output:
             return []
@@ -60,8 +61,6 @@ class Repository(Git):
         raise RemoteNotFoundException('Remote %s not found' % (remoteStr))
 
     def getBranches(self) -> List[Branch]:
-        self.setCwd()
-
         output = self.cli.execute('git branch -a')
         if not output:
             return []
@@ -100,8 +99,6 @@ class Repository(Git):
         return self.getCurrentBranch()
 
     def getTags(self) -> List[Tag]:
-        self.setCwd()
-
         output = self.cli.execute('git tag -l')
         if not output:
             return []
