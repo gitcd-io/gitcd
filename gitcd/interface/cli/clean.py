@@ -38,14 +38,15 @@ class Clean(BaseCommand):
         for tagToDelete in tagsToDelete:
             self.cli.red("  - %s" % tagToDelete.getName())
 
+        self.cli.writeOut('')
         if len(branchesToDelete) == 0 and len(tagsToDelete) == 0:
-            self.cli.info('Nice, your local repository is clean already.')
+            self.cli.ok('Nice, your local repository is clean already.')
             return True
 
         delete = self.cli.askFor(
-            "Do you want me to delete those branches and tags locally?",
-            ["yes", "no"],
-            "yes"
+            'Do you want me to delete those branches and tags locally?',
+            ['yes', 'no'],
+            'yes'
         )
         if delete == 'yes':
             controller.deleteBranches(branchesToDelete)
