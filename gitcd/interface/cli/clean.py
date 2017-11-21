@@ -4,7 +4,10 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.git.repository import Repository
 
+from gitcd.controller.clean import Clean as CleanController
+
 from pprint import pprint
+import sys
 
 class Clean(BaseCommand):
 
@@ -12,29 +15,40 @@ class Clean(BaseCommand):
         self.cli.header('git-cd clean')
 
         repository = Repository(os.getcwd())
-        remotes = repository.getRemotes()
-        branches = repository.getBranches()
-        tags = repository.getTags()
-        currentBranch = repository.getCurrentBranch()
+        controller = CleanController(repository)
 
-        for branch in branches:
-            deleteBranch = True
-            for remote in remotes:
-                if remote.hasBranch(branch):
-                    deleteBranch = False
+        branchesToDelete = controller.getBranchesToDelete()
 
-            if deleteBranch:
-                print(branch.getName())
-                print(currentBranch.getName())
-                if branch.getName() == currentBranch.getName():
-                    currentBranch = repository.checkoutBranch(self.config.getMaster())
-                branch.delete()
+        self.cli.writeOut('Branches to delete')
 
-        for tag in tags:
-            deleteTag = True
-            for remote in remotes:
-                if remote.hasTag(tag):
-                    deleteTag = False
+        if len(branchesToDelete) == 0:
+            self.cli.ok('  - no branches to delete')
 
-            if deleteTag:
-                tag.delete()
+        for branchToDelete in branchesToDelete:
+            self.cli.warning("  - <%s>" % branchToDelete.getName())
+
+
+        tagsToDelete = controller.getTagsToDelete()
+
+        self.cli.writeOut('Tags to delete')
+
+        if len(branchesToDelete) == 0:
+            self.cli.ok('  - no tags to delete')
+
+        for tagToDelete in tagsToDelete:
+            self.cli.warning("  - <%s>" % tagToDelete.getName())
+
+        if len(branchesToDelete) == 0 and len(tagsToDelete) == 0:
+            self.cli.info('Nice, your local repository is clean already.')
+            return True
+
+        delete = self.cli.askFor(
+            "Do you want me to delete those branches and tags locally?",
+            ["yes", "no"],
+            "yes"
+        )
+        if delete == 'yes':
+            controller.deleteBranches(branchesToDelete)
+            controller.deleteTags(tagsToDelete)
+
+        return True

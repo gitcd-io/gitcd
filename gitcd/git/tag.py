@@ -11,5 +11,7 @@ class Tag(Git):
         return self.name
 
     def delete(self) -> bool:
-        print('delete tag %s' % self.getName())
-        pass
+        output = self.verboseCli.execute("git tag -d %s" % (self.name))
+        if output is False:
+            return False
+        return True

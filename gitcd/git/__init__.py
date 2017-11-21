@@ -10,7 +10,3 @@ class Git(object):
     verboseCli = simpcli.Command(True)
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
-
-    def checkouMaster(self) -> bool:
-
-    	return True
