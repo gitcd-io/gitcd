@@ -82,8 +82,8 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
             text = versionText,
             theme_text_color = 'Primary',
             size_hint = [None, None],
-            size = [244, 40],
-            pos_hint = {'center_x': 0.5, 'center_y': 0.65}
+            size = [264, 40],
+            pos_hint = {'center_x': 0.3, 'center_y': 0.65}
         )
 
         self.remove_widget(self.ids.spinner)

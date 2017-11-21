@@ -47,7 +47,7 @@ Builder.load_string('''
 
     ScrollView:
         do_scroll_x: False
-        pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        pos_hint: {'center_x': 0.5, 'center_y': 0.45}
         size_hint: (None, None)
         size: dp(344), dp(200)
 

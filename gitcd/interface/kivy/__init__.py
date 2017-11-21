@@ -47,7 +47,7 @@ NavigationLayout:
             background_palette: 'Primary'
             background_hue: '500'
             left_action_items: [['folder-outline', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items: [['help', lambda x: GitcdCleanDialog().open()], ['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
+            right_action_items: [['sync', lambda x: GitcdCleanDialog().open()], ['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
         MDLabel:
             text: "Current: " + app.currentRepository
             theme_text_color: 'Primary'
