@@ -29,6 +29,7 @@ class Kivy(App):
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker
 #:import GitcdUpgradeDialog gitcd.interface.kivy.upgrade.GitcdUpgradeDialog
+#:import GitcdCleanDialog gitcd.interface.kivy.clean.GitcdCleanDialog
 #:import GitcdNavigationDrawer gitcd.interface.kivy.navigation.GitcdNavigationDrawer
 
 
@@ -46,7 +47,7 @@ NavigationLayout:
             background_palette: 'Primary'
             background_hue: '500'
             left_action_items: [['folder-outline', lambda x: app.root.toggle_nav_drawer()]]
-            right_action_items: [['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
+            right_action_items: [['help', lambda x: GitcdCleanDialog().open()], ['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
         MDLabel:
             text: "Current: " + app.currentRepository
             theme_text_color: 'Primary'

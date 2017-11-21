@@ -2,7 +2,6 @@ from packaging import version
 import threading
 
 from kivy.lang import Builder
-from kivy.clock import Clock
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.modalview import ModalView
