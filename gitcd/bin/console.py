@@ -37,5 +37,5 @@ def main():
         cli.dispatch(command, branch)
         sys.exit(0)
     except KeyboardInterrupt:
-        cli.ok("See you soon!")
+        cli.close("See you soon!")
         sys.exit(1)

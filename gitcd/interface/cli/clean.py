@@ -25,7 +25,7 @@ class Clean(BaseCommand):
             self.cli.ok('  - no branches to delete')
 
         for branchToDelete in branchesToDelete:
-            self.cli.warning("  - <%s>" % branchToDelete.getName())
+            self.cli.red("  - %s" % branchToDelete.getName())
 
 
         tagsToDelete = controller.getTagsToDelete()
@@ -36,7 +36,7 @@ class Clean(BaseCommand):
             self.cli.ok('  - no tags to delete')
 
         for tagToDelete in tagsToDelete:
-            self.cli.warning("  - <%s>" % tagToDelete.getName())
+            self.cli.red("  - %s" % tagToDelete.getName())
 
         if len(branchesToDelete) == 0 and len(tagsToDelete) == 0:
             self.cli.info('Nice, your local repository is clean already.')

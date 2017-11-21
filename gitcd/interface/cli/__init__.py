@@ -58,3 +58,6 @@ class Cli():
         # catch cli execution errors here
         except (GitcdException, CliException) as e:
             self.cli.error(format(e))
+
+    def close(self, msg: str):
+        self.cli.ok(msg)
