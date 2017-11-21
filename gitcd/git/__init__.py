@@ -10,3 +10,9 @@ class Git(object):
     verboseCli = simpcli.Command(True)
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
+
+    def getConfig(self) -> GitcdConfig:
+        return self.config
+
+    def getPersonalConfig(self) -> GitcdPersonalConfig:
+        return self.configPersonal
