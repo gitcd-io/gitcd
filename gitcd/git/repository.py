@@ -18,8 +18,8 @@ class Repository(Git):
     name = None
     remotes = []
 
-    def __init__(self, repositoryDirectory: str):
-        self.directory = repositoryDirectory
+    def __init__(self, directory: str):
+        self.directory = directory
         self.setCwd()
 
     def getDirectory(self) -> str:
@@ -93,7 +93,7 @@ class Repository(Git):
 
     def getCurrentBranch(self) -> Branch:
         return Branch(self.cli.execute('git rev-parse --abbrev-ref HEAD'))
-        
+
     def checkoutBranch(self, branchStr: str) -> Branch:
         self.verboseCli.execute('git checkout %s' % (branchStr))
         return self.getCurrentBranch()

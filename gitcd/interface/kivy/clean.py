@@ -1,15 +1,18 @@
 import threading
 
+import kivy
 from kivy.lang import Builder
 
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.modalview import ModalView
 
-
-
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
 from kivymd.button import MDIconButton
 
+from gitcd.controller.clean import Clean as CleanController
+
+
+import time
 
 Builder.load_string('''
 #:import MDSpinner kivymd.spinner.MDSpinner
@@ -52,40 +55,7 @@ Builder.load_string('''
         size: dp(344), dp(200)
 
         MDList:
-            id: ml
-            OneLineIconListItem:
-                text: "test-branch"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'source-branch'
-            OneLineIconListItem:
-                text: "test-branch-3"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'source-branch'
-            OneLineIconListItem:
-                text: "test-branch-2"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'source-branch'
-            OneLineIconListItem:
-                text: "v0.0.2"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'tag'
-            OneLineIconListItem:
-                text: "v0.0.3"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'tag'
-            OneLineIconListItem:
-                text: "v0.0.4"
-                disabled: True
-                IconLeftSampleWidget:
-                    icon: 'tag'
-
-
-
+            id: list
 
     MDRaisedButton:
         id: buttonClean
@@ -101,14 +71,60 @@ Builder.load_string('''
 
 class GitcdCleanDialog(FloatLayout, ModalView):
 
+    app = None
+    controller = None
 
     def open(self, **kwargs):
         super(GitcdCleanDialog, self).open(**kwargs)
+        self.app = kivy.app.App.get_running_app()
+        print('initiating new controller with repo %s' % self.app.getCurrentRepository().getDirectory())
+        self.controller = CleanController(self.app.getCurrentRepository())
         threading.Thread(target=self.loadBranches).start()
 
     def loadBranches(self):
+        time.sleep(3)
         self.remove_widget(self.ids.spinner)
-        
+        branchesToDelete = self.controller.getBranchesToDelete()
+        tagsToDelete = self.controller.getTagsToDelete()
+
+        for branch in branchesToDelete:
+            print(branch.getName())
+
+
+        for tag in tagsToDelete:
+            print(tag.getName())
+
+            # OneLineIconListItem:
+            #     text: "test-branch"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'source-branch'
+            # OneLineIconListItem:
+            #     text: "test-branch-3"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'source-branch'
+            # OneLineIconListItem:
+            #     text: "test-branch-2"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'source-branch'
+            # OneLineIconListItem:
+            #     text: "v0.0.2"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'tag'
+            # OneLineIconListItem:
+            #     text: "v0.0.3"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'tag'
+            # OneLineIconListItem:
+            #     text: "v0.0.4"
+            #     disabled: True
+            #     IconLeftSampleWidget:
+            #         icon: 'tag'
+
         self.ids.buttonClean.disabled = False
 
         #self.add_widget(label)

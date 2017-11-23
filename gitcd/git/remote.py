@@ -14,15 +14,48 @@ class Remote(Git):
 
     def __init__(self, name: str):
         self.name = name
+        self.readRemoteConfig()
+
+    def readRemoteConfig(self) -> bool:
+        output = self.cli.execute('git config -l')
+
+        if not output:
+            return False
+
+        lines = output.split("\n")
+        url = False
+        for line in lines:
+            if line.startswith("remote.%s.url=" % (self.name)):
+                lineParts = line.split("=")
+                url = lineParts[1]
+
+        # in case of https
+        # https://github.com/claudio-walser/test-repo.git
+        if url.startswith("https://") or url.startswith("http://"):
+            url = url.replace("http://", "")
+            url = url.replace("https://", "")
+        # in case of ssh git@github.com:claudio-walser/test-repo.git
+        else:
+            urlParts = url.split("@")
+            url = urlParts[1]
+            url = url.replace(":", "/")
+
+        self.url = url
+
+
+        urlParts = url.split("/")
+        self.username = urlParts[1]
+
+        return True
 
     def getName(self) -> str:
         return self.name
 
     def getUrl(self) -> str:
-        pass
+        return self.url
 
     def getUsername(self) -> str:
-        pass
+        return self.usernme
 
     def readBranches(self) -> bool:
         if self.branches:

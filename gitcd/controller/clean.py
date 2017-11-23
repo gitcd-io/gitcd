@@ -16,6 +16,7 @@ class Clean(Base):
         for branch in branches:
             deleteBranch = True
             for remote in remotes:
+                print(remote.getUrl())
                 if remote.hasBranch(branch):
                     deleteBranch = False
 
