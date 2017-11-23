@@ -1,4 +1,7 @@
+import os
 import simpcli
+
+from gitcd.git.repository import Repository
 
 from gitcd.config import Gitcd as GitcdConfig
 from gitcd.config import GitcdPersonal as GitcdPersonalConfig

@@ -1,7 +1,6 @@
-from packaging import version
-
 from gitcd.interface.cli.abstract import BaseCommand
-from gitcd.package import Package
+
+from gitcd.controller.upgrade import Upgrade as UpgradeController
 
 from gitcd.exceptions import GitcdPyPiApiException
 
@@ -11,11 +10,12 @@ class Upgrade(BaseCommand):
     def run(self, branch: str):
         self.cli.header('git-cd upgrade')
 
-        package = Package()
-        localVersion = package.getLocalVersion()
+        controller = UpgradeController()
+
+        localVersion = controller.getLocalVersion()
 
         try:
-            pypiVersion = package.getPypiVersion()
+            pypiVersion = controller.getPypiVersion()
         except GitcdPyPiApiException as e:
             pypiVersion = 'unknown'
             message = str(e)
@@ -27,7 +27,7 @@ class Upgrade(BaseCommand):
             self.cli.error(message)
             return False
 
-        if version.parse(localVersion) < version.parse(pypiVersion):
+        if controller.isUpgradable():
             upgrade = self.cli.askFor(
                 "Do you want me to upgrade gitcd for you?",
                 ["yes", "no"],
@@ -35,7 +35,7 @@ class Upgrade(BaseCommand):
             )
             if upgrade == 'yes':
                 try:
-                    package.upgrade()
+                    controller.upgrade()
                     return True
                 except SystemExit as e:
                     self.cli.error('An error occured during the update!')

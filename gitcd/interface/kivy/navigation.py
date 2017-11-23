@@ -58,8 +58,8 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
         self.ids.toolbar.remove_widget(self.ids.spinner)
         for folder in gitFolders:
             button = NavigationDrawerIconButton(
-                text = folder['name'],
-                on_release = self.onRelease
+                text=folder['name'],
+                on_release=self.onRelease
             )
             button.icon = 'github-circle'
             button.path = folder['path']
@@ -67,5 +67,5 @@ class GitcdNavigationDrawer(MDNavigationDrawer):
             time.sleep(0.2)
 
     def onRelease(self, button):
-        self.app.setCurrentRepository(button.path)
+        self.app.setCurrentDirectory(button.path)
 

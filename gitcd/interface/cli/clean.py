@@ -1,21 +1,19 @@
-import os
 
 from gitcd.interface.cli.abstract import BaseCommand
 
-from gitcd.git.repository import Repository
 
 from gitcd.controller.clean import Clean as CleanController
 
 from pprint import pprint
 import sys
 
+
 class Clean(BaseCommand):
 
     def run(self, branch: str):
         self.cli.header('git-cd clean')
 
-        repository = Repository(os.getcwd())
-        controller = CleanController(repository)
+        controller = CleanController()
 
         branchesToDelete = controller.getBranchesToDelete()
 
@@ -26,7 +24,6 @@ class Clean(BaseCommand):
 
         for branchToDelete in branchesToDelete:
             self.cli.red("  - %s" % branchToDelete.getName())
-
 
         tagsToDelete = controller.getTagsToDelete()
 

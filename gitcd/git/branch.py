@@ -2,6 +2,7 @@ from gitcd.git import Git
 
 from pprint import pprint
 
+
 class Branch(Git):
 
     name = 'master'

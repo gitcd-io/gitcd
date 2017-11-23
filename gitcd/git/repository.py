@@ -18,16 +18,10 @@ class Repository(Git):
     name = None
     remotes = []
 
-    def __init__(self, directory: str):
-        self.directory = directory
-        self.setCwd()
+    def __init__(self):
+        self.directory = os.getcwd()
 
-    def getDirectory(self) -> str:
-        return self.directory
-
-    def setCwd(self) -> bool:
         try:
-            os.chdir(self.directory)
             if not os.path.exists('%s/.git' % (self.directory)):
                 raise Exception('no git')
         except Exception:
@@ -36,7 +30,9 @@ class Repository(Git):
                     self.directory
                 )
             )
-        return True
+
+    def getDirectory(self) -> str:
+        return self.directory
 
     def getRemotes(self) -> List[Remote]:
         output = self.cli.execute('git remote')

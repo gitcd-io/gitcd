@@ -3,7 +3,6 @@ from gitcd.controller import Base
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 
-from pprint import pprint
 
 class Clean(Base):
 
@@ -22,7 +21,7 @@ class Clean(Base):
 
             if deleteBranch:
                 branchesToDelete.append(branch)
-        
+
         return branchesToDelete
 
     def deleteBranches(self, branches: [Branch] = []) -> bool:
@@ -38,7 +37,7 @@ class Clean(Base):
     def getTagsToDelete(self) -> [Tag]:
         remotes = self.repository.getRemotes()
         tags = self.repository.getTags()
-        
+
         tagsToDelete = []
         for tag in tags:
             deleteTag = True

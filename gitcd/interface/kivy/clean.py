@@ -6,11 +6,12 @@ from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.modalview import ModalView
 
-from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem
+from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem, OneLineIconListItem
 from kivymd.button import MDIconButton
 
 from gitcd.controller.clean import Clean as CleanController
 
+from pprint import pprint
 
 import time
 
@@ -69,71 +70,61 @@ Builder.load_string('''
         on_release: root.dismiss()
 ''')
 
+
+class IconLeftSampleWidget(ILeftBodyTouch, MDIconButton):
+    pass
+
+
 class GitcdCleanDialog(FloatLayout, ModalView):
 
     app = None
     controller = None
+    branches = []
+    tags = []
 
     def open(self, **kwargs):
         super(GitcdCleanDialog, self).open(**kwargs)
         self.app = kivy.app.App.get_running_app()
-        print('initiating new controller with repo %s' % self.app.getCurrentRepository().getDirectory())
-        self.controller = CleanController(self.app.getCurrentRepository())
+        self.controller = CleanController()
+        self.branches = []
+        self.tags = []
+
         threading.Thread(target=self.loadBranches).start()
 
     def loadBranches(self):
-        time.sleep(3)
         self.remove_widget(self.ids.spinner)
-        branchesToDelete = self.controller.getBranchesToDelete()
-        tagsToDelete = self.controller.getTagsToDelete()
+        self.branches = self.controller.getBranchesToDelete()
+        self.tags = self.controller.getTagsToDelete()
 
-        for branch in branchesToDelete:
-            print(branch.getName())
+        pprint(self.tags)
+        pprint(self.branches)
 
+        for branch in self.branches:
+            item = OneLineIconListItem(
+                text=branch.getName(),
+                disabled=True
+            )
+            item.add_widget(IconLeftSampleWidget(
+                icon='source-branch'
+            ))
+            self.ids.list.add_widget(item)
+            time.sleep(0.2)
 
-        for tag in tagsToDelete:
-            print(tag.getName())
+        for tag in self.tags:
+            item = OneLineIconListItem(
+                text=tag.getName(),
+                disabled=True
+            )
+            item.add_widget(IconLeftSampleWidget(
+                icon='tag'
+            ))
+            self.ids.list.add_widget(item)
+            time.sleep(0.2)
 
-            # OneLineIconListItem:
-            #     text: "test-branch"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'source-branch'
-            # OneLineIconListItem:
-            #     text: "test-branch-3"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'source-branch'
-            # OneLineIconListItem:
-            #     text: "test-branch-2"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'source-branch'
-            # OneLineIconListItem:
-            #     text: "v0.0.2"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'tag'
-            # OneLineIconListItem:
-            #     text: "v0.0.3"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'tag'
-            # OneLineIconListItem:
-            #     text: "v0.0.4"
-            #     disabled: True
-            #     IconLeftSampleWidget:
-            #         icon: 'tag'
-
-        self.ids.buttonClean.disabled = False
-
-        #self.add_widget(label)
-
-        # if version.parse(localVersion) < version.parse(pypiVersion):
-        #     self.ids.buttonUpgrade.disabled = False
+        if len(self.branches) > 0 or len(self.tags) > 0:
+            self.ids.buttonClean.disabled = False
 
     def clean(self):
-        pass
-    
-class IconLeftSampleWidget(ILeftBodyTouch, MDIconButton):
-    pass
+        self.controller.deleteBranches(self.branches)
+        self.controller.deleteTags(self.tags)
+        self.dismiss()

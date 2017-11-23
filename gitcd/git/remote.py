@@ -14,6 +14,8 @@ class Remote(Git):
 
     def __init__(self, name: str):
         self.name = name
+        self.branches = []
+        self.tags = []
         self.readRemoteConfig()
 
     def readRemoteConfig(self) -> bool:
@@ -41,7 +43,6 @@ class Remote(Git):
             url = url.replace(":", "/")
 
         self.url = url
-
 
         urlParts = url.split("/")
         self.username = urlParts[1]
