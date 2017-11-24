@@ -1,26 +1,39 @@
 from packaging import version
+import pip
+import pkg_resources
+import requests
 
 from gitcd.controller import Base
 
 from gitcd.git.repository import Repository
 
-from gitcd.package import Package
+from gitcd.exceptions import GitcdPyPiApiException
 
 
 class Upgrade(Base):
 
     localVersion = 0
     pypiVersion = 0
+    packageUrl = 'https://pypi.org/pypi/gitcd/json'
 
     def getLocalVersion(self) -> str:
-        package = Package()
-        self.localVersion = package.getLocalVersion()
+        self.localVersion = pkg_resources.get_distribution("gitcd").version
 
         return self.localVersion
 
     def getPypiVersion(self) -> str:
-        package = Package()
-        self.pypiVersion = package.getPypiVersion()
+        response = requests.get(
+            self.packageUrl
+        )
+
+        if response.status_code != 200:
+            raise GitcdPyPiApiException(
+                "Could not fetch version info on PyPi site." +
+                "You need to check manually, sorry for that."
+            )
+
+        result = response.json()
+        self.pypiVersion = result['info']['version']
 
         return self.pypiVersion
 
@@ -30,7 +43,6 @@ class Upgrade(Base):
         return False
 
     def upgrade(self) -> bool:
-        package = Package()
-        package.upgrade()
+        pip.main(['install', '--user', '--upgrade', 'gitcd'])
 
         return True
