@@ -38,6 +38,10 @@ class Kivy(App):
 #:import GitcdUpgradeDialog gitcd.interface.kivy.upgrade.GitcdUpgradeDialog
 #:import GitcdCleanDialog gitcd.interface.kivy.clean.GitcdCleanDialog
 #:import GitcdNavigationDrawer gitcd.interface.kivy.navigation.GitcdNavigationDrawer
+#:import GitcdBranchPanel gitcd.interface.kivy.branchpanel.GitcdBranchPanel
+#:import GitcdTagPanel gitcd.interface.kivy.tagpanel.GitcdTagPanel
+#:import GitcdInfoPanel gitcd.interface.kivy.infopanel.GitcdInfoPanel
+#:import GitcdMainPanel gitcd.interface.kivy.mainpanel.GitcdMainPanel
 
 
 NavigationLayout:
@@ -55,9 +59,21 @@ NavigationLayout:
             background_hue: '500'
             left_action_items: [['folder-outline', lambda x: app.root.toggle_nav_drawer()]]
             right_action_items: [['sync', lambda x: GitcdCleanDialog().open()], ['help', lambda x: GitcdUpgradeDialog().open()], ['format-color-fill', lambda x: MDThemePicker().open()]]
-        MDLabel:
-            text: "Current: " + app.currentDirectory
-            theme_text_color: 'Primary'
-            pos_hint: {'center_x': 0.5}
-            halign: 'center'
+        BoxLayout:
+            spacing: 20
+            padding: [20, 20, 20, 20]
+            GitcdMainPanel:
+                id: main_panel
+            # GitcdBranchPanel:
+            #     id: branch_panel
+            # MDSeparator:
+            #     width: dp(1)
+            # GitcdTagPanel:
+            #     id: tag_panel
+            # MDSeparator:
+            #     width: dp(1)
+            # GitcdInfoPanel:
+            #     id: info_panel
+
+
 """)

@@ -27,6 +27,7 @@ Builder.load_string('''
             active: True
 ''')
 
+
 class GitcdNavigationDrawer(MDNavigationDrawer):
 
     app = None
