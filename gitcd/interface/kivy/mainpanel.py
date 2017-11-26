@@ -40,13 +40,13 @@ Builder.load_string('''
             title: "Toolbar with left and right buttons"
             pos_hint: {'center_x': 0.5, 'center_y': 0.25}
             md_bg_color: app.theme_cls.bg_light
-            background_palette: app.theme_cls.primary_palette
-            #background_hue: 'A400'
+            specific_text_color: app.theme_cls.text_color
             left_action_items: [['arrow-left', lambda x: None]]
             right_action_items: [['lock', lambda x: None], \
                 ['camera', lambda x: None], \
                 ['play', lambda x: None]]
         MDLabel:
+            color: app.theme_cls.text_color
             text: 'Some text, here is the info panel with actions'
 ''')
 
