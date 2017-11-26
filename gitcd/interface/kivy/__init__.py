@@ -11,6 +11,9 @@ from kivymd.theming import ThemeManager
 from gitcd.git.exceptions import NoRepositoryException
 
 
+from pprint import pprint
+import inspect
+
 class Kivy(App):
     currentDirectory = StringProperty()
     cli = simpcli.Command()
@@ -32,6 +35,8 @@ class Kivy(App):
         return self.currentRepository
 
     def build(self):
+
+        pprint(inspect.getmembers(self.theme_cls))
         return Builder.load_string("""
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker

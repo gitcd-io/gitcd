@@ -3,6 +3,8 @@ import threading
 import kivy
 from kivy.lang import Builder
 
+from kivy.uix.boxlayout import BoxLayout
+
 from kivymd.list import ILeftBodyTouch, OneLineIconListItem
 from kivymd.button import MDIconButton
 from kivymd.tabs import MDTabbedPanel
@@ -16,18 +18,36 @@ Builder.load_string('''
 
 <GitcdMainPanel>:
     id: main_panel
-    tab_display_mode:'text'
+    spacing: 20
+    MDTabbedPanel:
+        id:tab_panel
+        size_hint: (0.4, 1)
+        tab_display_mode:'text'
+        MDTab:
+            name: 'branches'
+            text: "Branches" # Why are these not set!!!
+            GitcdBranchPanel:
+                id: branch_panels
+        MDTab:
+            name: 'tags'
+            text: 'Tags'
+            GitcdTagPanel:
+                id: tab_panels
+    BoxLayout:
+        orientation: 'vertical'
 
-    MDTab:
-        name: 'branches'
-        text: "Branches" # Why are these not set!!!
-        GitcdBranchPanel:
-            id: branch_panels
-    MDTab:
-        name: 'tags'
-        text: 'Tags'
-        GitcdTagPanel:
-            id: tab_panels
+        Toolbar:
+            title: "Toolbar with left and right buttons"
+            pos_hint: {'center_x': 0.5, 'center_y': 0.25}
+            md_bg_color: app.theme_cls.bg_light
+            background_palette: app.theme_cls.primary_palette
+            #background_hue: 'A400'
+            left_action_items: [['arrow-left', lambda x: None]]
+            right_action_items: [['lock', lambda x: None], \
+                ['camera', lambda x: None], \
+                ['play', lambda x: None]]
+        MDLabel:
+            text: 'Some text, here is the info panel with actions'
 ''')
 
 
@@ -35,7 +55,7 @@ class IconLeftSampleWidget(ILeftBodyTouch, MDIconButton):
     pass
 
 
-class GitcdMainPanel(MDTabbedPanel):
+class GitcdMainPanel(BoxLayout):
 
     app = None
     branches = []
