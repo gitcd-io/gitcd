@@ -36,7 +36,7 @@ class Kivy(App):
 
     def build(self):
 
-        pprint(inspect.getmembers(self.theme_cls))
+        #pprint(inspect.getmembers(self.theme_cls))
         return Builder.load_string("""
 #:import NavigationLayout kivymd.navigationdrawer.NavigationLayout
 #:import MDThemePicker kivymd.theme_picker.MDThemePicker
