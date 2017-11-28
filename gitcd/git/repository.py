@@ -67,11 +67,9 @@ class Repository(Git):
         branchObjects = []
         for line in lines:
             line = line.strip()
-            if not line.startswith("remotes/"):
-                branch = line.replace("* ", "")
-            else:
-                lineParts = line.split('/')
-                branch = lineParts[-1]
+            if not line.startswith('remotes/'):
+                branch = line.replace('* ', '')
+
             branchObject = Branch(branch)
             if branch not in branches:
                 branches.append(branch)

@@ -3,69 +3,80 @@ import threading
 import kivy
 from kivy.lang import Builder
 
-from kivy.uix.scrollview import ScrollView
-
-from kivymd.list import ILeftBodyTouch, OneLineIconListItem
-from kivymd.button import MDIconButton
+from gitcd.interface.kivy.panel import GitcdInlineNavigationPanel
 
 
 Builder.load_string('''
 #:import MDSpinner kivymd.spinner.MDSpinner
+#:import MDNavigationDrawer kivymd.navigationdrawer.MDNavigationDrawer
+#:import NavigationDrawerIconButton kivymd.navigationdrawer.NavigationDrawerIconButton
 
 <GitcdTagPanel>:
     do_scroll_x: False
-    #pos_hint: {'center_x': 0.5, 'center_y': 0.45}
-    #size_hint: (0.3, 1)
-    #size: 1, 1
-
-    MDList:
+    id: branch_panel
+    MDNavigationDrawer:
         id: branch_list
-        OneLineIconListItem:
+        NavigationDrawerIconButton:
             text: "v0.0.1"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
-        OneLineIconListItem:
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
             text: "v0.0.2"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
-        OneLineIconListItem:
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
             text: "v0.0.3"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
-        OneLineIconListItem:
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
             text: "v0.0.4"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
-        OneLineIconListItem:
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
             text: "v0.0.5"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
-        OneLineIconListItem:
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
             text: "v0.0.6"
-            disabled: False
-            IconLeftSampleWidget:
-                icon: 'tag'
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.7"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.8"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.9"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.10"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.11"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.12"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.13"
+            icon: 'tag'
+            on_release: root.onRelease
+        NavigationDrawerIconButton:
+            text: "v0.0.14"
+            icon: 'tag'
+            on_release: root.onRelease
+
 ''')
 
 
-class IconLeftSampleWidget(ILeftBodyTouch, MDIconButton):
-    pass
+class GitcdTagPanel(GitcdInlineNavigationPanel):
 
-
-class GitcdTagPanel(ScrollView):
-
-    app = None
-    branches = []
-    tags = []
-
-    def __init__(self, **kwargs):
-        super(GitcdTagPanel, self).__init__(**kwargs)
-        threading.Thread(target=self.initialize).start()
-
-    def initialize(self, **kwargs):
+    def onRelease(self, **kwargs):
         pass
