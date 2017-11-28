@@ -6,6 +6,8 @@ from gitcd.git.tag import Tag
 
 class Clean(Base):
 
+    updateRemotes = True
+
     def getBranchesToDelete(self) -> [Branch]:
         remotes = self.repository.getRemotes()
         branches = self.repository.getBranches()

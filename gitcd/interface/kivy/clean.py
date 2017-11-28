@@ -85,13 +85,14 @@ class GitcdCleanDialog(FloatLayout, ModalView):
     def open(self, **kwargs):
         super(GitcdCleanDialog, self).open(**kwargs)
         self.app = kivy.app.App.get_running_app()
-        self.controller = CleanController()
         self.branches = []
         self.tags = []
 
         threading.Thread(target=self.loadBranches).start()
 
     def loadBranches(self):
+        self.controller = CleanController()
+
         self.branches = self.controller.getBranchesToDelete()
         self.tags = self.controller.getTagsToDelete()
 

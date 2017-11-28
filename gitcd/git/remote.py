@@ -103,3 +103,8 @@ class Remote(Git):
             return True
 
         return False
+
+    def update(self) -> bool:
+        self.verboseCli.execute('git remote update %s' % (self.name))
+
+        return True
