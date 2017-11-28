@@ -1,6 +1,7 @@
 from simpcli import CliException
 
 from gitcd.git.repository import Repository
+from gitcd.git.remote import Remote
 
 
 class Base(object):
@@ -27,3 +28,6 @@ class Base(object):
             except CliException as e:
                 returnValue = False
         return returnValue
+
+    def getRemotes(self) -> [Remote]:
+        return self.repository.getRemotes()

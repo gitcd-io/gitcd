@@ -11,36 +11,36 @@ import sys
 class Clean(BaseCommand):
 
     def run(self, branch: str):
-        self.cli.header('git-cd clean')
+        self.interface.header('git-cd clean')
 
         controller = CleanController()
 
         branchesToDelete = controller.getBranchesToDelete()
 
-        self.cli.writeOut('Branches to delete')
+        self.interface.writeOut('Branches to delete')
 
         if len(branchesToDelete) == 0:
-            self.cli.ok('  - no branches to delete')
+            self.interface.ok('  - no branches to delete')
 
         for branchToDelete in branchesToDelete:
-            self.cli.red("  - %s" % branchToDelete.getName())
+            self.interface.red("  - %s" % branchToDelete.getName())
 
         tagsToDelete = controller.getTagsToDelete()
 
-        self.cli.writeOut('Tags to delete')
+        self.interface.writeOut('Tags to delete')
 
         if len(branchesToDelete) == 0:
-            self.cli.ok('  - no tags to delete')
+            self.interface.ok('  - no tags to delete')
 
         for tagToDelete in tagsToDelete:
-            self.cli.red("  - %s" % tagToDelete.getName())
+            self.interface.red("  - %s" % tagToDelete.getName())
 
-        self.cli.writeOut('')
+        self.interface.writeOut('')
         if len(branchesToDelete) == 0 and len(tagsToDelete) == 0:
-            self.cli.ok('Nice, your local repository is clean already.')
+            self.interface.ok('Nice, your local repository is clean already.')
             return True
 
-        delete = self.cli.askFor(
+        delete = self.interface.askFor(
             'Do you want me to delete those branches and tags locally?',
             ['yes', 'no'],
             'yes'

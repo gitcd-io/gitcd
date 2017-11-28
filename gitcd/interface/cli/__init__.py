@@ -13,13 +13,15 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
+from gitcd.controller import BaseController
+
 from gitcd.exceptions import GitcdException
 from simpcli import CliException
 
 
 class Cli():
 
-    cli = simpcli.Interface()
+    interface = simpcli.Interface()
 
     commands = {
         'init': Init(),
@@ -45,7 +47,7 @@ class Cli():
                 ' see gitcd --help for more information.' + \
                 ' Exception was: %s'
 
-            self.cli.error(
+            self.interface.error(
                 errorMessage % (
                     command,
                     e
@@ -57,7 +59,35 @@ class Cli():
             commandObject.run(branch)
         # catch cli execution errors here
         except (GitcdException, CliException) as e:
-            self.cli.error(format(e))
+            self.interface.error(format(e))
+
+    def getRemote(self) -> str:
+        base = BaseController()
+        remotes = base.getRemotes()
+
+        if len(remotes) == 1:
+            remote = remotes[0]
+        else:
+            if len(remotes) == 0:
+                default = False
+                choice = False
+            else:
+                default = origins[0].getName()
+                choice = []
+                for remoteObj in remotes:
+                    choice.append(remoteObj.getName())
+
+            remoteAnswer = self.interface.askFor(
+                "Which origin you want to use?",
+                choice,
+                default
+            )
+            for remoteObj in remotes:
+                if remoteAnswer == remote.getName()
+                    remote = remoteObj
+
+        return remote
+
 
     def close(self, msg: str):
-        self.cli.ok(msg)
+        self.interface.ok(msg)

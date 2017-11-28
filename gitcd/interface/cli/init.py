@@ -6,10 +6,10 @@ from gitcd.interface.cli.abstract import BaseCommand
 class Init(BaseCommand):
 
     def run(self, branch: str):
-        self.cli.header('git-cd init')
+        self.interface.header('git-cd init')
 
         self.config.setMaster(
-            self.cli.askFor(
+            self.interface.askFor(
                 "Branch name for production releases?",
                 False,
                 self.config.getMaster()
@@ -20,7 +20,7 @@ class Init(BaseCommand):
         if featureDefault is None:
             featureDefault = '<none>'
         self.config.setFeature(
-            self.cli.askFor(
+            self.interface.askFor(
                 "Branch name for feature development?",
                 False,
                 featureDefault
@@ -31,7 +31,7 @@ class Init(BaseCommand):
         if testDefault is None:
             testDefault = '<none>'
         self.config.setTest(
-            self.cli.askFor(
+            self.interface.askFor(
                 "Branch name for test releases?",
                 False,
                 testDefault
@@ -42,7 +42,7 @@ class Init(BaseCommand):
         if tagDefault is None:
             tagDefault = '<none>'
         self.config.setTag(
-            self.cli.askFor(
+            self.interface.askFor(
                 "Version tag prefix?",
                 False,
                 tagDefault
@@ -50,7 +50,7 @@ class Init(BaseCommand):
         )
 
         # ask for version type, manual or date
-        versionType = self.cli.askFor(
+        versionType = self.interface.askFor(
             "Version type? You can either set your tag number" +
             " manually, read it from a version file or generate it by date.",
             ['manual', 'date', 'file'],
@@ -60,7 +60,7 @@ class Init(BaseCommand):
 
         # if type is date ask for scheme
         if versionType == 'date':
-            versionScheme = self.cli.askFor(
+            versionScheme = self.interface.askFor(
                 "Scheme for your date-tag?" +
                 " Year: %Y / Month: %m  / Day: %d /" +
                 " Hour: %H / Minute: %M / Second: %S",
@@ -68,13 +68,13 @@ class Init(BaseCommand):
                 self.config.getVersionScheme()
             )
         elif versionType == 'file':
-            versionScheme = self.cli.askFor(
+            versionScheme = self.interface.askFor(
                 "From what file do you want to load your version?",
                 False,
                 self.config.getVersionScheme()
             )
             if not os.path.isfile(versionScheme):
-                self.cli.error(
+                self.interface.error(
                     'Could not find your version file, ' +
                     'stick back to manual tag number!'
                 )
@@ -88,7 +88,7 @@ class Init(BaseCommand):
         if extraReleaseCommandDefault is None:
             extraReleaseCommandDefault = '<none>'
         self.config.setExtraReleaseCommand(
-            self.cli.askFor(
+            self.interface.askFor(
                 "Do you want to execute some additional" +
                 "commands after a release?",
                 False,
