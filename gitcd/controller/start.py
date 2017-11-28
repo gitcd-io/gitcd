@@ -3,8 +3,6 @@ from gitcd.controller import Base
 
 class Start(Base):
 
-
-
     def start(self) -> bool:
         pass
         # origin = self.getOrigin()
