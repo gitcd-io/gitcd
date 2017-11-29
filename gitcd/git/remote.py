@@ -125,3 +125,5 @@ class Remote(Git):
         self.verboseCli.execute(
             "git branch --set-upstream-to %s/%s" % (self.name, feature)
         )
+
+        return Branch(feature)
