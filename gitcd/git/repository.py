@@ -120,7 +120,7 @@ class Repository(Git):
         raise TagNotFoundException('Tag %s not found' % (tagStr))
 
     def hasUncommitedChanges(self) -> bool:
-        output = self.quietCli.execute("git status --porcelain")
+        output = self.cli.execute("git status --porcelain")
         if not output:
             return False
 
