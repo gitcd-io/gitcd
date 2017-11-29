@@ -12,9 +12,11 @@ class Finish(BaseCommand):
 
         controller = FinishController()
         remote = self.getRemote()
+        currentBranch = controller.getCurrentBranch()
         featureAsString = self.config.getString(self.config.getFeature())
+        repository = controller.getRepository()
         if branch == '*':
-            featureBranch = controller.getCurrentBranch()
+            featureBranch = currentBranch
         else:
             featureBranch = Branch('%s%s' % (
                 featureAsString,
@@ -59,22 +61,50 @@ class Finish(BaseCommand):
         pass
 
 
-        # featureBranch = self.getFeatureBranch(branch)
+        if repository.hasUncommitedChanges():
+            abort = self.interface.askFor(
+                "You currently have uncomitted changes." +
+                " Do you want me to abort and let you commit first?",
+                ["yes", "no"],
+                "yes"
+            )
 
-        # if not self.checkBranch(origin, featureBranch):
-        #     return False
+            if abort == "yes":
+                return False
 
-        # self.cli.execute("git checkout %s" % (self.config.getMaster()))
-        # self.cli.execute("git pull %s %s" % (origin, self.config.getMaster()))
-        # self.cli.execute("git merge %s/%s" % (origin, featureBranch))
-        # self.cli.execute("git push %s %s" % (origin, self.config.getMaster()))
+        # will fail if the branch does not exists locally
+        repository.checkoutBranch(featureBranch)
 
-        # deleteFeatureBranch = self.interface.askFor(
-        #     "Delete your feature branch?", ["yes", "no"], "yes"
-        # )
+        # check remote existence
+        if not remote.hasBranch(featureBranch):
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch does not exists on origin." +
+                " Do you want me to push it remote?", ["yes", "no"], "yes"
+            )
 
-        # if deleteFeatureBranch == "yes":
-        #     # delete feature branch remote and locally
-        #     self.cli.execute("git push %s :%s" % (origin, featureBranch))
-        #     self.cli.execute("git branch -D %s" % (featureBranch))
+            if pushFeatureBranch == "yes":
+                featureBranch.push(remote)
 
+        # check behind origin
+        if featureBranch.isAhead(remote):
+
+            pushFeatureBranch = self.interface.askFor(
+                "Your feature branch is ahead the origin/branch." +
+                " Do you want me to push the changes?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if pushFeatureBranch == "yes":
+                featureBranch.push(remote)
+
+        controller.mergeIntoMaster(featureBranch, remote)
+
+        deleteFeatureBranch = self.interface.askFor(
+            "Delete your feature branch?", ["yes", "no"], "yes"
+        )
+
+        if deleteFeatureBranch == "yes":
+            # delete feature branch remote and locally
+            featureBranch.deleteRemote(remote)
+            featureBranch.delete()

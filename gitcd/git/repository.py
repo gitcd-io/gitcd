@@ -88,8 +88,8 @@ class Repository(Git):
     def getCurrentBranch(self) -> Branch:
         return Branch(self.cli.execute('git rev-parse --abbrev-ref HEAD'))
 
-    def checkoutBranch(self, branchStr: str) -> Branch:
-        self.verboseCli.execute('git checkout %s' % (branchStr))
+    def checkoutBranch(self, branch: Branch) -> Branch:
+        self.verboseCli.execute('git checkout %s' % (branch.getName()))
         return self.getCurrentBranch()
 
     def getTags(self) -> List[Tag]:
@@ -118,3 +118,10 @@ class Repository(Git):
                 return tag
 
         raise TagNotFoundException('Tag %s not found' % (tagStr))
+
+    def hasUncommitedChanges(self) -> bool:
+        output = self.quietCli.execute("git status --porcelain")
+        if not output:
+            return False
+
+        return True

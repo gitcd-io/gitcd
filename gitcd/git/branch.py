@@ -13,12 +13,6 @@ class Branch(Git):
     def getName(self) -> str:
         return self.name
 
-    def hasUncommitedChanges(self) -> bool:
-        pass
-
-    def isBehindRemote(self) -> bool:
-        pass
-
     def isMaster(self) -> bool:
         return self.name == self.config.getMaster()
 
@@ -41,4 +35,26 @@ class Branch(Git):
         output = self.verboseCli.execute("git branch -D %s" % (self.name))
         if output is False:
             return False
+        return True
+
+    def deleteRemote(self, remote) -> bool:
+        output = self.verboseCli.execute("git push %s :%s" % (remote.getName(), self.name))
+        if output is False:
+            return False
+        return True
+
+    def push(self, remote) -> bool:
+        self.cli.execute(
+            "git push %s %s" % (remote.getName(), self.name)
+        )
+
+        return True
+
+    def isAhead(self, remote) -> bool:
+        output = self.cli.execute(
+            "git log %s/%s..%s" % (remote.getName(), self.name, self.name)
+        )
+        if not output:
+            return False
+
         return True

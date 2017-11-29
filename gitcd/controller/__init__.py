@@ -28,6 +28,9 @@ class Base(object):
                 returnValue = False
         return returnValue
 
+    def getRepository(self) -> Repository:
+        return self.repository
+
     def getRemotes(self) -> [Remote]:
         return self.repository.getRemotes()
 
