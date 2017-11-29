@@ -221,3 +221,4 @@ Apache License 2.0 see
 https://github.com/claudio-walser/gitcd/blob/master/LICENSE
 
 .. _Issues List: https://github.com/claudio-walser/gitcd/issues
+
