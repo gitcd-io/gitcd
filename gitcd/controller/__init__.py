@@ -14,8 +14,7 @@ class Base(object):
     def __init__(self):
         self.config = self.repository.getConfig()
         self.configPersonal = self.repository.getPersonalConfig()
-        if self.updateRemotes == True:
-            print('updating remotes')
+        if self.updateRemotes is True:
             self.remoteUpdate()
 
     def remoteUpdate(self) -> bool:

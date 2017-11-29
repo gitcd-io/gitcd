@@ -105,6 +105,23 @@ class Remote(Git):
         return False
 
     def update(self) -> bool:
-        self.verboseCli.execute('git remote update %s' % (self.name))
+        self.cli.execute('git remote update %s' % (self.name))
 
         return True
+
+    def createFeature(self, feature: str) -> Branch:
+        self.verboseCli.execute(
+            "git checkout %s" % (self.config.getMaster())
+        )
+        self.verboseCli.execute(
+            "git pull %s %s" % (self.name, self.config.getMaster())
+        )
+        self.verboseCli.execute(
+            "git checkout -b %s" % (feature)
+        )
+        self.verboseCli.execute(
+            "git push %s %s" % (self.name, feature)
+        )
+        self.verboseCli.execute(
+            "git branch --set-upstream-to %s/%s" % (self.name, feature)
+        )
