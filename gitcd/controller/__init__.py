@@ -30,3 +30,6 @@ class Base(object):
 
     def getRemotes(self) -> [Remote]:
         return self.repository.getRemotes()
+
+    def getCurrentBranch(self):
+        return self.repository.getCurrentBranch()

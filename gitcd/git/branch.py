@@ -23,10 +23,19 @@ class Branch(Git):
         return self.name == self.config.getMaster()
 
     def isTest(self) -> bool:
-        pass
+        testPrefix = self.config.getTest()
+        if not testPrefix:
+            return False
+
+        return self.name.startswith(testPrefix)
 
     def isFeature(self) -> bool:
-        pass
+        if self.isMaster() or self.isTest():
+            return False
+
+        if self.config.getFeature():
+            return self.name.startswith(self.config.getFeature())
+        return True
 
     def delete(self) -> bool:
         output = self.verboseCli.execute("git branch -D %s" % (self.name))
