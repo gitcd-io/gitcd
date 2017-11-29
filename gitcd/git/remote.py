@@ -105,7 +105,7 @@ class Remote(Git):
         return False
 
     def update(self) -> bool:
-        self.cli.execute('git remote update %s' % (self.name))
+        self.cli.execute('git remote update -p %s' % (self.name))
 
         return True
 
