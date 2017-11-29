@@ -13,6 +13,7 @@ class Start(BaseCommand):
         featurePrefix = self.config.getFeature()
         featurePrefixAsString = self.config.getString(featurePrefix)
         testBranch = self.config.getTest()
+        testBranchAsString = self.config.getString(testBranch)
 
         # ask for branch if nothing passed
         if branch == "*":
@@ -31,7 +32,7 @@ class Start(BaseCommand):
 
         # not sure if this is smart since test branch is kind of a prefix too
         if testBranch is not None:
-            if '%s%s' % (featurePrefixAsString, branch).startwith(testBranch):
+            if '%s%s' % (featurePrefixAsString, branch).startwith(testBranchAsString):
                 # maybe i should use while here
                 # if anyone passes develop again, i wouldnt notice
                 branch = self.interface.askFor(
