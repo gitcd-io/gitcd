@@ -9,19 +9,50 @@ class Finish(BaseCommand):
 
     def run(self, branch: str):
         self.interface.header('git-cd finish')
+
         controller = FinishController()
-
         remote = self.getRemote()
-
+        featureAsString = self.config.getString(self.config.getFeature())
         if branch == '*':
             featureBranch = controller.getCurrentBranch()
-            if not featureBranch.isFeature():
-                raise GitcdNoFeatureBranchException(
-                    "Your current branch is not a valid feature branch." +
-                    " Checkout a feature branch or pass one as param."
-                )
         else:
-            featureBranch = Branch(branch)
+            featureBranch = Branch('%s%s' % (
+                featureAsString,
+                branch
+            ))
+
+        testBranch = self.config.getTest()
+        masterBranch = self.config.getMaster()
+
+        if featureBranch.getName() == masterBranch:
+            # maybe i should use recursion here
+            # if anyone passes master again, i wouldnt notice
+            featureBranch = Branch('%s%s' % (
+                featureAsString,
+                self.interface.askFor(
+                    "You passed your master branch name as feature branch,\
+                    please give a different name."
+                )
+            ))
+
+        if testBranch:
+            if featureBranch.getName().startswith(testBranch):
+                # maybe i should use recursion here
+                # if anyone passes master again, i wouldnt notice
+                featureBranch = Branch('%s%s' % (
+                    featureAsString,
+                    self.interface.askFor(
+                        "You passed your test branch name as feature branch,\
+                        please give a different name."
+                    )
+                ))
+
+        # if still not a proper feature branch, raise an exception
+        if not featureBranch.isFeature():
+            raise GitcdNoFeatureBranchException(
+                "Your current branch is not a valid feature branch." +
+                " Checkout a feature branch or pass one as param."
+            )
 
         print('your choosen feature branch is:')
         print(featureBranch.getName())
