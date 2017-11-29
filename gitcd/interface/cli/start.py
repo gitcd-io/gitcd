@@ -7,7 +7,7 @@ class Start(BaseCommand):
 
     def run(self, branch: str):
         self.interface.header('git-cd start')
-        
+
         remote = self.getRemote()
         masterBranch = self.config.getMaster()
         featurePrefix = self.config.getFeature()
@@ -30,14 +30,14 @@ class Start(BaseCommand):
             )
 
         # not sure if this is smart since test branch is kind of a prefix too
-        # if testBranch is not None:
-        #     if branch == testBranch:
-        #         # maybe i should use while here
-        #         # if anyone passes develop again, i wouldnt notice
-        #         branch = self.interface.askFor(
-        #             "You passed your test branch name as feature branch,\
-        #             please give a different name."
-        #         )
+        if testBranch is not None:
+            if '%s%s' % (featurePrefixAsString, branch).startwith(testBranch):
+                # maybe i should use while here
+                # if anyone passes develop again, i wouldnt notice
+                branch = self.interface.askFor(
+                    "You passed your test branch name as feature branch,\
+                    please give a different name."
+                )
 
         if featurePrefix is not None:
             if branch.startswith(featurePrefixAsString):
@@ -51,7 +51,7 @@ class Start(BaseCommand):
 
                 if fixFeatureBranch == "yes":
                     branch = branch.replace(featurePrefixAsString, "")
-        
+
         featureBranch = "%s%s" % (
             featurePrefixAsString,
             branch
