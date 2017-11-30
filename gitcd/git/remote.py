@@ -109,7 +109,16 @@ class Remote(Git):
 
         return True
 
+    def push(self, branch: Branch) -> bool:
+        self.verboseCli.execute(
+            "git push %s %s" % (self.name, branch.getName())
+        )
+        self.verboseCli.execute(
+            "git branch --set-upstream-to %s/%s" % (self.name, branch.getName())
+        )
+
     def createFeature(self, feature: str) -> Branch:
+        branch = Branch(feature)
         self.verboseCli.execute(
             "git checkout %s" % (self.config.getMaster())
         )
@@ -119,11 +128,7 @@ class Remote(Git):
         self.verboseCli.execute(
             "git checkout -b %s" % (feature)
         )
-        self.verboseCli.execute(
-            "git push %s %s" % (self.name, feature)
-        )
-        self.verboseCli.execute(
-            "git branch --set-upstream-to %s/%s" % (self.name, feature)
-        )
 
-        return Branch(feature)
+        self.push(branch)
+
+        return branch
