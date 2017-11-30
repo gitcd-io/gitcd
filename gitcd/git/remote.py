@@ -117,6 +117,21 @@ class Remote(Git):
             "git branch --set-upstream-to %s/%s" % (self.name, branch.getName())
         )
 
+    def delete(self, branch: Branch) -> bool:
+        output = self.verboseCli.execute("git push %s :%s" % (self.name, branch.getName()))
+        if output is False:
+            return False
+        return True
+
+    def isBehind(self, branch: Branch) -> bool:
+        output = self.cli.execute(
+            "git log %s/%s..%s" % (remote.getName(), self.name, self.name)
+        )
+        if not output:
+            return False
+
+        return True
+
     def createFeature(self, feature: str) -> Branch:
         branch = Branch(feature)
         self.verboseCli.execute(
@@ -132,3 +147,9 @@ class Remote(Git):
         self.push(branch)
 
         return branch
+
+    def merge(self, branch: Branch, branchToMerge: Branch) -> bool:
+        self.verboseCli.execute("git checkout %s" % (branch.getName()))
+        self.verboseCli.execute("git pull %s %s" % (self.name, branch.getName()))
+        self.verboseCli.execute("git merge %s/%s" % (self.name, branchToMerge.getName()))
+        remote.push(self)

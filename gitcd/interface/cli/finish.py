@@ -83,10 +83,10 @@ class Finish(BaseCommand):
             )
 
             if pushFeatureBranch == "yes":
-                featureBranch.push(remote)
+                remote.push(featureBranch)
 
         # check behind origin
-        if featureBranch.isAhead(remote):
+        if remote.isBehind(featureBranch):
 
             pushFeatureBranch = self.interface.askFor(
                 "Your feature branch is ahead the origin/branch." +
@@ -96,7 +96,7 @@ class Finish(BaseCommand):
             )
 
             if pushFeatureBranch == "yes":
-                featureBranch.push(remote)
+                remote.push(featureBranch)
 
         controller.mergeIntoMaster(featureBranch, remote)
 
@@ -106,5 +106,5 @@ class Finish(BaseCommand):
 
         if deleteFeatureBranch == "yes":
             # delete feature branch remote and locally
-            featureBranch.deleteRemote(remote)
+            remote.delete(featureBranch)
             featureBranch.delete()
