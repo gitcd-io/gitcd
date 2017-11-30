@@ -59,7 +59,7 @@ class Branch(Git):
 
         return True
 
-    def merge(self, branch: Branch, remote) -> bool:
+    def merge(self, branch, remote) -> bool:
         self.verboseCli.execute("git checkout %s" % (self.name))
         self.cli.execute("git pull %s %s" % (remote.getName(), self.config.getMaster()))
         self.cli.execute("git merge %s/%s" % (remote.getName(), branch.getName()))
