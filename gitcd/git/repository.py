@@ -90,7 +90,7 @@ class Repository(Git):
 
     def checkoutBranch(self, branch: Branch) -> Branch:
         self.verboseCli.execute('git checkout %s' % (branch.getName()))
-        return self.getCurrentBranch()
+        return branch
 
     def getTags(self) -> List[Tag]:
         output = self.cli.execute('git tag -l')

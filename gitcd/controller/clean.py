@@ -27,10 +27,11 @@ class Clean(Base):
 
     def deleteBranches(self, branches: [Branch] = []) -> bool:
         currentBranch = self.repository.getCurrentBranch()
+        masterBranch = Branch(self.config.getMaster())
 
         for branch in branches:
             if branch.getName() == currentBranch.getName():
-                currentBranch = self.repository.checkoutBranch(self.config.getMaster())
+                currentBranch = self.repository.checkoutBranch(masterBranch)
             branch.delete()
 
         return True

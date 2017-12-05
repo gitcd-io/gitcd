@@ -32,7 +32,8 @@ class Start(BaseCommand):
 
         # not sure if this is smart since test branch is kind of a prefix too
         if testBranch is not None:
-            if '%s%s' % (featurePrefixAsString, branch).startswith(testBranchAsString):
+            featureBranchString = '%s%s' % (featurePrefixAsString, branch)
+            if featureBranchString.startswith(testBranchAsString):
                 # maybe i should use while here
                 # if anyone passes develop again, i wouldnt notice
                 branch = self.interface.askFor(

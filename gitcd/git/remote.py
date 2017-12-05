@@ -1,4 +1,5 @@
 from typing import List
+from typing import Union
 
 from gitcd.git import Git
 
@@ -109,13 +110,21 @@ class Remote(Git):
 
         return True
 
-    def push(self, branch: Branch) -> bool:
+    def push(self, branch: Union[Branch, Tag]) -> bool:
         self.verboseCli.execute(
             "git push %s %s" % (self.name, branch.getName())
         )
+        if type(branch) is Branch:
+            self.verboseCli.execute(
+                "git branch --set-upstream-to %s/%s" % (self.name, branch.getName())
+            )
+        return True
+
+    def pull(self, branch: Branch) -> bool:
         self.verboseCli.execute(
-            "git branch --set-upstream-to %s/%s" % (self.name, branch.getName())
+            'git pull %s %s' % (self.name, branch.getName())
         )
+        return True
 
     def delete(self, branch: Branch) -> bool:
         output = self.verboseCli.execute("git push %s :%s" % (self.name, branch.getName()))
@@ -125,7 +134,7 @@ class Remote(Git):
 
     def isBehind(self, branch: Branch) -> bool:
         output = self.cli.execute(
-            "git log %s/%s..%s" % (remote.getName(), self.name, self.name)
+            "git log %s/%s..%s" % (self.name, branch.getName(), branch.getName())
         )
         if not output:
             return False
@@ -152,4 +161,4 @@ class Remote(Git):
         self.verboseCli.execute("git checkout %s" % (branch.getName()))
         self.verboseCli.execute("git pull %s %s" % (self.name, branch.getName()))
         self.verboseCli.execute("git merge %s/%s" % (self.name, branchToMerge.getName()))
-        remote.push(self)
+        self.push(branch)

@@ -72,9 +72,6 @@ class Finish(BaseCommand):
             if abort == "yes":
                 return False
 
-        # will fail if the branch does not exists locally
-        repository.checkoutBranch(featureBranch)
-
         # check remote existence
         if not remote.hasBranch(featureBranch):
             pushFeatureBranch = self.interface.askFor(

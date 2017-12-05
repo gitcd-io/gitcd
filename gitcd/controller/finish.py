@@ -7,6 +7,6 @@ class Finish(Base):
 
     def mergeIntoMaster(self, branch: Branch, remote: Remote) -> bool:
         master = Branch(self.config.getMaster())
-        master.merge(branch, remote)
+        remote.merge(master, branch)
 
         return True
