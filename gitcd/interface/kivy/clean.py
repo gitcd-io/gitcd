@@ -94,10 +94,7 @@ class GitcdCleanDialog(FloatLayout, ModalView):
         self.controller = CleanController()
 
         self.branches = self.controller.getBranchesToDelete()
-        self.tags = self.controller.getTagsToDelete()
 
-        pprint(self.tags)
-        pprint(self.branches)
         self.remove_widget(self.ids.spinner)
 
         for branch in self.branches:
@@ -111,21 +108,9 @@ class GitcdCleanDialog(FloatLayout, ModalView):
             self.ids.list.add_widget(item)
             time.sleep(0.2)
 
-        for tag in self.tags:
-            item = OneLineIconListItem(
-                text=tag.getName(),
-                disabled=True
-            )
-            item.add_widget(IconLeftSampleWidget(
-                icon='tag'
-            ))
-            self.ids.list.add_widget(item)
-            time.sleep(0.2)
-
-        if len(self.branches) > 0 or len(self.tags) > 0:
+        if len(self.branches) > 0:
             self.ids.buttonClean.disabled = False
 
     def clean(self):
         self.controller.deleteBranches(self.branches)
-        self.controller.deleteTags(self.tags)
         self.dismiss()

@@ -25,18 +25,8 @@ class Clean(BaseCommand):
         for branchToDelete in branchesToDelete:
             self.interface.red("  - %s" % branchToDelete.getName())
 
-        tagsToDelete = controller.getTagsToDelete()
-
-        self.interface.writeOut('Tags to delete')
-
-        if len(branchesToDelete) == 0:
-            self.interface.ok('  - no tags to delete')
-
-        for tagToDelete in tagsToDelete:
-            self.interface.red("  - %s" % tagToDelete.getName())
-
         self.interface.writeOut('')
-        if len(branchesToDelete) == 0 and len(tagsToDelete) == 0:
+        if len(branchesToDelete) == 0:
             self.interface.ok('Nice, your local repository is clean already.')
             return True
 
@@ -47,6 +37,5 @@ class Clean(BaseCommand):
         )
         if delete == 'yes':
             controller.deleteBranches(branchesToDelete)
-            controller.deleteTags(tagsToDelete)
 
         return True
