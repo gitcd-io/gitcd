@@ -141,8 +141,7 @@ class Remote(Git):
 
         return True
 
-    def createFeature(self, feature: str) -> Branch:
-        branch = Branch(feature)
+    def createFeature(self, branch: Branch) -> Branch:
         self.verboseCli.execute(
             "git checkout %s" % (self.config.getMaster())
         )

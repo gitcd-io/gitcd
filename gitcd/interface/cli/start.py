@@ -1,6 +1,6 @@
 from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.controller.start import Start as StartController
-from pprint import pprint
+from gitcd.git.branch import Branch
 
 
 class Start(BaseCommand):
@@ -59,5 +59,6 @@ class Start(BaseCommand):
             branch
         )
 
+        featureBranch = Branch(featureBranch)
         controller = StartController()
         controller.start(featureBranch, remote)
