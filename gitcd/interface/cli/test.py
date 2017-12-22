@@ -1,31 +1,33 @@
 from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.controller.test import Test as TestController
+from gitcd.git.branch import Branch
+
+from pprint import pprint
 
 
 class Test(BaseCommand):
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         self.interface.header('git-cd test')
 
         controller = TestController()
         remote = self.getRemote()
+        developmentBranches = controller.getDevelopmentBranches()
+        if len(developmentBranches) == 1:
+            developmentBranch = developmentBranches[0]
+        else:
+            branchNames = []
+            for developmentBranch in developmentBranches:
+                branchNames.append(developmentBranch.getName())
 
-        try:
-            self.interface.header("gitcd feature test")
+            default = branchNames[0]
+            choice = branchNames
 
-            origin = self.getOrigin()
-            developmentBranch = self.getDevelopmentBranch()
-            featureBranch = self.getFeatureBranch(branch)
+            developmentBranch = Branch(self.interface.askFor(
+                "Which develop branch you want to use?",
+                choice,
+                default
+            ))
 
-            if not self.checkBranch(origin, featureBranch):
-                return False
-
-            self.cli.execute("git checkout %s" % (developmentBranch))
-            self.cli.execute("git pull %s %s" % (origin, developmentBranch))
-            self.cli.execute("git merge %s/%s" % (origin, featureBranch))
-            self.cli.execute("git push %s %s" % (origin, developmentBranch))
-            self.cli.execute("git checkout %s" % (featureBranch))
-
-        except GitcdNoDevelopmentBranchDefinedException as e:
-            self.interface.writeOut("gitcd error: %s" % (format(e)))
+        controller.mergeBranch(remote, developmentBranch, branch)
 

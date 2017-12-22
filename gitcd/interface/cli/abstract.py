@@ -2,6 +2,7 @@ import os
 import simpcli
 
 from gitcd.git.repository import Repository
+from gitcd.git.branch import Branch
 
 from gitcd.config import Gitcd as GitcdConfig
 from gitcd.config import GitcdPersonal as GitcdPersonalConfig
@@ -15,7 +16,7 @@ class BaseCommand(object):
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         pass
 
     def getRemote(self) -> str:

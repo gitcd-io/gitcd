@@ -1,4 +1,3 @@
-
 from gitcd.interface.cli.abstract import BaseCommand
 
 

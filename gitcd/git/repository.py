@@ -62,18 +62,28 @@ class Repository(Git):
             return []
 
         lines = output.split("\n")
-
         branches = []
-        branchObjects = []
         for line in lines:
             line = line.strip()
+            if 'HEAD -> ' in line:
+                continue
+
             if not line.startswith('remotes/'):
                 branch = line.replace('* ', '')
-
-            branchObject = Branch(branch)
+            elif line.startswith('remotes/'):
+                parts = line.split('/')
+                del parts[0]
+                del parts[0]
+                branch = '/'.join(parts)
             if branch not in branches:
                 branches.append(branch)
-                branchObjects.append(branchObject)
+
+        branchObjects = []
+        branches.sort()
+        for branch in branches:
+            branchObject = Branch(branch)
+            branchObjects.append(branchObject)
+
 
         return branchObjects
 
@@ -100,14 +110,18 @@ class Repository(Git):
         lines = output.split("\n")
 
         tags = []
-        tagObjects = []
         for line in lines:
             tag = line.strip()
 
-            tagObject = Tag(tag)
             if tag not in tags:
                 tags.append(tag)
                 tagObjects.append(tagObject)
+
+        tagObjects = []
+        tags.sort()
+        for tag in tags:
+            tagObject = Tag(tag)
+            tagObjects.append(tagObject)
 
         return tagObjects
 

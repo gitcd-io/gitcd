@@ -149,7 +149,7 @@ class Remote(Git):
             "git pull %s %s" % (self.name, self.config.getMaster())
         )
         self.verboseCli.execute(
-            "git checkout -b %s" % (feature)
+            "git checkout -b %s" % (branch.getName())
         )
 
         self.push(branch)

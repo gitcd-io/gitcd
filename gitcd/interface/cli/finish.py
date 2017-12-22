@@ -7,29 +7,21 @@ from gitcd.exceptions import GitcdNoFeatureBranchException
 
 class Finish(BaseCommand):
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         self.interface.header('git-cd finish')
 
         controller = FinishController()
         remote = self.getRemote()
         currentBranch = controller.getCurrentBranch()
-        featureAsString = self.config.getString(self.config.getFeature())
         repository = controller.getRepository()
-        if branch == '*':
-            featureBranch = currentBranch
-        else:
-            featureBranch = Branch('%s%s' % (
-                featureAsString,
-                branch
-            ))
 
         testBranch = self.config.getTest()
         masterBranch = self.config.getMaster()
 
-        if featureBranch.getName() == masterBranch:
+        if branch.getName() == masterBranch:
             # maybe i should use recursion here
             # if anyone passes master again, i wouldnt notice
-            featureBranch = Branch('%s%s' % (
+            branch = Branch('%s%s' % (
                 featureAsString,
                 self.interface.askFor(
                     "You passed your master branch name as feature branch,\
@@ -38,10 +30,10 @@ class Finish(BaseCommand):
             ))
 
         if testBranch:
-            if featureBranch.getName().startswith(testBranch):
+            if branch.getName().startswith(testBranch):
                 # maybe i should use recursion here
                 # if anyone passes master again, i wouldnt notice
-                featureBranch = Branch('%s%s' % (
+                branch = Branch('%s%s' % (
                     featureAsString,
                     self.interface.askFor(
                         "You passed your test branch name as feature branch,\
@@ -50,14 +42,14 @@ class Finish(BaseCommand):
                 ))
 
         # if still not a proper feature branch, raise an exception
-        if not featureBranch.isFeature():
+        if not branch.isFeature():
             raise GitcdNoFeatureBranchException(
                 "Your current branch is not a valid feature branch." +
                 " Checkout a feature branch or pass one as param."
             )
 
         print('your choosen feature branch is:')
-        print(featureBranch.getName())
+        print(branch.getName())
         pass
 
 
@@ -73,17 +65,17 @@ class Finish(BaseCommand):
                 return False
 
         # check remote existence
-        if not remote.hasBranch(featureBranch):
+        if not remote.hasBranch(branch):
             pushFeatureBranch = self.interface.askFor(
                 "Your feature branch does not exists on origin." +
                 " Do you want me to push it remote?", ["yes", "no"], "yes"
             )
 
             if pushFeatureBranch == "yes":
-                remote.push(featureBranch)
+                remote.push(branch)
 
         # check behind origin
-        if remote.isBehind(featureBranch):
+        if remote.isBehind(branch):
 
             pushFeatureBranch = self.interface.askFor(
                 "Your feature branch is ahead the origin/branch." +
@@ -93,9 +85,9 @@ class Finish(BaseCommand):
             )
 
             if pushFeatureBranch == "yes":
-                remote.push(featureBranch)
+                remote.push(branch)
 
-        controller.mergeIntoMaster(featureBranch, remote)
+        controller.mergeIntoMaster(branch, remote)
 
         deleteFeatureBranch = self.interface.askFor(
             "Delete your feature branch?", ["yes", "no"], "yes"
@@ -103,5 +95,5 @@ class Finish(BaseCommand):
 
         if deleteFeatureBranch == "yes":
             # delete feature branch remote and locally
-            remote.delete(featureBranch)
-            featureBranch.delete()
+            remote.delete(branch)
+            branch.delete()

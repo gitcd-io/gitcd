@@ -13,6 +13,9 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
+from gitcd.controller import Base as BaseController
+
+
 from gitcd.exceptions import GitcdException
 from simpcli import CliException
 
@@ -54,7 +57,17 @@ class Cli():
             sys.exit(1)
 
         try:
-            commandObject.run(branch)
+            controller = BaseController()
+            if branch == '*':
+                featureBranch = controller.getCurrentBranch()
+            else:
+                featureAsString = self.config.getString(self.config.getFeature())
+                featureBranch = Branch('%s%s' % (
+                    featureAsString,
+                    branch
+                ))
+
+            commandObject.run(featureBranch)
         # catch cli execution errors here
         except (GitcdException, CliException) as e:
             self.interface.error(format(e))

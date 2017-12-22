@@ -16,7 +16,7 @@ class Release(BaseCommand):
         controller.checkout(remote, masterBranch)
 
         version = controller.getVersion()
-        if version == False:
+        if version is False:
             version = self.interface.askFor(
                 "Whats the current version number you want to release?")
 

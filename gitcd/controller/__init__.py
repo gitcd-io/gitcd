@@ -2,7 +2,7 @@ from simpcli import CliException
 
 from gitcd.git.repository import Repository
 from gitcd.git.remote import Remote
-
+from gitcd.git.branch import Branch
 
 class Base(object):
 
@@ -36,3 +36,9 @@ class Base(object):
 
     def getCurrentBranch(self):
         return self.repository.getCurrentBranch()
+
+    def mergeBranch(self, remote: Remote, developmentBranch: Branch, branch: Branch) -> bool:
+        remote.merge(developmentBranch, branch)
+        self.repository.checkoutBranch(branch)
+
+        return True

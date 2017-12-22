@@ -5,3 +5,4 @@ class Compare(BaseCommand):
 
     def run(self, branch: str):
         self.interface.header('git-cd compare')
+        # @todo
