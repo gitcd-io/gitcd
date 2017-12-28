@@ -13,8 +13,7 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
-from gitcd.controller import Base as BaseController
-
+from gitcd.git.branch import Branch
 
 from gitcd.exceptions import GitcdException
 from simpcli import CliException
@@ -57,11 +56,10 @@ class Cli():
             sys.exit(1)
 
         try:
-            controller = BaseController()
             if branch == '*':
-                featureBranch = controller.getCurrentBranch()
+                featureBranch = commandObject.getDefaultBranch()
             else:
-                featureAsString = self.config.getString(self.config.getFeature())
+                featureAsString = commandObject.config.getString(commandObject.config.getFeature())
                 featureBranch = Branch('%s%s' % (
                     featureAsString,
                     branch

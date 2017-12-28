@@ -19,6 +19,10 @@ class BaseCommand(object):
     def run(self, branch: Branch):
         pass
 
+    def getDefaultBranch(self) -> Branch:
+        controller = BaseController()
+        return controller.getCurrentBranch()
+
     def getRemote(self) -> str:
         base = BaseController()
         remotes = base.getRemotes()

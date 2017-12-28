@@ -2,7 +2,6 @@ from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.controller.test import Test as TestController
 from gitcd.git.branch import Branch
 
-from pprint import pprint
 
 
 class Test(BaseCommand):

@@ -2,12 +2,14 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.controller.upgrade import Upgrade as UpgradeController
 
+from gitcd.git.branch import Branch
+
 from gitcd.exceptions import GitcdPyPiApiException
 
 
 class Upgrade(BaseCommand):
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         self.interface.header('git-cd upgrade')
 
         controller = UpgradeController()

@@ -48,11 +48,6 @@ class Finish(BaseCommand):
                 " Checkout a feature branch or pass one as param."
             )
 
-        print('your choosen feature branch is:')
-        print(branch.getName())
-        pass
-
-
         if repository.hasUncommitedChanges():
             abort = self.interface.askFor(
                 "You currently have uncomitted changes." +

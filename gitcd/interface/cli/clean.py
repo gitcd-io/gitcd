@@ -1,15 +1,15 @@
 from gitcd.interface.cli.abstract import BaseCommand
 
+from gitcd.git.branch import Branch
 
 from gitcd.controller.clean import Clean as CleanController
 
-from pprint import pprint
 import sys
 
 
 class Clean(BaseCommand):
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         self.interface.header('git-cd clean')
 
         controller = CleanController()
@@ -30,7 +30,7 @@ class Clean(BaseCommand):
             return True
 
         delete = self.interface.askFor(
-            'Do you want me to delete those branches and tags locally?',
+            'Do you want me to delete those branches locally?',
             ['yes', 'no'],
             'yes'
         )

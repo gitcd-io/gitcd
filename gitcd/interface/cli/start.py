@@ -5,7 +5,41 @@ from gitcd.git.branch import Branch
 
 class Start(BaseCommand):
 
-    def run(self, branch: str):
+    def getDefaultBranch(self) -> Branch:
+        featurePrefix = self.config.getFeature()
+        featurePrefixAsString = self.config.getString(featurePrefix)
+        branch = self.interface.askFor(
+            "Name for your new feature-branch? (without %s prefix)"
+            % (featurePrefixAsString)
+        )
+
+        return self.instantiateBranch(branch)
+
+    def instantiateBranch(self, branch: str) -> Branch:
+        featurePrefix = self.config.getFeature()
+        featurePrefixAsString = self.config.getString(featurePrefix)
+
+        return Branch('%s%s' % (featurePrefixAsString, branch))
+
+    def checkDoubleFeaturePrefix(self, branch: Branch) -> Branch:
+        featurePrefix = self.config.getFeature()
+        featurePrefixAsString = self.config.getString(featurePrefix)
+
+        if branch.getName().startswith(featurePrefixAsString):
+            fixFeatureBranch = self.interface.askFor(
+                "Your feature branch already starts" +
+                " with your feature prefix," +
+                " should i remove it for you?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if fixFeatureBranch == "yes":
+                branch = Branch(branch.getName().replace(featurePrefixAsString, ""))
+
+        return branch
+
+    def run(self, branch: Branch):
         self.interface.header('git-cd start')
 
         remote = self.getRemote()
@@ -15,50 +49,27 @@ class Start(BaseCommand):
         testBranch = self.config.getTest()
         testBranchAsString = self.config.getString(testBranch)
 
-        # ask for branch if nothing passed
-        if branch == "*":
-            branch = self.interface.askFor(
-                "Name for your new feature-branch? (without %s prefix)"
-                % (featurePrefixAsString)
-            )
-
-        if '%s%s' % (featurePrefixAsString, branch) == masterBranch:
+        # few checks on the new feature branch
+        if '%s%s' % (featurePrefixAsString, branch.getName()) == masterBranch:
             # maybe i should use while here
             # if anyone passes master again, i wouldnt notice
-            branch = self.interface.askFor(
+            branch = self.instantiateBranch(self.interface.askFor(
                 "You passed your master branch name as feature branch,\
                 please give a different name."
-            )
+            ))
+
+        branch = self.checkDoubleFeaturePrefix(branch)
 
         # not sure if this is smart since test branch is kind of a prefix too
         if testBranch is not None:
-            featureBranchString = '%s%s' % (featurePrefixAsString, branch)
+            featureBranchString = '%s%s' % (featurePrefixAsString, branch.getName())
             if featureBranchString.startswith(testBranchAsString):
                 # maybe i should use while here
                 # if anyone passes develop again, i wouldnt notice
-                branch = self.interface.askFor(
+                branch = self.instantiateBranch(self.interface.askFor(
                     "You passed your test branch name as feature branch,\
                     please give a different name."
-                )
+                ))
 
-        if featurePrefix is not None:
-            if branch.startswith(featurePrefixAsString):
-                fixFeatureBranch = self.interface.askFor(
-                    "Your feature branch already starts" +
-                    " with your feature prefix," +
-                    " should i remove it for you?",
-                    ["yes", "no"],
-                    "yes"
-                )
-
-                if fixFeatureBranch == "yes":
-                    branch = branch.replace(featurePrefixAsString, "")
-
-        featureBranch = "%s%s" % (
-            featurePrefixAsString,
-            branch
-        )
-
-        featureBranch = Branch(featureBranch)
         controller = StartController()
-        controller.start(featureBranch, remote)
+        controller.start(branch, remote)

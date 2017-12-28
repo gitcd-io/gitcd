@@ -1,8 +1,10 @@
 from gitcd.interface.cli.abstract import BaseCommand
 
+from gitcd.git.branch import Branch
+
 
 class Compare(BaseCommand):
 
-    def run(self, branch: str):
+    def run(self, branch: Branch):
         self.interface.header('git-cd compare')
         # @todo
