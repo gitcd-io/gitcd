@@ -25,7 +25,7 @@ class Start(BaseCommand):
         featurePrefix = self.config.getFeature()
         featurePrefixAsString = self.config.getString(featurePrefix)
 
-        if branch.getName().startswith(featurePrefixAsString):
+        if branch.getName().startswith('%s%s' % (featurePrefixAsString, featurePrefixAsString)):
             fixFeatureBranch = self.interface.askFor(
                 "Your feature branch already starts" +
                 " with your feature prefix," +
@@ -35,7 +35,7 @@ class Start(BaseCommand):
             )
 
             if fixFeatureBranch == "yes":
-                branch = Branch(branch.getName().replace(featurePrefixAsString, ""))
+                branch = self.instantiateBranch(branch.getName().replace('%s%s' % (featurePrefixAsString, featurePrefixAsString), ''))
 
         return branch
 
@@ -58,8 +58,6 @@ class Start(BaseCommand):
                 please give a different name."
             ))
 
-        branch = self.checkDoubleFeaturePrefix(branch)
-
         # not sure if this is smart since test branch is kind of a prefix too
         if testBranch is not None:
             featureBranchString = '%s%s' % (featurePrefixAsString, branch.getName())
@@ -70,6 +68,8 @@ class Start(BaseCommand):
                     "You passed your test branch name as feature branch,\
                     please give a different name."
                 ))
+
+        branch = self.checkDoubleFeaturePrefix(branch)
 
         controller = StartController()
         controller.start(branch, remote)
