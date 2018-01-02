@@ -23,6 +23,13 @@ class BaseCommand(object):
         controller = BaseController()
         return controller.getCurrentBranch()
 
+    def getRequestedBranch(self, branch: str) -> Branch:
+        featureAsString = self.config.getString(self.config.getFeature())
+        return Branch('%s%s' % (
+            featureAsString,
+            branch
+        ))
+
     def getRemote(self) -> str:
         base = BaseController()
         remotes = base.getRemotes()

@@ -57,15 +57,11 @@ class Cli():
 
         try:
             if branch == '*':
-                featureBranch = commandObject.getDefaultBranch()
+                branch = commandObject.getDefaultBranch()
             else:
-                featureAsString = commandObject.config.getString(commandObject.config.getFeature())
-                featureBranch = Branch('%s%s' % (
-                    featureAsString,
-                    branch
-                ))
+                branch = commandObject.getRequestedBranch(branch)
 
-            commandObject.run(featureBranch)
+            commandObject.run(branch)
         # catch cli execution errors here
         except (GitcdException, CliException) as e:
             self.interface.error(format(e))

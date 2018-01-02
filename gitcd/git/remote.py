@@ -161,3 +161,11 @@ class Remote(Git):
         self.verboseCli.execute("git pull %s %s" % (self.name, branch.getName()))
         self.verboseCli.execute("git merge %s/%s" % (self.name, branchToMerge.getName()))
         self.push(branch)
+
+    def compare(self, branch: Branch, toCompare: [Branch, Tag]) -> bool:
+        self.verboseCli.execute("git diff %s/%s %s --color" % (
+            self.name,
+            toCompare.getName(),
+            branch.getName()
+        ))
+        return True

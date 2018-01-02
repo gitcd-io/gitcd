@@ -133,6 +133,12 @@ class Repository(Git):
 
         raise TagNotFoundException('Tag %s not found' % (tagStr))
 
+    def getLatestTag(self) -> [Branch, Tag]:
+        output = self.cli.execute("git describe --abbrev=0")
+        if not output:
+            return Branch(self.config.getMaster())
+        return Tag(output.strip())
+
     def hasUncommitedChanges(self) -> bool:
         output = self.cli.execute("git status --porcelain")
         if not output:
