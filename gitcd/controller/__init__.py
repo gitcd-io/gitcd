@@ -4,6 +4,7 @@ from gitcd.git.repository import Repository
 from gitcd.git.remote import Remote
 from gitcd.git.branch import Branch
 
+
 class Base(object):
 
     repository = Repository()

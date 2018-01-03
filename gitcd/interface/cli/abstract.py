@@ -9,6 +9,8 @@ from gitcd.config import GitcdPersonal as GitcdPersonalConfig
 
 from gitcd.controller import Base as BaseController
 
+from sys import platform
+
 
 class BaseCommand(object):
 
@@ -56,3 +58,4 @@ class BaseCommand(object):
                     remote = remoteObj
 
         return remote
+

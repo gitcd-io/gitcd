@@ -12,7 +12,6 @@ class Finish(BaseCommand):
 
         controller = FinishController()
         remote = self.getRemote()
-        currentBranch = controller.getCurrentBranch()
         repository = controller.getRepository()
 
         testBranch = self.config.getTest()

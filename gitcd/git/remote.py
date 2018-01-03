@@ -2,7 +2,7 @@ from typing import List
 from typing import Union
 
 from gitcd.git import Git
-
+from gitcd.git.pullRequest import Github
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 
@@ -47,17 +47,22 @@ class Remote(Git):
 
         urlParts = url.split("/")
         self.username = urlParts[1]
+        self.repositoryName = urlParts[-1]
+        self.repositoryName = self.repositoryName.replace('.git', '')
 
         return True
 
     def getName(self) -> str:
         return self.name
 
+    def getRepositoryName(self) -> str:
+        return self.repositoryName
+
     def getUrl(self) -> str:
         return self.url
 
     def getUsername(self) -> str:
-        return self.usernme
+        return self.username
 
     def readBranches(self) -> bool:
         if self.branches:
@@ -169,3 +174,22 @@ class Remote(Git):
             branch.getName()
         ))
         return True
+
+    def openPullRequest(self, title: str, body: str, fromBranch: Branch, toBranch: Branch) -> bool:
+
+        if self.isGithub():
+            pr = Github()
+        elif self.isBitbucket():
+            pr = Bitbucket()
+        else:
+            # todo: raise RepoProviderNotImplementedException
+            return False
+
+        pr.setRemote(self)
+        pr.open(title, body, fromBranch, toBranch)
+
+    def isGithub(self) -> bool:
+        return 'github.com' in self.url
+
+    def isBitbucket(self) -> bool:
+        return 'bitbucket.org' in self.url
