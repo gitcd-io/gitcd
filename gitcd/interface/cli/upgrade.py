@@ -10,8 +10,6 @@ from gitcd.exceptions import GitcdPyPiApiException
 class Upgrade(BaseCommand):
 
     def run(self, branch: Branch):
-        self.interface.header('git-cd upgrade')
-
         controller = UpgradeController()
 
         localVersion = controller.getLocalVersion()

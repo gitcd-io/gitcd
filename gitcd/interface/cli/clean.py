@@ -10,8 +10,6 @@ import sys
 class Clean(BaseCommand):
 
     def run(self, branch: Branch):
-        self.interface.header('git-cd clean')
-
         controller = CleanController()
 
         branchesToDelete = controller.getBranchesToDelete()

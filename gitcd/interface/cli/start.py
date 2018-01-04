@@ -25,6 +25,9 @@ class Start(BaseCommand):
         featurePrefix = self.config.getFeature()
         featurePrefixAsString = self.config.getString(featurePrefix)
 
+        if not featurePrefix:
+            return branch
+
         if branch.getName().startswith('%s%s' % (featurePrefixAsString, featurePrefixAsString)):
             fixFeatureBranch = self.interface.askFor(
                 "Your feature branch already starts" +
@@ -40,8 +43,6 @@ class Start(BaseCommand):
         return branch
 
     def run(self, branch: Branch):
-        self.interface.header('git-cd start')
-
         remote = self.getRemote()
         masterBranch = self.config.getMaster()
         featurePrefix = self.config.getFeature()

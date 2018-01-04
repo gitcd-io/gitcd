@@ -7,8 +7,6 @@ from gitcd.git.remote import Remote
 class Release(BaseCommand):
 
     def run(self, branch: Branch):
-        self.interface.header('git-cd release')
-
         remote = self.getRemote()
         masterBranch = Branch(self.config.getMaster())
 

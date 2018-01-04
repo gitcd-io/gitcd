@@ -55,6 +55,8 @@ class Cli():
             )
             sys.exit(1)
 
+        self.interface.header('git-cd %s' % (command))
+
         try:
             if branch == '*':
                 branch = commandObject.getDefaultBranch()

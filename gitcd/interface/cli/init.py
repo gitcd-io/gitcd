@@ -7,8 +7,6 @@ from gitcd.git.branch import Branch
 class Init(BaseCommand):
 
     def run(self, branch: Branch):
-        self.interface.header('git-cd init')
-
         self.config.setMaster(
             self.interface.askFor(
                 "Branch name for production releases?",
