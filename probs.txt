@@ -1,0 +1,202 @@
+./build/lib/gitcd/bin/kivy.py:5:1: W191 indentation contains tabs
+./build/lib/gitcd/controller/__init__.py:41:80: E501 line too long (93 > 79 characters)
+./build/lib/gitcd/controller/compare.py:9:80: E501 line too long (92 > 79 characters)
+./build/lib/gitcd/controller/compare.py:10:53: W292 no newline at end of file
+./build/lib/gitcd/controller/review.py:2:1: F401 'gitcd.git.branch.Branch' imported but unused
+./build/lib/gitcd/controller/review.py:3:1: F401 'gitcd.git.remote.Remote' imported but unused
+./build/lib/gitcd/controller/test.py:2:1: F401 'gitcd.git.remote.Remote' imported but unused
+./build/lib/gitcd/controller/upgrade.py:8:1: F401 'gitcd.git.repository.Repository' imported but unused
+./build/lib/gitcd/git/branch.py:39:80: E501 line too long (93 > 79 characters)
+./build/lib/gitcd/git/branch.py:62:80: E501 line too long (97 > 79 characters)
+./build/lib/gitcd/git/branch.py:63:80: E501 line too long (91 > 79 characters)
+./build/lib/gitcd/git/pullRequest.py:6:1: F811 redefinition of unused 'GitcdGithubApiException' from line 5
+./build/lib/gitcd/git/pullRequest.py:38:80: E501 line too long (88 > 79 characters)
+./build/lib/gitcd/git/pullRequest.py:40:80: E501 line too long (119 > 79 characters)
+./build/lib/gitcd/git/pullRequest.py:77:21: F821 undefined name 'username'
+./build/lib/gitcd/git/pullRequest.py:78:21: F821 undefined name 'repo'
+./build/lib/gitcd/git/pullRequest.py:79:21: F821 undefined name 'master'
+./build/lib/gitcd/git/pullRequest.py:80:21: F821 undefined name 'featureBranch'
+./build/lib/gitcd/git/pullRequest.py:95:13: W292 no newline at end of file
+./build/lib/gitcd/git/remote.py:1:1: F401 'typing.List' imported but unused
+./build/lib/gitcd/git/remote.py:124:80: E501 line too long (84 > 79 characters)
+./build/lib/gitcd/git/remote.py:135:80: E501 line too long (91 > 79 characters)
+./build/lib/gitcd/git/remote.py:142:80: E501 line too long (81 > 79 characters)
+./build/lib/gitcd/git/remote.py:166:80: E501 line too long (81 > 79 characters)
+./build/lib/gitcd/git/remote.py:167:80: E501 line too long (89 > 79 characters)
+./build/lib/gitcd/git/remote.py:178:80: E501 line too long (99 > 79 characters)
+./build/lib/gitcd/git/remote.py:183:18: F821 undefined name 'Bitbucket'
+./build/lib/gitcd/git/repository.py:88:9: E303 too many blank lines (2)
+./build/lib/gitcd/git/repository.py:118:17: F821 undefined name 'tagObjects'
+./build/lib/gitcd/git/repository.py:118:35: F821 undefined name 'tagObject'
+./build/lib/gitcd/interface/cli/__init__.py:16:1: F401 'gitcd.git.branch.Branch' imported but unused
+./build/lib/gitcd/interface/cli/abstract.py:1:1: F401 'os' imported but unused
+./build/lib/gitcd/interface/cli/abstract.py:4:1: F401 'gitcd.git.repository.Repository' imported but unused
+./build/lib/gitcd/interface/cli/abstract.py:18:1: E302 expected 2 blank lines, found 1
+./build/lib/gitcd/interface/cli/abstract.py:77:30: F821 undefined name 'branch'
+./build/lib/gitcd/interface/cli/abstract.py:79:80: E501 line too long (88 > 79 characters)
+./build/lib/gitcd/interface/cli/abstract.py:84:29: F821 undefined name 'branch'
+./build/lib/gitcd/interface/cli/clean.py:7:1: F401 'sys' imported but unused
+./build/lib/gitcd/interface/cli/compare.py:12:19: E225 missing whitespace around operator
+./build/lib/gitcd/interface/cli/compare.py:17:9: F841 local variable 'masterBranch' is assigned to but never used
+./build/lib/gitcd/interface/cli/compare.py:28:19: E225 missing whitespace around operator
+./build/lib/gitcd/interface/cli/compare.py:30:9: F841 local variable 'repository' is assigned to but never used
+./build/lib/gitcd/interface/cli/finish.py:5:1: F401 'gitcd.exceptions.GitcdNoFeatureBranchException' imported but unused
+./build/lib/gitcd/interface/cli/finish.py:13:9: F841 local variable 'repository' is assigned to but never used
+./build/lib/gitcd/interface/cli/finish.py:22:17: F821 undefined name 'featureAsString'
+./build/lib/gitcd/interface/cli/finish.py:34:21: F821 undefined name 'featureAsString'
+./build/lib/gitcd/interface/cli/init.py:7:1: E302 expected 2 blank lines, found 1
+./build/lib/gitcd/interface/cli/release.py:4:1: F401 'gitcd.git.remote.Remote' imported but unused
+./build/lib/gitcd/interface/cli/review.py:7:1: F401 'gitcd.exceptions.GitcdNoFeatureBranchException' imported but unused
+./build/lib/gitcd/interface/cli/review.py:8:1: F401 'gitcd.exceptions.GitcdGithubApiException' imported but unused
+./build/lib/gitcd/interface/cli/review.py:28:9: F841 local variable 'repository' is assigned to but never used
+./build/lib/gitcd/interface/cli/review.py:31:9: F841 local variable 'token' is assigned to but never used
+./build/lib/gitcd/interface/cli/start.py:31:80: E501 line too long (96 > 79 characters)
+./build/lib/gitcd/interface/cli/start.py:41:80: E501 line too long (134 > 79 characters)
+./build/lib/gitcd/interface/cli/start.py:64:80: E501 line too long (84 > 79 characters)
+./build/lib/gitcd/interface/cli/test.py:7:1: E303 too many blank lines (3)
+./build/lib/gitcd/interface/cli/test.py:30:1: W391 blank line at end of file
+./build/lib/gitcd/interface/kivy/__init__.py:4:1: F401 'kivy' imported but unused
+./build/lib/gitcd/interface/kivy/__init__.py:8:1: F401 'kivy.clock.Clock' imported but unused
+./build/lib/gitcd/interface/kivy/__init__.py:11:1: F401 'gitcd.git.exceptions.NoRepositoryException' imported but unused
+./build/lib/gitcd/interface/kivy/__init__.py:14:1: F401 'pprint.pprint' imported but unused
+./build/lib/gitcd/interface/kivy/__init__.py:15:1: F401 'inspect' imported but unused
+./build/lib/gitcd/interface/kivy/__init__.py:17:1: E302 expected 2 blank lines, found 1
+./build/lib/gitcd/interface/kivy/__init__.py:39:9: E265 block comment should start with '# '
+./build/lib/gitcd/interface/kivy/__init__.py:45:80: E501 line too long (84 > 79 characters)
+./build/lib/gitcd/interface/kivy/__init__.py:65:80: E501 line too long (91 > 79 characters)
+./build/lib/gitcd/interface/kivy/__init__.py:66:80: E501 line too long (185 > 79 characters)
+./build/lib/gitcd/interface/kivy/branchpanel.py:1:1: F401 'threading' imported but unused
+./build/lib/gitcd/interface/kivy/branchpanel.py:3:1: F401 'kivy' imported but unused
+./build/lib/gitcd/interface/kivy/branchpanel.py:12:80: E501 line too long (86 > 79 characters)
+./build/lib/gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.ILeftBody' imported but unused
+./build/lib/gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.IRightBodyTouch' imported but unused
+./build/lib/gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.BaseListItem' imported but unused
+./build/lib/gitcd/interface/kivy/clean.py:9:80: E501 line too long (101 > 79 characters)
+./build/lib/gitcd/interface/kivy/clean.py:14:1: F401 'pprint.pprint' imported but unused
+./build/lib/gitcd/interface/kivy/infopanel.py:3:1: F401 'kivy' imported but unused
+./build/lib/gitcd/interface/kivy/infopanel.py:6:1: F401 'kivy.uix.scrollview.ScrollView' imported but unused
+./build/lib/gitcd/interface/kivy/infopanel.py:8:1: F401 'kivymd.list.OneLineIconListItem' imported but unused
+./build/lib/gitcd/interface/kivy/mainpanel.py:3:1: F401 'kivy' imported but unused
+./build/lib/gitcd/interface/kivy/mainpanel.py:8:1: F401 'kivymd.list.OneLineIconListItem' imported but unused
+./build/lib/gitcd/interface/kivy/mainpanel.py:10:1: F401 'kivymd.tabs.MDTabbedPanel' imported but unused
+./build/lib/gitcd/interface/kivy/mainpanel.py:74:1: E303 too many blank lines (4)
+./build/lib/gitcd/interface/kivy/mainpanel.py:96:47: W292 no newline at end of file
+./build/lib/gitcd/interface/kivy/navigation.py:13:80: E501 line too long (80 > 79 characters)
+./build/lib/gitcd/interface/kivy/navigation.py:20:80: E501 line too long (85 > 79 characters)
+./build/lib/gitcd/interface/kivy/navigation.py:72:1: W391 blank line at end of file
+./build/lib/gitcd/interface/kivy/tagpanel.py:1:1: F401 'threading' imported but unused
+./build/lib/gitcd/interface/kivy/tagpanel.py:3:1: F401 'kivy' imported but unused
+./build/lib/gitcd/interface/kivy/tagpanel.py:12:80: E501 line too long (86 > 79 characters)
+./build/lib/gitcd/interface/kivy/upgrade.py:1:1: F401 'packaging.version' imported but unused
+./build/lib/gitcd/interface/kivy/upgrade.py:63:1: E302 expected 2 blank lines, found 1
+./build/lib/gitcd/interface/kivy/upgrade.py:83:17: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:83:19: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:84:29: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:84:31: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:85:22: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:85:24: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:86:17: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:86:19: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:87:21: E251 unexpected spaces around keyword / parameter equals
+./build/lib/gitcd/interface/kivy/upgrade.py:87:23: E251 unexpected spaces around keyword / parameter equals
+./gitcd/bin/kivy.py:5:1: W191 indentation contains tabs
+./gitcd/controller/__init__.py:41:80: E501 line too long (93 > 79 characters)
+./gitcd/controller/compare.py:9:80: E501 line too long (92 > 79 characters)
+./gitcd/controller/compare.py:10:53: W292 no newline at end of file
+./gitcd/controller/review.py:2:1: F401 'gitcd.git.branch.Branch' imported but unused
+./gitcd/controller/review.py:3:1: F401 'gitcd.git.remote.Remote' imported but unused
+./gitcd/controller/test.py:2:1: F401 'gitcd.git.remote.Remote' imported but unused
+./gitcd/controller/upgrade.py:8:1: F401 'gitcd.git.repository.Repository' imported but unused
+./gitcd/git/branch.py:39:80: E501 line too long (93 > 79 characters)
+./gitcd/git/branch.py:62:80: E501 line too long (97 > 79 characters)
+./gitcd/git/branch.py:63:80: E501 line too long (91 > 79 characters)
+./gitcd/git/pullRequest.py:6:1: F811 redefinition of unused 'GitcdGithubApiException' from line 5
+./gitcd/git/pullRequest.py:38:80: E501 line too long (88 > 79 characters)
+./gitcd/git/pullRequest.py:40:80: E501 line too long (119 > 79 characters)
+./gitcd/git/pullRequest.py:77:21: F821 undefined name 'username'
+./gitcd/git/pullRequest.py:78:21: F821 undefined name 'repo'
+./gitcd/git/pullRequest.py:79:21: F821 undefined name 'master'
+./gitcd/git/pullRequest.py:80:21: F821 undefined name 'featureBranch'
+./gitcd/git/pullRequest.py:95:13: W292 no newline at end of file
+./gitcd/git/remote.py:1:1: F401 'typing.List' imported but unused
+./gitcd/git/remote.py:124:80: E501 line too long (84 > 79 characters)
+./gitcd/git/remote.py:135:80: E501 line too long (91 > 79 characters)
+./gitcd/git/remote.py:142:80: E501 line too long (81 > 79 characters)
+./gitcd/git/remote.py:166:80: E501 line too long (81 > 79 characters)
+./gitcd/git/remote.py:167:80: E501 line too long (89 > 79 characters)
+./gitcd/git/remote.py:178:80: E501 line too long (99 > 79 characters)
+./gitcd/git/remote.py:183:18: F821 undefined name 'Bitbucket'
+./gitcd/git/repository.py:88:9: E303 too many blank lines (2)
+./gitcd/git/repository.py:118:17: F821 undefined name 'tagObjects'
+./gitcd/git/repository.py:118:35: F821 undefined name 'tagObject'
+./gitcd/interface/cli/__init__.py:16:1: F401 'gitcd.git.branch.Branch' imported but unused
+./gitcd/interface/cli/abstract.py:1:1: F401 'os' imported but unused
+./gitcd/interface/cli/abstract.py:4:1: F401 'gitcd.git.repository.Repository' imported but unused
+./gitcd/interface/cli/abstract.py:18:1: E302 expected 2 blank lines, found 1
+./gitcd/interface/cli/abstract.py:77:30: F821 undefined name 'branch'
+./gitcd/interface/cli/abstract.py:79:80: E501 line too long (88 > 79 characters)
+./gitcd/interface/cli/abstract.py:84:29: F821 undefined name 'branch'
+./gitcd/interface/cli/clean.py:7:1: F401 'sys' imported but unused
+./gitcd/interface/cli/compare.py:12:19: E225 missing whitespace around operator
+./gitcd/interface/cli/compare.py:17:9: F841 local variable 'masterBranch' is assigned to but never used
+./gitcd/interface/cli/compare.py:28:19: E225 missing whitespace around operator
+./gitcd/interface/cli/compare.py:30:9: F841 local variable 'repository' is assigned to but never used
+./gitcd/interface/cli/finish.py:5:1: F401 'gitcd.exceptions.GitcdNoFeatureBranchException' imported but unused
+./gitcd/interface/cli/finish.py:13:9: F841 local variable 'repository' is assigned to but never used
+./gitcd/interface/cli/finish.py:22:17: F821 undefined name 'featureAsString'
+./gitcd/interface/cli/finish.py:34:21: F821 undefined name 'featureAsString'
+./gitcd/interface/cli/init.py:7:1: E302 expected 2 blank lines, found 1
+./gitcd/interface/cli/release.py:4:1: F401 'gitcd.git.remote.Remote' imported but unused
+./gitcd/interface/cli/review.py:7:1: F401 'gitcd.exceptions.GitcdNoFeatureBranchException' imported but unused
+./gitcd/interface/cli/review.py:8:1: F401 'gitcd.exceptions.GitcdGithubApiException' imported but unused
+./gitcd/interface/cli/review.py:28:9: F841 local variable 'repository' is assigned to but never used
+./gitcd/interface/cli/review.py:31:9: F841 local variable 'token' is assigned to but never used
+./gitcd/interface/cli/start.py:31:80: E501 line too long (96 > 79 characters)
+./gitcd/interface/cli/start.py:41:80: E501 line too long (134 > 79 characters)
+./gitcd/interface/cli/start.py:64:80: E501 line too long (84 > 79 characters)
+./gitcd/interface/cli/test.py:7:1: E303 too many blank lines (3)
+./gitcd/interface/cli/test.py:30:1: W391 blank line at end of file
+./gitcd/interface/kivy/__init__.py:4:1: F401 'kivy' imported but unused
+./gitcd/interface/kivy/__init__.py:8:1: F401 'kivy.clock.Clock' imported but unused
+./gitcd/interface/kivy/__init__.py:11:1: F401 'gitcd.git.exceptions.NoRepositoryException' imported but unused
+./gitcd/interface/kivy/__init__.py:14:1: F401 'pprint.pprint' imported but unused
+./gitcd/interface/kivy/__init__.py:15:1: F401 'inspect' imported but unused
+./gitcd/interface/kivy/__init__.py:17:1: E302 expected 2 blank lines, found 1
+./gitcd/interface/kivy/__init__.py:39:9: E265 block comment should start with '# '
+./gitcd/interface/kivy/__init__.py:45:80: E501 line too long (84 > 79 characters)
+./gitcd/interface/kivy/__init__.py:65:80: E501 line too long (91 > 79 characters)
+./gitcd/interface/kivy/__init__.py:66:80: E501 line too long (185 > 79 characters)
+./gitcd/interface/kivy/branchpanel.py:1:1: F401 'threading' imported but unused
+./gitcd/interface/kivy/branchpanel.py:3:1: F401 'kivy' imported but unused
+./gitcd/interface/kivy/branchpanel.py:12:80: E501 line too long (86 > 79 characters)
+./gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.ILeftBody' imported but unused
+./gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.IRightBodyTouch' imported but unused
+./gitcd/interface/kivy/clean.py:9:1: F401 'kivymd.list.BaseListItem' imported but unused
+./gitcd/interface/kivy/clean.py:9:80: E501 line too long (101 > 79 characters)
+./gitcd/interface/kivy/clean.py:14:1: F401 'pprint.pprint' imported but unused
+./gitcd/interface/kivy/infopanel.py:3:1: F401 'kivy' imported but unused
+./gitcd/interface/kivy/infopanel.py:6:1: F401 'kivy.uix.scrollview.ScrollView' imported but unused
+./gitcd/interface/kivy/infopanel.py:8:1: F401 'kivymd.list.OneLineIconListItem' imported but unused
+./gitcd/interface/kivy/mainpanel.py:3:1: F401 'kivy' imported but unused
+./gitcd/interface/kivy/mainpanel.py:8:1: F401 'kivymd.list.OneLineIconListItem' imported but unused
+./gitcd/interface/kivy/mainpanel.py:10:1: F401 'kivymd.tabs.MDTabbedPanel' imported but unused
+./gitcd/interface/kivy/mainpanel.py:74:1: E303 too many blank lines (4)
+./gitcd/interface/kivy/mainpanel.py:96:47: W292 no newline at end of file
+./gitcd/interface/kivy/navigation.py:13:80: E501 line too long (80 > 79 characters)
+./gitcd/interface/kivy/navigation.py:20:80: E501 line too long (85 > 79 characters)
+./gitcd/interface/kivy/navigation.py:72:1: W391 blank line at end of file
+./gitcd/interface/kivy/tagpanel.py:1:1: F401 'threading' imported but unused
+./gitcd/interface/kivy/tagpanel.py:3:1: F401 'kivy' imported but unused
+./gitcd/interface/kivy/tagpanel.py:12:80: E501 line too long (86 > 79 characters)
+./gitcd/interface/kivy/upgrade.py:1:1: F401 'packaging.version' imported but unused
+./gitcd/interface/kivy/upgrade.py:63:1: E302 expected 2 blank lines, found 1
+./gitcd/interface/kivy/upgrade.py:83:17: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:83:19: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:84:29: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:84:31: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:85:22: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:85:24: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:86:17: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:86:19: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:87:21: E251 unexpected spaces around keyword / parameter equals
+./gitcd/interface/kivy/upgrade.py:87:23: E251 unexpected spaces around keyword / parameter equals
