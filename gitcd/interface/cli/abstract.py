@@ -27,10 +27,9 @@ class BaseCommand(object):
 
     def getRequestedBranch(self, branch: str) -> Branch:
         featureAsString = self.config.getString(self.config.getFeature())
-        return Branch('%s%s' % (
-            featureAsString,
-            branch
-        ))
+        if not branch.startswith(featureAsString):
+            branch = '%s%s' % (featureAsString, branch)
+        return Branch(branch)
 
     def getRemote(self) -> str:
         base = BaseController()
