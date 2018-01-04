@@ -1,6 +1,6 @@
 language: python
 branches:
-  only: 
+  only:
     - master
 python:
   - "3.3"
@@ -15,11 +15,9 @@ install:
   - pip install .
   - pip install -r requirements-dev.txt
 script:
-  # Run pycodestyle on all .py files in all subfolders
-  # (I ignore "E402: module level import not at top of file"
-  # because of use case sys.path.append('..'); import <module>)
-  - find . -name \*.py -exec pycodestyle --ignore=E402 {} +
-  
+  # Run flake8 on all .py files in all subfolders
+  - find . -name \*.py -exec flake8 {} +
+
   # run tests
   - | # default repo setup
       bash .travis/setup-ssh.sh
