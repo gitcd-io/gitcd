@@ -10,18 +10,6 @@ from gitcd.exceptions import GitcdGithubApiException
 
 class Review(BaseCommand):
 
-    def getTokenOrAskFor(self):
-        token = self.configPersonal.getToken()
-        if token is None:
-            token = self.interface.askFor(
-                "Your personal Github token?",
-                False,
-                token
-            )
-            self.configPersonal.setToken(token)
-            self.configPersonal.write()
-        return token
-
     def run(self, branch: Branch):
         remote = self.getRemote()
         controller = ReviewController()
@@ -30,6 +18,7 @@ class Review(BaseCommand):
         # ensure a token is set
         token = self.getTokenOrAskFor()
 
+        self.checkRepository()
         self.checkBranch(remote, branch)
 
         self.interface.warning("Opening pull-request")

@@ -74,14 +74,21 @@ class BaseCommand(object):
             if abort == "yes":
                 sys.exit(1)
 
-        if not remote.hasTag(branch):
-            pushFeatureBranch = self.interface.askFor(
-                "Your tag does not exists on remote. Do you want me to push it remote?",
-                ["yes", "no"], "yes"
+        return True
+
+    def checkRepository(self) -> bool:
+        repository = self.baseController.getRepository()
+        # check if repo has uncommited changes
+        if repository.hasUncommitedChanges():
+            abort = self.interface.askFor(
+                "You currently have uncomitted changes." +
+                " Do you want me to abort and let you commit first?",
+                ["yes", "no"],
+                "yes"
             )
 
-            if pushFeatureBranch == "yes":
-                remote.push(branch)
+            if abort == "yes":
+                sys.exit(1)
 
         return True
 
@@ -94,18 +101,6 @@ class BaseCommand(object):
                 "Your current branch is not a valid feature branch." +
                 " Checkout a feature branch or pass one as param."
             )
-
-        # check if repo has uncommited changes
-        if repository.hasUncommitedChanges():
-            abort = self.interface.askFor(
-                "You currently have uncomitted changes." +
-                " Do you want me to abort and let you commit first?",
-                ["yes", "no"],
-                "yes"
-            )
-
-            if abort == "yes":
-                sys.exit(1)
 
         # check remote existence
         if not remote.hasBranch(branch):
@@ -131,3 +126,15 @@ class BaseCommand(object):
                 remote.push(branch)
 
         return True
+
+    def getTokenOrAskFor(self):
+        token = self.configPersonal.getToken()
+        if token is None:
+            token = self.interface.askFor(
+                "Your personal Github token?",
+                False,
+                token
+            )
+            self.configPersonal.setToken(token)
+            self.configPersonal.write()
+        return token

@@ -11,9 +11,8 @@ from kivymd.button import MDIconButton
 
 from gitcd.controller.clean import Clean as CleanController
 
-from pprint import pprint
-
 import time
+
 
 Builder.load_string('''
 #:import MDSpinner kivymd.spinner.MDSpinner

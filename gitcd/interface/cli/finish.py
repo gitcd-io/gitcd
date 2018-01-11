@@ -37,7 +37,7 @@ class Finish(BaseCommand):
                         please give a different name."
                     )
                 ))
-
+        self.checkRepository()
         self.checkBranch(remote, branch)
 
         controller.mergeIntoMaster(branch, remote)

@@ -38,7 +38,12 @@ class Base(object):
     def getCurrentBranch(self):
         return self.repository.getCurrentBranch()
 
-    def mergeBranch(self, remote: Remote, developmentBranch: Branch, branch: Branch) -> bool:
+    def mergeBranch(
+        self,
+        remote: Remote,
+        developmentBranch: Branch,
+        branch: Branch
+    ) -> bool:
         remote.merge(developmentBranch, branch)
         self.repository.checkoutBranch(branch)
 

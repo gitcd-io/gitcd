@@ -168,15 +168,18 @@ class Remote(Git):
         self.push(branch)
 
     def compare(self, branch: Branch, toCompare: [Branch, Tag]) -> bool:
-        self.verboseCli.execute("git diff %s/%s %s --color" % (
-            self.name,
-            toCompare.getName(),
+        if isinstance(toCompare, Tag):
+            toCompareString = toCompare.getName()
+        else:
+            toCompareString = '%s/%s' % (self.name, toCompare.getName())
+        self.verboseCli.execute("git diff %s %s --color" % (
+            toCompareString,
             branch.getName()
         ))
         return True
 
+    # @todo: method for getting pr instance instead of forward every method to it
     def openPullRequest(self, title: str, body: str, fromBranch: Branch, toBranch: Branch) -> bool:
-
         if self.isGithub():
             pr = Github()
         elif self.isBitbucket():
@@ -187,6 +190,20 @@ class Remote(Git):
 
         pr.setRemote(self)
         pr.open(title, body, fromBranch, toBranch)
+
+    # @todo: method for getting pr instance instead of forward every method to it
+    def statusPullRequest(self, branch: Branch) -> bool:
+        if self.isGithub():
+            pr = Github()
+        elif self.isBitbucket():
+            pr = Bitbucket()
+        else:
+            # todo: raise RepoProviderNotImplementedException
+            return False
+
+        pr.setRemote(self)
+        return pr.status(branch)
+
 
     def isGithub(self) -> bool:
         return 'github.com' in self.url

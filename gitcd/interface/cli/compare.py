@@ -28,10 +28,6 @@ class Compare(BaseCommand):
         controller= CompareController()
         currentBranch = controller.getCurrentBranch()
         repository = controller.getRepository()
-
-        if type(branch) is Branch:
-            self.checkBranch(remote, branch)
-        elif type(branch) is Tag:
-            self.checkTag(remote, branch)
+        self.checkRepository()
 
         controller.compare(currentBranch, branch, remote)
