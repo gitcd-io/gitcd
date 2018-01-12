@@ -13,7 +13,6 @@ class Status(BaseCommand):
         token = self.getTokenOrAskFor()
         master = Branch(self.config.getMaster())
         prInfo = remote.statusPullRequest(branch)
-
         if len(prInfo) is 0:
             self.interface.writeOut(
                 "No pull request exists for %s...%s\n" % (

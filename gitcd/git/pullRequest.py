@@ -125,16 +125,16 @@ class Github(RepositoryProvider):
 
                 returnValue['state'] = 'REVIEW REQUIRED'
 
+                if len(reviewers) == 0:
+                    reviewers = self.getLgtmComments(result[0]['comments_url'])
+
                 if len(reviewers) > 0:
                     returnValue['state'] = 'APPROVED'
                     for reviewer in reviewers:
                         reviewer = reviewers[reviewer]
                         if reviewer['state'] is not 'APPROVED':
                             returnValue['state'] = reviewer['state']
-                else:
-                    # search comments for an lgtm
-                    # self.hasLgtmComment(result[0]['comments_url'])
-                    pass
+
                 returnValue['master'] = master.getName()
                 returnValue['feature'] = branch.getName()
                 returnValue['reviews'] = reviewers
@@ -157,28 +157,25 @@ class Github(RepositoryProvider):
                 for review in reviews:
                     if review['user']['login'] in reviewers:
                         reviewer = reviewers[review['user']['login']]
-                        comment = {}
-                        comment['date'] = review['submitted_at']
-                        comment['body'] = review['body']
-                        comment['state'] = review['state']
-                        reviewer['comments'].append(comment)
-                        reviewer['state'] = review['state']
                     else:
                         reviewer = {}
-                        reviewer['state'] = review['state']
                         reviewer['comments'] = []
-                        comment = {}
-                        comment['date'] = review['submitted_at']
-                        comment['body'] = review['body']
-                        comment['state'] = review['state']
-                        reviewer['comments'].append(comment)
-                        reviewers[review['user']['login']] = reviewer
+
+                    comment = {}
+                    comment['date'] = review['submitted_at']
+                    comment['body'] = review['body']
+                    comment['state'] = review['state']
+                    reviewer['state'] = review['state']
+                    reviewer['comments'].append(comment)
+
+                    reviewers[review['user']['login']] = reviewer
+
 
         return reviewers
 
-    def hasLgtmComment(self, commentsUrl):
+    def getLgtmComments(self, commentsUrl):
         token = self.configPersonal.getToken()
-        reviewer = ''
+        reviewers = {}
         if isinstance(token, str):
             if token is not None:
                 headers = {'Authorization': 'token %s' % token}
@@ -189,9 +186,21 @@ class Github(RepositoryProvider):
                 comments = response.json()
                 for comment in comments:
                     if 'lgtm' in comment['body'].lower():
-                        reviewer = comment['user']['login']
 
-        return reviewer
+                        if comment['user']['login'] in reviewers:
+                            reviewer = reviewers[comment['user']['login']]
+                        else:
+                            reviewer = {}
+
+                        reviewer['state'] = 'APPROVED'
+                        reviewer['comments'] = []
+                        reviewerComment = {}
+                        reviewerComment['state'] = 'APPROVED'
+                        reviewerComment['body'] = comment['body']
+                        reviewer['comments'].append(reviewerComment)
+                        reviewers[comment['user']['login']] = reviewer
+
+        return reviewers
 
 
 class Bitbucket(RepositoryProvider):
