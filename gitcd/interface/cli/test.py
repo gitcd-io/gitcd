@@ -3,7 +3,6 @@ from gitcd.controller.test import Test as TestController
 from gitcd.git.branch import Branch
 
 
-
 class Test(BaseCommand):
 
     def run(self, branch: Branch):
@@ -27,4 +26,3 @@ class Test(BaseCommand):
             ))
 
         controller.mergeBranch(remote, developmentBranch, branch)
-

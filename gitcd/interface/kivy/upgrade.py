@@ -1,3 +1,4 @@
+# flake8: noqa
 from packaging import version
 import threading
 

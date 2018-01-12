@@ -1,8 +1,8 @@
-from typing import List
 from typing import Union
 
 from gitcd.git import Git
 from gitcd.git.pullRequest import Github
+from gitcd.git.pullRequest import Bitbucket
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 
@@ -121,7 +121,10 @@ class Remote(Git):
         )
         if type(branch) is Branch:
             self.verboseCli.execute(
-                "git branch --set-upstream-to %s/%s" % (self.name, branch.getName())
+                "git branch --set-upstream-to %s/%s" % (
+                    self.name,
+                    branch.getName()
+                )
             )
         return True
 
@@ -132,14 +135,20 @@ class Remote(Git):
         return True
 
     def delete(self, branch: Branch) -> bool:
-        output = self.verboseCli.execute("git push %s :%s" % (self.name, branch.getName()))
+        output = self.verboseCli.execute("git push %s :%s" % (
+            self.name, branch.getName())
+        )
         if output is False:
             return False
         return True
 
     def isBehind(self, branch: Branch) -> bool:
         output = self.cli.execute(
-            "git log %s/%s..%s" % (self.name, branch.getName(), branch.getName())
+            "git log %s/%s..%s" % (
+                self.name,
+                branch.getName(),
+                branch.getName()
+            )
         )
         if not output:
             return False
@@ -163,8 +172,14 @@ class Remote(Git):
 
     def merge(self, branch: Branch, branchToMerge: Branch) -> bool:
         self.verboseCli.execute("git checkout %s" % (branch.getName()))
-        self.verboseCli.execute("git pull %s %s" % (self.name, branch.getName()))
-        self.verboseCli.execute("git merge %s/%s" % (self.name, branchToMerge.getName()))
+        self.verboseCli.execute("git pull %s %s" % (
+            self.name,
+            branch.getName()
+        ))
+        self.verboseCli.execute("git merge %s/%s" % (
+            self.name,
+            branchToMerge.getName()
+        ))
         self.push(branch)
 
     def compare(self, branch: Branch, toCompare: [Branch, Tag]) -> bool:
@@ -178,8 +193,14 @@ class Remote(Git):
         ))
         return True
 
-    # @todo: method for getting pr instance instead of forward every method to it
-    def openPullRequest(self, title: str, body: str, fromBranch: Branch, toBranch: Branch) -> bool:
+    # @todo: method for getting pr instance instead of reimplement
+    def openPullRequest(
+        self,
+        title: str,
+        body: str,
+        fromBranch: Branch,
+        toBranch: Branch
+    ) -> bool:
         if self.isGithub():
             pr = Github()
         elif self.isBitbucket():
@@ -191,7 +212,7 @@ class Remote(Git):
         pr.setRemote(self)
         pr.open(title, body, fromBranch, toBranch)
 
-    # @todo: method for getting pr instance instead of forward every method to it
+    # @todo: method for getting pr instance instead of reimplement
     def statusPullRequest(self, branch: Branch) -> bool:
         if self.isGithub():
             pr = Github()
@@ -203,7 +224,6 @@ class Remote(Git):
 
         pr.setRemote(self)
         return pr.status(branch)
-
 
     def isGithub(self) -> bool:
         return 'github.com' in self.url

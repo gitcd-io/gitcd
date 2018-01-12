@@ -28,7 +28,10 @@ class Start(BaseCommand):
         if not featurePrefix:
             return branch
 
-        if branch.getName().startswith('%s%s' % (featurePrefixAsString, featurePrefixAsString)):
+        if branch.getName().startswith('%s%s' % (
+            featurePrefixAsString,
+            featurePrefixAsString
+        )):
             fixFeatureBranch = self.interface.askFor(
                 "Your feature branch already starts" +
                 " with your feature prefix," +
@@ -38,7 +41,12 @@ class Start(BaseCommand):
             )
 
             if fixFeatureBranch == "yes":
-                branch = self.instantiateBranch(branch.getName().replace('%s%s' % (featurePrefixAsString, featurePrefixAsString), ''))
+                branch = self.instantiateBranch(
+                    branch.getName().replace('%s%s' % (
+                        featurePrefixAsString,
+                        featurePrefixAsString
+                    ), '')
+                )
 
         return branch
 
@@ -61,7 +69,10 @@ class Start(BaseCommand):
 
         # not sure if this is smart since test branch is kind of a prefix too
         if testBranch is not None:
-            featureBranchString = '%s%s' % (featurePrefixAsString, branch.getName())
+            featureBranchString = '%s%s' % (
+                featurePrefixAsString,
+                branch.getName()
+            )
             if featureBranchString.startswith(testBranchAsString):
                 # maybe i should use while here
                 # if anyone passes develop again, i wouldnt notice

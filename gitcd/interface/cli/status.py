@@ -1,16 +1,13 @@
 from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.git.branch import Branch
-from gitcd.controller.status import Status as StatusController
-
-from pprint import pprint
 
 
 class Status(BaseCommand):
 
     def run(self, branch: str):
         remote = self.getRemote()
-        token = self.getTokenOrAskFor()
+        self.getTokenOrAskFor()
         master = Branch(self.config.getMaster())
         prInfo = remote.statusPullRequest(branch)
         if len(prInfo) is 0:
@@ -34,9 +31,17 @@ class Status(BaseCommand):
                 master.getName())
             )
             if prInfo['state'] == 'APPROVED':
-                state = '%s%s%s' % (self.interface.OK, prInfo['state'], self.interface.ENDC)
+                state = '%s%s%s' % (
+                    self.interface.OK,
+                    prInfo['state'],
+                    self.interface.ENDC
+                )
             else:
-                state = '%s%s%s' % (self.interface.ERROR, prInfo['state'], self.interface.ENDC)
+                state = '%s%s%s' % (
+                    self.interface.ERROR,
+                    prInfo['state'],
+                    self.interface.ENDC
+                )
             self.interface.writeOut('State: %s' % (state))
             self.interface.writeOut("Number:   %s" % (prInfo['number']))
             self.interface.writeOut("Reviews:")
@@ -45,9 +50,20 @@ class Status(BaseCommand):
                 self.interface.writeOut('    - %s' % (user))
                 for comment in review['comments']:
                     if comment['state'] == 'APPROVED':
-                        state = '%s%s%s' % (self.interface.OK, comment['state'], self.interface.ENDC)
+                        state = '%s%s%s' % (
+                            self.interface.OK,
+                            comment['state'],
+                            self.interface.ENDC
+                        )
                     else:
-                        state = '%s%s%s' % (self.interface.ERROR, comment['state'], self.interface.ENDC)
-                    self.interface.writeOut('        %s: %s' % (state, comment['body']))
+                        state = '%s%s%s' % (
+                            self.interface.ERROR,
+                            comment['state'],
+                            self.interface.ENDC
+                        )
+                    self.interface.writeOut('        %s: %s' % (
+                        state,
+                        comment['body']
+                    ))
 
             self.interface.writeOut("URL: %s" % (prInfo['url']))

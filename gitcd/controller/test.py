@@ -1,5 +1,4 @@
 from gitcd.controller import Base
-from gitcd.git.remote import Remote
 from gitcd.git.branch import Branch
 
 from gitcd.exceptions import GitcdNoDevelopmentBranchDefinedException

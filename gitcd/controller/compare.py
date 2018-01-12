@@ -6,7 +6,8 @@ from gitcd.git.remote import Remote
 
 class Compare(Base):
 
-    def compare(self,
+    def compare(
+        self,
         currentBranch: Branch,
         branch: [Branch, Tag],
         remote: Remote

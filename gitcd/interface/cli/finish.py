@@ -2,15 +2,12 @@ from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.git.branch import Branch
 from gitcd.controller.finish import Finish as FinishController
 
-from gitcd.exceptions import GitcdNoFeatureBranchException
-
 
 class Finish(BaseCommand):
 
     def run(self, branch: Branch):
         controller = FinishController()
         remote = self.getRemote()
-        repository = controller.getRepository()
 
         testBranch = self.config.getTest()
         masterBranch = self.config.getMaster()
@@ -19,7 +16,7 @@ class Finish(BaseCommand):
             # maybe i should use recursion here
             # if anyone passes master again, i wouldnt notice
             branch = Branch('%s%s' % (
-                featureAsString,
+                branch.getName(),
                 self.interface.askFor(
                     "You passed your master branch name as feature branch,\
                     please give a different name."
@@ -31,7 +28,7 @@ class Finish(BaseCommand):
                 # maybe i should use recursion here
                 # if anyone passes master again, i wouldnt notice
                 branch = Branch('%s%s' % (
-                    featureAsString,
+                    branch.getName(),
                     self.interface.askFor(
                         "You passed your test branch name as feature branch,\
                         please give a different name."

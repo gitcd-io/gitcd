@@ -1,7 +1,6 @@
-import os
 import simpcli
+import sys
 
-from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 from gitcd.git.remote import Remote
@@ -13,7 +12,6 @@ from gitcd.controller import Base as BaseController
 
 from gitcd.exceptions import GitcdNoFeatureBranchException
 
-import sys
 
 class BaseCommand(object):
 
@@ -93,8 +91,6 @@ class BaseCommand(object):
         return True
 
     def checkBranch(self, remote: Remote, branch: Branch) -> bool:
-        repository = self.baseController.getRepository()
-
         # check if its a feature branch
         if not branch.isFeature():
             raise GitcdNoFeatureBranchException(

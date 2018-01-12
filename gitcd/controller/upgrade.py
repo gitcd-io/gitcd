@@ -5,8 +5,6 @@ import requests
 
 from gitcd.controller import Base
 
-from gitcd.git.repository import Repository
-
 from gitcd.exceptions import GitcdPyPiApiException
 
 

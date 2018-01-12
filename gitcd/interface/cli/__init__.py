@@ -13,8 +13,6 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
-from gitcd.git.branch import Branch
-
 from gitcd.exceptions import GitcdException
 from simpcli import CliException
 

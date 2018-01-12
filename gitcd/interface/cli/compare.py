@@ -9,12 +9,11 @@ from gitcd.git.tag import Tag
 class Compare(BaseCommand):
 
     def getDefaultBranch(self) -> [Branch, Tag]:
-        controller= CompareController()
+        controller = CompareController()
         repository = controller.getRepository()
         return repository.getLatestTag()
 
     def getRequestedBranch(self, branch: str) -> [Branch, Tag]:
-        masterBranch = self.config.getMaster()
         tagPrefix = self.config.getTag()
         if branch.startswith(tagPrefix):
             branch = Tag(branch)
@@ -25,9 +24,8 @@ class Compare(BaseCommand):
 
     def run(self, branch: [Branch, Tag]):
         remote = self.getRemote()
-        controller= CompareController()
+        controller = CompareController()
         currentBranch = controller.getCurrentBranch()
-        repository = controller.getRepository()
         self.checkRepository()
 
         controller.compare(currentBranch, branch, remote)

@@ -1,5 +1,4 @@
 from gitcd.git import Git
-
 from gitcd.git.branch import Branch
 
 from gitcd.exceptions import GitcdGithubApiException
@@ -7,7 +6,7 @@ from gitcd.exceptions import GitcdGithubApiException
 import json
 import requests
 from sys import platform
-from pprint import pprint
+
 
 class RepositoryProvider(Git):
 
@@ -34,16 +33,24 @@ class RepositoryProvider(Git):
     def open(self):
         raise Exception('Not implemented')
 
-
     def status(self):
         raise Exception('Not implemented')
 
 
 class Github(RepositoryProvider):
 
-    def open(self, title: str, body: str, fromBranch: Branch, toBranch: Branch) -> bool:
+    def open(
+        self,
+        title: str,
+        body: str,
+        fromBranch: Branch,
+        toBranch: Branch
+    ) -> bool:
         token = self.configPersonal.getToken()
-        url = "https://api.github.com/repos/%s/%s/pulls" % (self.remote.getUsername(), self.remote.getRepositoryName())
+        url = "https://api.github.com/repos/%s/%s/pulls" % (
+            self.remote.getUsername(),
+            self.remote.getRepositoryName()
+        )
 
         # check if the token is a string - does not necessarily mean its valid
         if isinstance(token, str):
@@ -81,9 +88,9 @@ class Github(RepositoryProvider):
                 defaultBrowser,
                 "https://github.com/%s/%s/compare/%s...%s" % (
                     self.remote.getUsername(),
-                    repo,
-                    master,
-                    featureBranch
+                    self.remote.getRepositoryName(),
+                    toBranch.getName(),
+                    fromBranch.getName()
                 )
             ))
         return True
@@ -95,7 +102,10 @@ class Github(RepositoryProvider):
         master = Branch(self.config.getMaster())
         # claudio-walser:refs/heads/implement-status
         if isinstance(token, str):
-            url = "https://api.github.com/repos/%s/%s/pulls" % (username, self.remote.getRepositoryName())
+            url = "https://api.github.com/repos/%s/%s/pulls" % (
+                username,
+                self.remote.getRepositoryName()
+            )
 
             data = {
                 "state": 'open',
@@ -169,7 +179,6 @@ class Github(RepositoryProvider):
                     reviewer['comments'].append(comment)
 
                     reviewers[review['user']['login']] = reviewer
-
 
         return reviewers
 

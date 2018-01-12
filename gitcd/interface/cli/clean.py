@@ -4,8 +4,6 @@ from gitcd.git.branch import Branch
 
 from gitcd.controller.clean import Clean as CleanController
 
-import sys
-
 
 class Clean(BaseCommand):
 

@@ -1,7 +1,6 @@
 from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.controller.release import Release as ReleaseController
 from gitcd.git.branch import Branch
-from gitcd.git.remote import Remote
 
 
 class Release(BaseCommand):

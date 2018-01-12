@@ -84,7 +84,6 @@ class Repository(Git):
             branchObject = Branch(branch)
             branchObjects.append(branchObject)
 
-
         return branchObjects
 
     def getBranch(self, branchStr: str) -> Branch:
@@ -115,7 +114,6 @@ class Repository(Git):
 
             if tag not in tags:
                 tags.append(tag)
-                tagObjects.append(tagObject)
 
         tagObjects = []
         tags.sort()
