@@ -17,7 +17,12 @@ if [ $REMOTE_COUNT != 0 ]; then
 fi
 
 # call git-cd clean
-git-cd clean
+/usr/bin/expect <<EOD
+spawn git-cd clean
+expect "Do you want me to delete those branches locally?"
+send "yes\n"
+expect
+EOD
 
 # assert the local feature branch is deleted
 LOCAL_COUNT=`git branch -a | grep "feature/travis-test-$TRAVIS_JOB_NUMBER" | wc -l`
