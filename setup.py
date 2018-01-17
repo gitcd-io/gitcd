@@ -27,7 +27,7 @@ setup(
         'argparse',
         'argcomplete',
         'requests',
-        'packaging'#,
+        'packaging'  # ,
         # 'kivy',
         # 'KivyMD'
     ],
