@@ -32,7 +32,8 @@ setup(
         'KivyMD'
     ],
     dependency_links=[
-        'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'
+        'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD',
+        'git+https://github.com/kivy/kivy@master#egg=kivy'
     ],
     #
     entry_points={
