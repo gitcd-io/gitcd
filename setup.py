@@ -27,14 +27,14 @@ setup(
         'argparse',
         'argcomplete',
         'requests',
-        'packaging'  # ,
-        # 'kivy',
-        # 'KivyMD'
+        'packaging',
+        'kivy',
+        'KivyMD'
     ],
-    # dependency_links=[
-    #     'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'
-    # ],
-    #
+    dependency_links=[
+        'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'
+    ],
+
     entry_points={
         'console_scripts': [
             'git-cd = gitcd.bin.console:main',

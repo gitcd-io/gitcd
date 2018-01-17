@@ -5,4 +5,4 @@ flake8==3.5.0
 sphinx==1.6.5
 sphinx-autobuild==0.7.1
 packaging==16.8
-Cython==0.27.3
+Cython==0.25.2
