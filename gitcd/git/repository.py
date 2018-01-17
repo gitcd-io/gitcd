@@ -144,8 +144,8 @@ class Repository(Git):
 
         return True
 
-    # @todo: this is stupid here but until there is a new concept for controllers
-    # this is the way to go
+    # @todo: this is stupid here but until there is a new concept
+    # for controllers this is the way to go
     def executeExtraCommand(self, extraCommand: str) -> bool:
         self.cli.execute(
             extraCommand
