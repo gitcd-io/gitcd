@@ -41,4 +41,10 @@ class Release(Base):
         tag.create(message)
         remote.push(tag)
 
+        extraCommand = self.config.getExtraReleaseCommand()
+        if extraCommand is not None:
+            self.cli.execute(
+                extraCommand
+            )
+
         return True
