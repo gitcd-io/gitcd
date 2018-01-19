@@ -1,9 +1,10 @@
 from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
+from gitcd.app import App
 
 
-class Clean(object):
+class Clean(App):
 
     def __init__(self):
         self.repository = Repository()

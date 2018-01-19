@@ -1,18 +1,22 @@
 from gitcd.interface.cli.abstract import BaseCommand
-from gitcd.controller.release import Release as ReleaseController
+from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
+
+from gitcd.app.release import Release as ReleaseHelper
 
 
 class Release(BaseCommand):
 
     def run(self, branch: Branch):
+        repository = Repository()
         remote = self.getRemote()
         masterBranch = Branch(self.config.getMaster())
 
-        controller = ReleaseController()
-        controller.checkout(remote, masterBranch)
+        releaseHelper = ReleaseHelper()
 
-        version = controller.getVersion()
+        releaseHelper.checkout(remote, masterBranch)
+
+        version = releaseHelper.getVersion()
         if version is False:
             version = self.interface.askFor(
                 "Whats the current version number you want to release?")
@@ -27,6 +31,6 @@ class Release(BaseCommand):
             version
         )
 
-        controller.release(version, message, remote)
+        releaseHelper.release(version, message, remote)
 
         return True
