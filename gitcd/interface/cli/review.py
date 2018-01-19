@@ -18,4 +18,5 @@ class Review(BaseCommand):
 
         title = self.interface.askFor("Pull-Request title?")
         body = self.interface.askFor("Pull-Request body?")
-        remote.openPullRequest(title, body, branch, master)
+        pr = remote.getGitWebIntegration()
+        pr.open(title, body, branch, master)

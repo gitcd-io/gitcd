@@ -193,14 +193,8 @@ class Remote(Git):
         ))
         return True
 
-    # @todo: method for getting pr instance instead of reimplement
-    def openPullRequest(
-        self,
-        title: str,
-        body: str,
-        fromBranch: Branch,
-        toBranch: Branch
-    ) -> bool:
+    # Get PullRequest Implementation for either Github or Bitbucket
+    def getGitWebIntegration(self) -> [Github, Bitbucket]:
         if self.isGithub():
             pr = Github()
         elif self.isBitbucket():
@@ -208,22 +202,9 @@ class Remote(Git):
         else:
             # todo: raise RepoProviderNotImplementedException
             return False
-
         pr.setRemote(self)
-        pr.open(title, body, fromBranch, toBranch)
 
-    # @todo: method for getting pr instance instead of reimplement
-    def statusPullRequest(self, branch: Branch) -> bool:
-        if self.isGithub():
-            pr = Github()
-        elif self.isBitbucket():
-            pr = Bitbucket()
-        else:
-            # todo: raise RepoProviderNotImplementedException
-            return False
-
-        pr.setRemote(self)
-        return pr.status(branch)
+        return pr
 
     def isGithub(self) -> bool:
         return 'github.com' in self.url
