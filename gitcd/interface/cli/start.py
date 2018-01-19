@@ -83,5 +83,4 @@ class Start(BaseCommand):
 
         branch = self.checkDoubleFeaturePrefix(branch)
 
-        controller = StartController()
-        controller.start(branch, remote)
+        remote.createFeature(feature)
