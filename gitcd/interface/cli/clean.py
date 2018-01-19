@@ -7,6 +7,8 @@ from gitcd.controller.clean import Clean as CleanController
 
 class Clean(BaseCommand):
 
+    updateRemotes = True
+
     def run(self, branch: Branch):
         controller = CleanController()
 

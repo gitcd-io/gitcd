@@ -1,6 +1,6 @@
 from gitcd.interface.cli.abstract import BaseCommand
 
-from gitcd.controller.compare import Compare as CompareController
+from gitcd.git.repository import Repository
 
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
@@ -9,8 +9,7 @@ from gitcd.git.tag import Tag
 class Compare(BaseCommand):
 
     def getDefaultBranch(self) -> [Branch, Tag]:
-        controller = CompareController()
-        repository = controller.getRepository()
+        repository = Repository()
         return repository.getLatestTag()
 
     def getRequestedBranch(self, branch: str) -> [Branch, Tag]:
@@ -24,8 +23,8 @@ class Compare(BaseCommand):
 
     def run(self, branch: [Branch, Tag]):
         remote = self.getRemote()
-        controller = CompareController()
-        currentBranch = controller.getCurrentBranch()
+        repository = Repository()
+        currentBranch = repository.getCurrentBranch()
         self.checkRepository()
 
-        controller.compare(currentBranch, branch, remote)
+        remote.compare(currentBranch, branch)

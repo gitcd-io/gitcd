@@ -1,6 +1,7 @@
 import simpcli
 import sys
 
+from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 from gitcd.git.remote import Remote
@@ -19,6 +20,18 @@ class BaseCommand(object):
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
     baseController = BaseController()
+    updateRemote = False
+
+    def __init__(self):
+        if self.updateRemote is True:
+            repository = Repository()
+            remotes = repository.getRemotes()
+
+            for remote in remotes:
+                try:
+                    remote.update()
+                except simpcli.CliException as e:
+                    pass
 
     def run(self, branch: Branch):
         pass

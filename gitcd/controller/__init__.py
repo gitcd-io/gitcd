@@ -1,5 +1,3 @@
-from simpcli import CliException
-
 from gitcd.git.repository import Repository
 from gitcd.git.remote import Remote
 from gitcd.git.branch import Branch
@@ -18,16 +16,6 @@ class Base(object):
         if self.updateRemotes is True:
             self.remoteUpdate()
 
-    def remoteUpdate(self) -> bool:
-        remotes = self.repository.getRemotes()
-
-        returnValue = True
-        for remote in remotes:
-            try:
-                remote.update()
-            except CliException as e:
-                returnValue = False
-        return returnValue
 
     def getRepository(self) -> Repository:
         return self.repository
