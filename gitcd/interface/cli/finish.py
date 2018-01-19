@@ -1,12 +1,11 @@
 from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.git.branch import Branch
-from gitcd.controller.finish import Finish as FinishController
+from gitcd.git.remote import Remote
 
 
 class Finish(BaseCommand):
 
     def run(self, branch: Branch):
-        controller = FinishController()
         remote = self.getRemote()
 
         testBranch = self.config.getTest()
@@ -37,7 +36,9 @@ class Finish(BaseCommand):
         self.checkRepository()
         self.checkBranch(remote, branch)
 
-        controller.mergeIntoMaster(branch, remote)
+        master = Branch(masterBranch)
+        remote.merge(master, branch)
+
 
         deleteFeatureBranch = self.interface.askFor(
             "Delete your feature branch?", ["yes", "no"], "yes"

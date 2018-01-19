@@ -2,7 +2,7 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.git.branch import Branch
 
-from gitcd.controller.clean import Clean as CleanController
+from gitcd.app.clean import Clean as CleanHelper
 
 
 class Clean(BaseCommand):
@@ -10,9 +10,9 @@ class Clean(BaseCommand):
     updateRemotes = True
 
     def run(self, branch: Branch):
-        controller = CleanController()
+        helper = CleanHelper()
 
-        branchesToDelete = controller.getBranchesToDelete()
+        branchesToDelete = helper.getBranchesToDelete()
 
         self.interface.writeOut('Branches to delete')
 
@@ -33,6 +33,6 @@ class Clean(BaseCommand):
             'yes'
         )
         if delete == 'yes':
-            controller.deleteBranches(branchesToDelete)
+            helper.deleteBranches(branchesToDelete)
 
         return True

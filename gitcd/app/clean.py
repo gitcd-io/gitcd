@@ -36,25 +36,3 @@ class Clean(object):
             branch.delete()
 
         return True
-
-    def getTagsToDelete(self) -> [Tag]:
-        remotes = self.repository.getRemotes()
-        tags = self.repository.getTags()
-
-        tagsToDelete = []
-        for tag in tags:
-            deleteTag = True
-            for remote in remotes:
-                if remote.hasTag(tag):
-                    deleteTag = False
-
-            if deleteTag:
-                tagsToDelete.append(tag)
-
-        return tagsToDelete
-
-    def deleteTags(self, tags: [Tag]) -> bool:
-        for tag in tags:
-            tag.delete()
-
-        return True
