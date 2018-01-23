@@ -1,1 +1,130 @@
-<?xml version="1.0" standalone="no"?><!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 600 600" width="600" height="600"><g id="logo-background" style="mix-blend-mode:multiply;"><linearGradient id="_lgradient_1" x1="-4.440892098500626e-14%" y1="3.3306690738754696e-14%" x2="99.99999999999996%" y2="100.00000000000009%"><stop offset="0%" stop-opacity="1" style="stop-color:rgb(72,110,122)"/><stop offset="100%" stop-opacity="1" style="stop-color:rgb(40,85,99)"/></linearGradient><rect x="0.15" y="0" width="599.7" height="600" transform="matrix(0,-1,1,0,0,600)" fill="url(#_lgradient_1)" style="mix-blend-mode:screen;"/><g id="SvgjsG1953"><g id="g13"><g id="g11"><path d=" M 241.389 181.842 C 222.244 181.842 206.842 166.44 206.842 147.295 C 206.842 128.222 222.244 112.748 241.389 112.748 L 281.982 112.748 C 301.127 112.748 316.529 128.222 316.529 147.295 C 316.529 148.375 315.594 149.382 314.514 149.382 C 313.434 149.382 312.427 148.375 312.499 147.295 C 312.499 130.381 298.896 116.85 281.982 116.85 L 241.389 116.85 C 224.475 116.85 210.872 130.381 210.872 147.295 C 210.872 164.209 224.475 177.812 241.389 177.812 L 281.982 177.812 C 283.062 177.74 284.069 178.747 284.069 179.827 C 284.069 180.907 283.062 181.842 281.982 181.842 L 241.389 181.842 Z  M 318.545 181.842 C 299.472 181.842 283.997 166.44 283.997 147.295 C 283.997 146.215 285.005 145.28 286.085 145.28 C 287.164 145.28 288.1 146.215 288.1 147.295 C 288.1 164.209 301.631 177.812 318.545 177.812 L 359.209 177.812 C 376.123 177.812 389.654 164.209 389.654 147.295 C 389.654 130.381 376.123 116.85 359.209 116.85 L 318.545 116.85 C 317.465 116.85 316.529 115.915 316.529 114.835 C 316.529 113.755 317.465 112.748 318.545 112.748 L 359.209 112.748 C 378.282 112.748 393.685 128.222 393.685 147.295 C 393.685 166.44 378.282 181.842 359.209 181.842 L 318.545 181.842 Z " fill="rgb(255,255,255)"/></g></g></g></g><g transform="matrix(1,0,0,1,43,229)"><text transform="matrix(1,0,0,1,0,114.75)" style="font-family:&quot;Aqua Grotesque&quot;;font-weight:400;font-size:153px;font-style:normal;fill:#ffffff;stroke:none;">GITCD</text></g><g transform="matrix(1,0,0,1,53,363.714)"><text transform="matrix(1,0,0,1,0,34.5)" style="font-family:&quot;Aqua Grotesque&quot;;font-weight:400;font-size:46px;font-style:normal;fill:#ffffff;stroke:none;">continuous delivery</text></g></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Gravit.io -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   style="isolation:isolate"
+   viewBox="0 0 600 600"
+   width="600"
+   height="600"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="logo.svg">
+  <metadata
+     id="metadata29">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs27" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1440"
+     inkscape:window-height="858"
+     id="namedview25"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:zoom="1.5733333"
+     inkscape:cx="445.63743"
+     inkscape:cy="457.78581"
+     inkscape:window-x="2"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2">
+    <sodipodi:guide
+       position="300,681.35593"
+       orientation="1,0"
+       id="guide4159" />
+  </sodipodi:namedview>
+  <g
+     id="logo-background"
+     style="mix-blend-mode:multiply;">
+    <linearGradient
+       id="_lgradient_1"
+       x1="-4.440892098500626e-14%"
+       y1="3.3306690738754696e-14%"
+       x2="99.99999999999996%"
+       y2="100.00000000000009%">
+      <stop
+         offset="0%"
+         stop-opacity="1"
+         style="stop-color:rgb(72,110,122)"
+         id="stop6" />
+      <stop
+         offset="100%"
+         stop-opacity="1"
+         style="stop-color:rgb(40,85,99)"
+         id="stop8" />
+    </linearGradient>
+    <rect
+       x="0.15"
+       y="0"
+       width="599.7"
+       height="600"
+       transform="matrix(0,-1,1,0,0,600)"
+       fill="url(#_lgradient_1)"
+       style="mix-blend-mode:screen;"
+       id="rect10" />
+    <g
+       id="SvgjsG1953">
+      <g
+         id="g13">
+        <g
+           id="g11">
+          <path
+             d=" M 241.389 181.842 C 222.244 181.842 206.842 166.44 206.842 147.295 C 206.842 128.222 222.244 112.748 241.389 112.748 L 281.982 112.748 C 301.127 112.748 316.529 128.222 316.529 147.295 C 316.529 148.375 315.594 149.382 314.514 149.382 C 313.434 149.382 312.427 148.375 312.499 147.295 C 312.499 130.381 298.896 116.85 281.982 116.85 L 241.389 116.85 C 224.475 116.85 210.872 130.381 210.872 147.295 C 210.872 164.209 224.475 177.812 241.389 177.812 L 281.982 177.812 C 283.062 177.74 284.069 178.747 284.069 179.827 C 284.069 180.907 283.062 181.842 281.982 181.842 L 241.389 181.842 Z  M 318.545 181.842 C 299.472 181.842 283.997 166.44 283.997 147.295 C 283.997 146.215 285.005 145.28 286.085 145.28 C 287.164 145.28 288.1 146.215 288.1 147.295 C 288.1 164.209 301.631 177.812 318.545 177.812 L 359.209 177.812 C 376.123 177.812 389.654 164.209 389.654 147.295 C 389.654 130.381 376.123 116.85 359.209 116.85 L 318.545 116.85 C 317.465 116.85 316.529 115.915 316.529 114.835 C 316.529 113.755 317.465 112.748 318.545 112.748 L 359.209 112.748 C 378.282 112.748 393.685 128.222 393.685 147.295 C 393.685 166.44 378.282 181.842 359.209 181.842 L 318.545 181.842 Z "
+             fill="rgb(255,255,255)"
+             id="path15" />
+        </g>
+      </g>
+    </g>
+  </g>
+  <g
+     transform="translate(65,229)"
+     id="g17">
+    <text
+       style="font-style:normal;font-weight:400;font-size:153px;font-family:'Aqua Grotesque';fill:#ffffff;fill-opacity:1;stroke:none"
+       id="text19"
+       x="0"
+       y="114.75">GITCD</text>
+    <use
+       id="use4157"
+       xlink:href="#text19"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(563.12253,-118.20092)" />
+  </g>
+  <g
+     transform="translate(73,363.714)"
+     id="g21"
+     style="fill:#ffffff;fill-opacity:1">
+    <text
+       transform="translate(0,34.5)"
+       style="font-style:normal;font-weight:400;font-size:46px;font-family:'Aqua Grotesque';fill:#ffffff;fill-opacity:1;stroke:none"
+       id="text23">continuous delivery</text>
+  </g>
+</svg>
