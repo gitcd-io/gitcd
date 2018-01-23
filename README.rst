@@ -1,4 +1,4 @@
-.. image:: logo.svg
+.. image:: https://raw.githubusercontent.com/claudio-walser/gitcd/master/logo.svg
     :height: 150px
     :width: 150px
 
