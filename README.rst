@@ -1,4 +1,4 @@
-.. image:: logo.svg
+.. image:: logo.png
     :height: 150px
     :width: 150px
 
