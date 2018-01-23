@@ -1,6 +1,6 @@
 .. image:: logo.png
-    :height: 150px
-    :width: 150px
+   :height: 150px
+   :width: 150px
 
 
 Continuous tool for working with git
