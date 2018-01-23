@@ -10,6 +10,7 @@ from gitcd.git.exceptions import NoRepositoryException
 from gitcd.git.exceptions import RemoteNotFoundException
 from gitcd.git.exceptions import BranchNotFoundException
 from gitcd.git.exceptions import TagNotFoundException
+from gitcd.git.exceptions import GitcdNoDevelopmentBranchDefinedException
 
 
 class Repository(Git):
@@ -85,6 +86,19 @@ class Repository(Git):
             branchObjects.append(branchObject)
 
         return branchObjects
+
+    def getDevelopmentBranches(self) -> [Branch]:
+        branches = self.getBranches()
+        developmentBranches = []
+        for branch in branches:
+            if branch.isTest():
+                developmentBranches.append(branch)
+
+        if len(developmentBranches) < 1:
+            raise GitcdNoDevelopmentBranchDefinedException(
+                "No development branch found"
+            )
+        return developmentBranches
 
     def getBranch(self, branchStr: str) -> Branch:
         branches = self.getBranches()

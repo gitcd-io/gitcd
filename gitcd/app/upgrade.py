@@ -3,12 +3,12 @@ import pip
 import pkg_resources
 import requests
 
-from gitcd.controller import Base
+from gitcd.app import App
 
 from gitcd.exceptions import GitcdPyPiApiException
 
 
-class Upgrade(Base):
+class Upgrade(App):
 
     localVersion = 0
     pypiVersion = 0

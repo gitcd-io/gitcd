@@ -9,8 +9,6 @@ from gitcd.git.remote import Remote
 from gitcd.config import Gitcd as GitcdConfig
 from gitcd.config import GitcdPersonal as GitcdPersonalConfig
 
-from gitcd.controller import Base as BaseController
-
 from gitcd.exceptions import GitcdNoFeatureBranchException
 
 
@@ -19,13 +17,12 @@ class BaseCommand(object):
     interface = simpcli.Interface()
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
-    baseController = BaseController()
+    repository = Repository()
     updateRemote = False
 
     def __init__(self):
         if self.updateRemote is True:
-            repository = Repository()
-            remotes = repository.getRemotes()
+            remotes = self.repository.getRemotes()
 
             for remote in remotes:
                 try:
@@ -37,7 +34,7 @@ class BaseCommand(object):
         pass
 
     def getDefaultBranch(self) -> Branch:
-        return self.baseController.getCurrentBranch()
+        return self.repository.getCurrentBranch()
 
     def getRequestedBranch(self, branch: str) -> Branch:
         featureAsString = self.config.getString(self.config.getFeature())
@@ -46,7 +43,7 @@ class BaseCommand(object):
         return Branch(branch)
 
     def getRemote(self) -> str:
-        remotes = self.baseController.getRemotes()
+        remotes = self.repository.getRemotes()
 
         if len(remotes) == 1:
             remote = remotes[0]
@@ -72,9 +69,7 @@ class BaseCommand(object):
         return remote
 
     def checkTag(self, remote: Remote, tag: Tag) -> bool:
-        repository = self.baseController.getRepository()
-
-        if repository.hasUncommitedChanges():
+        if self.repository.hasUncommitedChanges():
             abort = self.interface.askFor(
                 "You currently have uncomitted changes." +
                 " Do you want me to abort and let you commit first?",
@@ -88,9 +83,8 @@ class BaseCommand(object):
         return True
 
     def checkRepository(self) -> bool:
-        repository = self.baseController.getRepository()
         # check if repo has uncommited changes
-        if repository.hasUncommitedChanges():
+        if self.repository.hasUncommitedChanges():
             abort = self.interface.askFor(
                 "You currently have uncomitted changes." +
                 " Do you want me to abort and let you commit first?",

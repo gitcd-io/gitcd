@@ -10,7 +10,7 @@ from kivy.uix.modalview import ModalView
 from kivymd.list import ILeftBody, ILeftBodyTouch, IRightBodyTouch, BaseListItem, OneLineIconListItem
 from kivymd.button import MDIconButton
 
-from gitcd.controller.clean import Clean as CleanController
+from gitcd.app.clean import Clean as CleanHelper
 
 import time
 
@@ -78,9 +78,9 @@ class IconLeftSampleWidget(ILeftBodyTouch, MDIconButton):
 class GitcdCleanDialog(FloatLayout, ModalView):
 
     app = None
-    controller = None
     branches = []
     tags = []
+    helper = CleanHelper()
 
     def open(self, **kwargs):
         super(GitcdCleanDialog, self).open(**kwargs)
@@ -91,9 +91,7 @@ class GitcdCleanDialog(FloatLayout, ModalView):
         threading.Thread(target=self.loadBranches).start()
 
     def loadBranches(self):
-        self.controller = CleanController()
-
-        self.branches = self.controller.getBranchesToDelete()
+        self.branches = self.helper.getBranchesToDelete()
 
         self.remove_widget(self.ids.spinner)
 
@@ -112,5 +110,5 @@ class GitcdCleanDialog(FloatLayout, ModalView):
             self.ids.buttonClean.disabled = False
 
     def clean(self):
-        self.controller.deleteBranches(self.branches)
+        self.helper.deleteBranches(self.branches)
         self.dismiss()

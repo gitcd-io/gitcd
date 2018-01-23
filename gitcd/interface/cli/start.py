@@ -1,5 +1,4 @@
 from gitcd.interface.cli.abstract import BaseCommand
-from gitcd.controller.start import Start as StartController
 from gitcd.git.branch import Branch
 
 

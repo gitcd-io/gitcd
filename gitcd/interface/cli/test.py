@@ -1,14 +1,14 @@
 from gitcd.interface.cli.abstract import BaseCommand
-from gitcd.controller.test import Test as TestController
 from gitcd.git.branch import Branch
+from gitcd.git.repository import Repository
 
 
 class Test(BaseCommand):
 
     def run(self, branch: Branch):
-        controller = TestController()
+        repository = Repository()
         remote = self.getRemote()
-        developmentBranches = controller.getDevelopmentBranches()
+        developmentBranches = repository.getDevelopmentBranches()
         if len(developmentBranches) == 1:
             developmentBranch = developmentBranches[0]
         else:
@@ -25,4 +25,4 @@ class Test(BaseCommand):
                 default
             ))
 
-        controller.mergeBranch(remote, developmentBranch, branch)
+        remote.merge(developmentBranch, branch)

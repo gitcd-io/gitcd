@@ -9,8 +9,7 @@ from kivy.uix.modalview import ModalView
 
 from kivymd.label import MDLabel
 
-from gitcd.controller.upgrade import Upgrade as UpgradeController
-
+from gitcd.app.upgrade import Upgrade
 
 from gitcd.exceptions import GitcdPyPiApiException
 
@@ -63,17 +62,17 @@ Builder.load_string('''
 
 class GitcdUpgradeDialog(FloatLayout, ModalView):
 
-    controller = UpgradeController()
+    helper = Upgrade()
 
     def open(self, **kwargs):
         super(GitcdUpgradeDialog, self).open(**kwargs)
         threading.Thread(target=self.loadVersions).start()
 
     def loadVersions(self):
-        localVersion = self.controller.getLocalVersion()
+        localVersion = self.helper.getLocalVersion()
 
         try:
-            pypiVersion = self.controller.getPypiVersion()
+            pypiVersion = self.helper.getPypiVersion()
         except GitcdPyPiApiException as e:
             pypiVersion = 'error could not fetch the api'
 
@@ -91,8 +90,8 @@ class GitcdUpgradeDialog(FloatLayout, ModalView):
         self.remove_widget(self.ids.spinner)
         self.add_widget(label)
 
-        if self.controller.isUpgradable():
+        if self.helper.isUpgradable():
             self.ids.buttonUpgrade.disabled = False
 
     def upgrade(self):
-        self.controller.upgrade()
+        self.helper.upgrade()
