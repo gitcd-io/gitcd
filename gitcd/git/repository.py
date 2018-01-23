@@ -6,11 +6,14 @@ from gitcd.git.branch import Branch
 from gitcd.git.remote import Remote
 from gitcd.git.tag import Tag
 
+# git exceptions
 from gitcd.git.exceptions import NoRepositoryException
 from gitcd.git.exceptions import RemoteNotFoundException
 from gitcd.git.exceptions import BranchNotFoundException
 from gitcd.git.exceptions import TagNotFoundException
-from gitcd.git.exceptions import GitcdNoDevelopmentBranchDefinedException
+
+# default exceptions
+from gitcd.exceptions import GitcdNoDevelopmentBranchDefinedException
 
 
 class Repository(Git):
