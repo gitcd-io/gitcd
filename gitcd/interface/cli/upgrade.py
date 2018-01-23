@@ -1,6 +1,6 @@
 from gitcd.interface.cli.abstract import BaseCommand
 
-from gitcd.app.upgrade import Upgrade
+from gitcd.app.upgrade import Upgrade as UpgradeHelper
 
 from gitcd.git.branch import Branch
 
@@ -10,7 +10,7 @@ from gitcd.exceptions import GitcdPyPiApiException
 class Upgrade(BaseCommand):
 
     def run(self, branch: Branch):
-        helper = Upgrade()
+        helper = UpgradeHelper()
 
         localVersion = helper.getLocalVersion()
 

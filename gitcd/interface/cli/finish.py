@@ -1,6 +1,5 @@
 from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.git.branch import Branch
-from gitcd.git.remote import Remote
 
 
 class Finish(BaseCommand):
@@ -38,7 +37,6 @@ class Finish(BaseCommand):
 
         master = Branch(masterBranch)
         remote.merge(master, branch)
-
 
         deleteFeatureBranch = self.interface.askFor(
             "Delete your feature branch?", ["yes", "no"], "yes"

@@ -82,4 +82,4 @@ class Start(BaseCommand):
 
         branch = self.checkDoubleFeaturePrefix(branch)
 
-        remote.createFeature(feature)
+        remote.createFeature(branch)

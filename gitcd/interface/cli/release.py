@@ -1,5 +1,4 @@
 from gitcd.interface.cli.abstract import BaseCommand
-from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
 
 from gitcd.app.release import Release as ReleaseHelper
@@ -8,7 +7,6 @@ from gitcd.app.release import Release as ReleaseHelper
 class Release(BaseCommand):
 
     def run(self, branch: Branch):
-        repository = Repository()
         remote = self.getRemote()
         masterBranch = Branch(self.config.getMaster())
 
