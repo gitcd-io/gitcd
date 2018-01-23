@@ -48,7 +48,21 @@ Installation
 
 Since gitcd is using python3 by default, you better upgrade.
 
-After successful installation of python3 and pip for pyhton3, run the following command to install or upgrade gitcd:
+After successful installation of python3 and pip for pyhton3, install the following prerequisites:
+
+- MacOSX:
+
+.. code:: console
+
+    brew install pkg-config sdl2 sdl2_image sdl2_ttf sdl2_mixer gstreamer
+
+- Debian/Ubuntu:
+
+.. code:: console
+
+    apt-get install python3-kivy
+
+Then you are ready to install gitcd with the following command:
 
 .. code:: console
 
