@@ -26,3 +26,4 @@ class Test(BaseCommand):
             ))
 
         remote.merge(developmentBranch, branch)
+        repository.checkoutBranch(branch)
