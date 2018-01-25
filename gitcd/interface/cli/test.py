@@ -5,6 +5,8 @@ from gitcd.git.repository import Repository
 
 class Test(BaseCommand):
 
+    updateRemote = True
+
     def run(self, branch: Branch):
         repository = Repository()
         remote = self.getRemote()
