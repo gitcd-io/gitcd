@@ -47,20 +47,26 @@ Installation
 ------------
 
 Since gitcd is using python3 by default, you better upgrade.
+Unfortunately installing kivy by script is not that easy, therefore you need to take some extra manual work. I might takle this in future releases.
 
 After successful installation of python3 and pip for pyhton3, install the following prerequisites:
+
 
 - MacOSX:
 
 .. code:: console
 
     brew install pkg-config sdl2 sdl2_image sdl2_ttf sdl2_mixer gstreamer
+    pip3 install -I Cython==0.25.2
+    pip3 install kivy
+    pip3 install kivymd
 
 - Debian/Ubuntu:
 
 .. code:: console
 
     apt-get install python3-kivy
+    pip3 install kivymd
 
 Then you are ready to install gitcd with the following command:
 
