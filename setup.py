@@ -27,9 +27,7 @@ setup(
         'argparse',
         'argcomplete',
         'requests',
-        'packaging',
-        'kivy',
-        'KivyMD'
+        'packaging'
     ],
     dependency_links=[
         'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'

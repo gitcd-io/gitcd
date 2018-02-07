@@ -1,8 +1,10 @@
 pyyaml==3.12
-argcomplete==1.9.2
+argcomplete==1.9.3
 requests==2.18.4
 flake8==3.5.0
-sphinx==1.6.5
+sphinx==1.6.7
 sphinx-autobuild==0.7.1
 packaging==16.8
 Cython==0.25.2
+kivy==1.10.0
+kivymd==0.1.2
