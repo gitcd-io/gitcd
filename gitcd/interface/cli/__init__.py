@@ -2,6 +2,7 @@ import sys
 
 import simpcli
 
+from gitcd.interface.cli.abstract import BaseCommand
 from gitcd.interface.cli.clean import Clean
 from gitcd.interface.cli.compare import Compare
 from gitcd.interface.cli.finish import Finish
@@ -21,25 +22,47 @@ class Cli():
 
     interface = simpcli.Interface()
 
-    commands = {
-        'init': Init(),
-        'clean': Clean(),
-        'start': Start(),
-        'test': Test(),
-        'review': Review(),
-        'finish': Finish(),
-        'release': Release(),
-        'status': Status(),
-        'compare': Compare(),
-        'upgrade': Upgrade()
-    }
+    commands = [
+        'init',
+        'clean',
+        'start',
+        'test',
+        'review',
+        'finish',
+        'release',
+        'status',
+        'compare',
+        'upgrade'
+    ]
 
     def getAvailableCommands(self):
-        return self.commands.keys()
+        return self.commands
+
+    def instantiateCommand(self, command: str) -> BaseCommand:
+        if command == 'init':
+            return Init()
+        if command == 'clean':
+            return Clean()
+        if command == 'start':
+            return Start()
+        if command == 'test':
+            return Test()
+        if command == 'review':
+            return Review()
+        if command == 'finish':
+            return Finish()
+        if command == 'release':
+            return Release()
+        if command == 'status':
+            return Status()
+        if command == 'compare':
+            return Compare()
+        if command == 'upgrade':
+            return Upgrade()
 
     def dispatch(self, command: str, branch: str):
         try:
-            commandObject = self.commands[command]
+            commandObject = self.instantiateCommand(command)
         except Exception as e:
             errorMessage = 'Command %s does not exists,' + \
                 ' see gitcd --help for more information.' + \

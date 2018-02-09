@@ -50,3 +50,13 @@ class Upgrade(BaseCommand):
                 'You seem to be on the most recent version, congratulation!'
             )
             return True
+
+    # dont need a real repository for upgrading
+    def instantiateRepository(self) -> bool:
+        return True
+
+    def getDefaultBranch(self) -> Branch:
+        return False
+
+    def getRequestedBranch(self, branch: str) -> Branch:
+        return False

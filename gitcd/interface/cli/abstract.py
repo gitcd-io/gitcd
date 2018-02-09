@@ -17,10 +17,10 @@ class BaseCommand(object):
     interface = simpcli.Interface()
     config = GitcdConfig()
     configPersonal = GitcdPersonalConfig()
-    repository = Repository()
     updateRemote = False
 
     def __init__(self):
+        #self.instantiateRepository()
         if self.updateRemote is True:
             remotes = self.repository.getRemotes()
 
@@ -29,6 +29,10 @@ class BaseCommand(object):
                     remote.update()
                 except simpcli.CliException as e:
                     pass
+
+    def instantiateRepository(self) -> bool:
+        self.repository = Repository()
+        return True
 
     def run(self, branch: Branch):
         pass
