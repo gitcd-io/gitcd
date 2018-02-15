@@ -20,7 +20,7 @@ class BaseCommand(object):
     updateRemote = False
 
     def __init__(self):
-        #self.instantiateRepository()
+        self.instantiateRepository()
         if self.updateRemote is True:
             remotes = self.repository.getRemotes()
 

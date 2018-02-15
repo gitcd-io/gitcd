@@ -3,6 +3,7 @@ import time
 import os
 import simpcli
 
+from gitcd.git.repository import Repository
 from gitcd.git.branch import Branch
 from gitcd.git.remote import Remote
 from gitcd.git.tag import Tag
@@ -14,7 +15,8 @@ from gitcd.app import App
 class Release(App):
 
     def checkout(self, remote: Remote, branch: Branch) -> bool:
-        self.repository.checkoutBranch(branch)
+        repository = Repository()
+        repository.checkoutBranch(branch)
         remote.pull(branch)
         return True
 

@@ -2,6 +2,7 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.app.upgrade import Upgrade as UpgradeHelper
 
+from gitcd.git.nullRepository import NullRepository
 from gitcd.git.branch import Branch
 
 from gitcd.exceptions import GitcdPyPiApiException
@@ -53,10 +54,5 @@ class Upgrade(BaseCommand):
 
     # dont need a real repository for upgrading
     def instantiateRepository(self) -> bool:
+        self.repository = NullRepository()
         return True
-
-    def getDefaultBranch(self) -> Branch:
-        return False
-
-    def getRequestedBranch(self, branch: str) -> Branch:
-        return False
