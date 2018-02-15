@@ -1,7 +1,5 @@
-import os
-from typing import List
-
 from gitcd.git.repository import Repository
+
 
 class NullRepository(Repository):
 
