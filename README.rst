@@ -226,6 +226,7 @@ Authors
 -------
 
 -  Claudio Walser (https://github.com/claudio-walser)
+-  Urban Etter (https://github.com/mms-uret)
 -  Gianni Carafa (https://github.com/mms-gianni)
 
 
