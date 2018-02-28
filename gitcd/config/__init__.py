@@ -124,6 +124,10 @@ class GitcdPersonal:
 
     def __init__(self):
         defaultConfig = self.defaults.load()
+
+        if not os.path.isdir('~/.gitcd/'):
+            os.mkdir('~/.gitcd/')
+
         if not os.path.isfile(self.filename):
             self.config = defaultConfig
         else:
