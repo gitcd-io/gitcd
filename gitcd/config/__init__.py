@@ -116,7 +116,8 @@ class Gitcd:
 class GitcdPersonal:
 
     loaded = False
-    filename = "~/.gitcd/access-tokens"
+    file = "access-tokens"
+    path = os.path.expanduser('~/.gitcd')
     parser = Parser()
     defaults = GitcdPersonalDefaults()
     config = {}
@@ -125,8 +126,10 @@ class GitcdPersonal:
     def __init__(self):
         defaultConfig = self.defaults.load()
 
-        if not os.path.isdir('~/.gitcd'):
-            os.mkdir('~/.gitcd')
+        if not os.path.isdir(self.path):
+            os.mkdir(self.path)
+
+        self.filename = '%s/%s' % (self.path, self.file)
 
         if not os.path.isfile(self.filename):
             self.config = defaultConfig
