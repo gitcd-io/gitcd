@@ -66,7 +66,7 @@ class Cli():
         # this is kind of temporary and will get removed in a few
         # releases. It ensures your access token, now stored in all repos
         # will be moved into a .gitcd directory in your home directory
-        moveLegacyConfig = MoveGitcdPersonalPerRepo()
+        MoveGitcdPersonalPerRepo()
 
         try:
             commandObject = self.instantiateCommand(command)

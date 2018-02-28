@@ -1,6 +1,7 @@
 class GitcdException(Exception):
     pass
 
+
 class GitcdTokenNotImplemented(GitcdException):
     pass
 
