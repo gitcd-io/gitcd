@@ -14,6 +14,8 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 
+from gitcd.config import MoveGitcdPersonalPerRepo
+
 from gitcd.exceptions import GitcdException
 from simpcli import CliException
 
@@ -61,6 +63,8 @@ class Cli():
             return Upgrade()
 
     def dispatch(self, command: str, branch: str):
+        moveLegacyConfig = MoveGitcdPersonalPerRepo()
+
         try:
             commandObject = self.instantiateCommand(command)
         except Exception as e:
