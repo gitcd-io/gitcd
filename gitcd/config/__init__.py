@@ -4,7 +4,7 @@ import yaml
 from gitcd.config.defaults import GitcdDefaults
 from gitcd.config.defaults import GitcdPersonalDefaults
 from gitcd.exceptions import GitcdFileNotFoundException
-
+from gitcd.exceptions import GitcdTokenNotImplemented
 
 class Parser:
 
@@ -115,10 +115,11 @@ class Gitcd:
 class GitcdPersonal:
 
     loaded = False
-    filename = ".gitcd-personal"
+    filename = "~/.gitcd/access-tokens"
     parser = Parser()
     defaults = GitcdPersonalDefaults()
     config = {}
+    allowedTokenSpaces = ['github', 'bitbucket']
 
     def __init__(self):
         defaultConfig = self.defaults.load()
@@ -138,7 +139,47 @@ class GitcdPersonal:
     def write(self):
         self.parser.write(self.filename, self.config)
 
-        # add .gitcd-personal to .gitignore
+    def getToken(self, tokenSpace: str):
+        if tokenSpace not in self.allowedTokenSpaces:
+            raise GitcdTokenNotImplemented(
+                "Only tokens for '%s' are implemented!" % (
+                    self.allowedTokenSpaces.join(', ')
+                )
+            )
+        return self.config['tokens'][tokenSpace]
+
+    def setToken(self, tokenSpace: str, token: str):
+        if tokenSpace not in self.allowedTokenSpaces:
+            raise GitcdTokenNotImplemented(
+                "Only tokens for '%s' are implemented!" % (
+                    self.allowedTokenSpaces.join(', ')
+                )
+            )
+        self.config['tokens'][tokenSpace] = token
+
+
+class GitcdPersonalLegacy:
+
+    filename = '.gitcd-personal'
+    parser = Parser()
+    config = {}
+
+    def __init__(self):
+        if os.path.isfile(self.filename):
+            self.config = self.parser.load(self.filename)
+            self.move()
+
+    def move(self):
+        newConfigFile = GitcdPersonal()
+        if 'token' in self.config and type(self.config['token']) is str:
+            newConfigFile.setToken('github', self.config['token'])
+            newConfigFile.write()
+            os.remove(self.filename)
+
+        # remove from .gitignore - not sure if this is smart
+        # since the file could still be here for other users
+        # and could therefore be commited by accident.
+        # i may let this to the user
         gitignore = ".gitignore"
         if not os.path.isfile(gitignore):
             gitignoreContent = self.filename
@@ -148,14 +189,10 @@ class GitcdPersonal:
             # if not yet in gitignore
             if "%s" % (self.filename) not in gitignoreContent:
                 # add it
-                gitignoreContent = "%s\n%s\n" % (
-                    gitignoreContent, self.filename)
+                gitignoreContent = gitignoreContent.replace(
+                    "\n%s\n" % (self.filename),
+                    ''
+                )
 
         with open(gitignore, "w") as gitignoreFile:
             gitignoreFile.write(gitignoreContent)
-
-    def getToken(self):
-        return self.config['token']
-
-    def setToken(self, token):
-        self.config['token'] = token

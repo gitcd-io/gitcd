@@ -16,5 +16,8 @@ class GitcdPersonalDefaults(object):
 
     def load(self):
         return {
-            'token': None
+            'tokens': {
+                'github': None,
+                'bitbucket': None
+            }
         }
