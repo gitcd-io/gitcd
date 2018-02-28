@@ -6,6 +6,7 @@ from gitcd.config.defaults import GitcdPersonalDefaults
 from gitcd.exceptions import GitcdFileNotFoundException
 from gitcd.exceptions import GitcdTokenNotImplemented
 
+
 class Parser:
 
     yaml = {}
@@ -158,7 +159,7 @@ class GitcdPersonal:
         self.config['tokens'][tokenSpace] = token
 
 
-class GitcdPersonalLegacy:
+class MoveGitcdPersonalPerRepo:
 
     filename = '.gitcd-personal'
     parser = Parser()
