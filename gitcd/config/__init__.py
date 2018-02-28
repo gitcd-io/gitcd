@@ -189,14 +189,14 @@ class MoveGitcdPersonalPerRepo:
         # and could therefore be commited by accident.
         # i may let this to the user
         gitignore = ".gitignore"
-        if not os.path.isfile(gitignore):
-            gitignoreContent = self.filename
-        else:
+        if os.path.isfile(gitignore):
             with open(gitignore, "r") as gitignoreFile:
                 gitignoreContent = gitignoreFile.read()
-            # if not yet in gitignore
-            if "%s" % (self.filename) not in gitignoreContent:
-                # add it
+
+            if gitignoreContent == self.filename:
+                os.remove(gitignore)
+            elif "%s" % (self.filename) not in gitignoreContent:
+                # remove it
                 gitignoreContent = gitignoreContent.replace(
                     "\n%s\n" % (self.filename),
                     ''
