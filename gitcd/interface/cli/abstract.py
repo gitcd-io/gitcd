@@ -135,13 +135,13 @@ class BaseCommand(object):
         return True
 
     def getTokenOrAskFor(self):
-        token = self.configPersonal.getToken()
+        token = self.configPersonal.getToken('github')
         if token is None:
             token = self.interface.askFor(
                 "Your personal Github token?",
                 False,
                 token
             )
-            self.configPersonal.setToken(token)
+            self.configPersonal.setToken('github', token)
             self.configPersonal.write()
         return token
