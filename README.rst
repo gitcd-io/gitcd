@@ -37,9 +37,9 @@ Continuous tool for working with git
 .. image:: https://img.shields.io/pypi/pyversions/gitcd.svg
     :target: https://pypi.org/project/gitcd/
 
-
+***********
 Description
-###########
+***********
 
 **gitcd** is a little helper for continuous delivery workflows, using git as scm.
 
