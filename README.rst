@@ -3,9 +3,9 @@
     :width: 150px
 
 
-====================================
+####################################
 Continuous tool for working with git
-====================================
+####################################
 
 **Development Status**
 
@@ -38,15 +38,16 @@ Continuous tool for working with git
     :target: https://pypi.org/project/gitcd/
 
 
+***********
 Description
-###########
+***********
 
 **gitcd** is a little helper for continuous delivery workflows, using git as scm.
 
 
+*********************
 Installation of gitcd
-#####################
-
+*********************
 
 
 Pre requisites
