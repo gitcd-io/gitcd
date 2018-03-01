@@ -89,7 +89,7 @@ Open ~/.bash_profile in your favorite editor and add the following lines at the 
 
 .. container:: alert alert-warning
 
-    Replace <python-version> with your currently installed python version
+    **Replace <python-version> with your currently installed python version**
 
 .. code-block:: bash
 
@@ -140,7 +140,7 @@ For convenience, you can call gitcd as a git sub command as well as directly. Th
 
 .. container:: alert alert-warning
 
-    Note: Python argument completion wont work if you use it as a git sub command!
+    **Note: Python argument completion wont work if you use it as a git sub command!**
 
 
 Initializing gitcd
