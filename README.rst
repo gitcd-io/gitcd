@@ -43,26 +43,26 @@ Description
 
 **gitcd** is a little helper for continuous delivery workflows, using git as scm.
 
-
+*********************
 Installation of gitcd
-#####################
+*********************
 
 
 
 Pre requisites
---------------
+##############
 Gitcd is written in Python3. Most systems still deliver with Python2 as default.
 You need to install Python3 in order to run gitcd properly.
 
 MacOSX
-______
+------
 
 .. code-block:: bash
 
     brew install python3
 
 Ubuntu / Debian
-_______________
+---------------
 
 .. code-block:: bash
 
