@@ -190,19 +190,19 @@ class MoveGitcdPersonalPerRepo:
         # since the file could still be here for other users
         # and could therefore be commited by accident.
         # i may let this to the user
-        gitignore = ".gitignore"
-        if os.path.isfile(gitignore):
-            with open(gitignore, "r") as gitignoreFile:
-                gitignoreContent = gitignoreFile.read()
+        # gitignore = ".gitignore"
+        # if os.path.isfile(gitignore):
+        #     with open(gitignore, "r") as gitignoreFile:
+        #         gitignoreContent = gitignoreFile.read()
 
-            if gitignoreContent == self.filename:
-                os.remove(gitignore)
-            elif "%s" % (self.filename) not in gitignoreContent:
-                # remove it
-                gitignoreContent = gitignoreContent.replace(
-                    "\n%s\n" % (self.filename),
-                    ''
-                )
+        #     if gitignoreContent == self.filename:
+        #         os.remove(gitignore)
+        #     elif "%s" % (self.filename) not in gitignoreContent:
+        #         # remove it
+        #         gitignoreContent = gitignoreContent.replace(
+        #             "\n%s\n" % (self.filename),
+        #             ''
+        #         )
 
-        with open(gitignore, "w") as gitignoreFile:
-            gitignoreFile.write(gitignoreContent)
+        # with open(gitignore, "w") as gitignoreFile:
+        #     gitignoreFile.write(gitignoreContent)
