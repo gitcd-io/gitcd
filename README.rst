@@ -3,8 +3,9 @@
     :width: 150px
 
 
+************************************
 Continuous tool for working with git
-####################################
+************************************
 
 **Development Status**
 
@@ -38,13 +39,15 @@ Continuous tool for working with git
 
 
 Description
-~~~~~~~~~~~
+###########
 
 **gitcd** is a little helper for continuous delivery workflows, using git as scm.
 
 
 Installation of gitcd
-~~~~~~~~~~~~~~~~~~~~~
+#####################
+
+
 
 Pre requisites
 --------------
@@ -133,7 +136,7 @@ You are now ready to activate global argcompletion for python with the following
 
 
 CLI Usage of gitcd
-~~~~~~~~~~~~~~~~~~
+##################
 
 For convenience, you can call gitcd as a git sub command as well as directly. Therefore, you can replace "git cd" in any of the following commands with "git-cd" if you like it more.
 
@@ -314,7 +317,7 @@ Now your feature is merged and you made sure you know the changes going out, you
         :alt: git cd release
 
 Known Issues
-~~~~~~~~~~~~
+############
 
 If you discover any bugs, feel free to create an issue on GitHub fork
 and send us a pull request.
@@ -323,7 +326,7 @@ and send us a pull request.
 
 
 Authors
-~~~~~~~
+#######
 
 -  Claudio Walser (https://github.com/claudio-walser)
 -  Urban Etter (https://github.com/mms-uret)
@@ -331,7 +334,7 @@ Authors
 
 
 Contributing
-~~~~~~~~~~~~
+############
 
 1. Fork it
 2. Add this repository as an origin (``git remote add upstream https://github.com/claudio-walser/gitcd.git``)
@@ -342,7 +345,7 @@ Contributing
 
 
 License
-~~~~~~~
+#######
 
 Apache License 2.0 see
 https://github.com/claudio-walser/gitcd/blob/master/LICENSE
