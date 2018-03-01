@@ -179,10 +179,12 @@ class MoveGitcdPersonalPerRepo:
 
     def move(self):
         newConfigFile = GitcdPersonal()
-        if 'token' in self.config and type(self.config['token']) is str:
-            newConfigFile.setToken('github', self.config['token'])
-            newConfigFile.write()
-            os.remove(self.filename)
+        if not os.path.isfile(newConfigFile.filename) and \
+           'token' in self.config and \
+           type(self.config['token']) is str:
+                newConfigFile.setToken('github', self.config['token'])
+                newConfigFile.write()
+                os.remove(self.filename)
 
         # remove from .gitignore - not sure if this is smart
         # since the file could still be here for other users
