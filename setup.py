@@ -18,8 +18,8 @@ setup(
     description='Tool for continuous delivery using git',
     long_description=read('README.rst'),
     author='Claudio Walser',
-    author_email='claudio.walser@srf.ch',
-    url='https://github.com/claudio-walser/gitcd',
+    author_email='info@gitcd.io',
+    url='https://www.gitcd.io',
     packages=find_packages(),
     install_requires=[
         'simpcli',
@@ -28,9 +28,6 @@ setup(
         'argcomplete',
         'requests',
         'packaging'
-    ],
-    dependency_links=[
-        'git+https://gitlab.com/kivymd/KivyMD@master#egg=KivyMD'
     ],
 
     entry_points={
