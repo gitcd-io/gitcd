@@ -319,7 +319,7 @@ Now your feature is merged and you made sure you know the changes going out, you
 Known Issues
 ############
 
-If you discover any bugs, feel free to create an issue on GitHub fork
+If you discover any bugs, feel free to create an issue on GitHub or fork this repository
 and send us a pull request.
 
 `Issues List`_.
