@@ -1,10 +1,11 @@
+Continuous tool for working with git
+====================================
+
 .. image:: https://www.gitcd.io/images/logo.svg
     :height: 150px
     :width: 150px
 
 
-Continuous tool for working with git
-====================================
 
 **Development Status**
 
