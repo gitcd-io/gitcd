@@ -1,11 +1,10 @@
-Continuous tool for working with git
-====================================
-
 .. image:: https://www.gitcd.io/images/logo.svg
     :height: 150px
     :width: 150px
 
 
+Continuous tool for working with git
+====================================
 
 **Development Status**
 
@@ -37,31 +36,32 @@ Continuous tool for working with git
 .. image:: https://img.shields.io/pypi/pyversions/gitcd.svg
     :target: https://pypi.org/project/gitcd/
 
+
 Description
-***********
+###########
 
 **gitcd** is a little helper for continuous delivery workflows, using git as scm.
 
+
 Installation of gitcd
-*********************
+#####################
 
 
 
 Pre requisites
-##############
-
+--------------
 Gitcd is written in Python3. Most systems still deliver with Python2 as default.
 You need to install Python3 in order to run gitcd properly.
 
 MacOSX
-------
+______
 
 .. code-block:: bash
 
     brew install python3
 
 Ubuntu / Debian
----------------
+_______________
 
 .. code-block:: bash
 
@@ -70,17 +70,18 @@ Ubuntu / Debian
 
 
 
-Installation of gitcd itself
-****************************
 
+Installation of gitcd itself
+----------------------------
 Now you are ready to install gitcd itself, which is quite easy using pip.
 
 .. code-block:: bash
 
     pip3 install --user --upgrade gitcd
 
+
 Trouble using git-cd?
-*********************
+---------------------
 If the command "git-cd" or "git cd" is not available now, you probably need to add the pip binary path to your $PATH variable.
 
 MacOSX
@@ -109,9 +110,9 @@ Open ~/.profile in your favorite editor and add the following lines at the end o
         PATH="$HOME/.local/bin:$PATH"
     fi
 
-Argument Completion
-*******************
 
+Argument Completion
+-------------------
 Gitcd supports argument completion, to activate it execute the following steps.
 
 MacOSX
