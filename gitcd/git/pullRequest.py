@@ -10,6 +10,11 @@ from sys import platform
 
 class RepositoryProvider(Git):
 
+    tokenSpace = None
+
+    def getTokenSpace(self) -> str:
+        return self.tokenSpace
+
     def setRemote(self, remote) -> bool:
         self.remote = remote
         return True
@@ -39,6 +44,8 @@ class RepositoryProvider(Git):
 
 class Github(RepositoryProvider):
 
+    tokenSpace = 'github'
+
     def open(
         self,
         title: str,
@@ -46,7 +53,7 @@ class Github(RepositoryProvider):
         fromBranch: Branch,
         toBranch: Branch
     ) -> bool:
-        token = self.configPersonal.getToken()
+        token = self.configPersonal.getToken('github')
         url = "https://api.github.com/repos/%s/%s/pulls" % (
             self.remote.getUsername(),
             self.remote.getRepositoryName()
@@ -98,7 +105,7 @@ class Github(RepositoryProvider):
     def status(self, branch: Branch):
         username = self.remote.getUsername()
         ref = "%s:refs/heads/%s" % (username, branch.getName())
-        token = self.configPersonal.getToken()
+        token = self.configPersonal.getToken('github')
         master = Branch(self.config.getMaster())
         # claudio-walser:refs/heads/implement-status
         if isinstance(token, str):
@@ -154,7 +161,7 @@ class Github(RepositoryProvider):
             return returnValue
 
     def isReviewedBy(self, reviewUrl) -> dict:
-        token = self.configPersonal.getToken()
+        token = self.configPersonal.getToken('github')
         reviewers = {}
         if isinstance(token, str):
             if token is not None:
@@ -183,7 +190,7 @@ class Github(RepositoryProvider):
         return reviewers
 
     def getLgtmComments(self, commentsUrl):
-        token = self.configPersonal.getToken()
+        token = self.configPersonal.getToken('github')
         reviewers = {}
         if isinstance(token, str):
             if token is not None:
@@ -213,6 +220,8 @@ class Github(RepositoryProvider):
 
 
 class Bitbucket(RepositoryProvider):
+
+    tokenSpace = 'bitbucket'
 
     def open(self):
         pass

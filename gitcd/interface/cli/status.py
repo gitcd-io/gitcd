@@ -7,9 +7,9 @@ class Status(BaseCommand):
 
     def run(self, branch: str):
         remote = self.getRemote()
-        self.getTokenOrAskFor()
         master = Branch(self.config.getMaster())
         pr = remote.getGitWebIntegration()
+        self.getTokenOrAskFor(pr.getTokenSpace())
         prInfo = pr.status(branch)
         if len(prInfo) is 0:
             self.interface.writeOut(
