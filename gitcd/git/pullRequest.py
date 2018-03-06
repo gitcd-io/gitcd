@@ -224,6 +224,14 @@ class Bitbucket(RepositoryProvider):
     tokenSpace = 'bitbucket'
 
     def open(self):
+        # https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
+        # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
+        token = self.configPersonal.getToken('bitbucket')
+        url = "%s/repos/2.0/repositories/%s/%s/pullrequests" % (
+            'https://api.bitbucket.org',
+            self.remote.getUsername(),
+            self.remote.getRepositoryName()
+        )
         pass
 
     def status(self):
