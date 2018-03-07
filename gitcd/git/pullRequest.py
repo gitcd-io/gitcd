@@ -235,6 +235,7 @@ class Bitbucket(RepositoryProvider):
 
         # https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
         # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
+        # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
         token = self.configPersonal.getToken('bitbucket')
         url = "%s/repositories/%s/%s/pullrequests" % (
             'https://api.bitbucket.org/2.0',
@@ -245,6 +246,7 @@ class Bitbucket(RepositoryProvider):
         data = {
             "title": title,
             "description": body,
+            "source": self.remote.getUrl(),
             "fromRef": {
                 "id": "refs/heads/%s" % (fromBranch.getName()),
                 "repository": {
