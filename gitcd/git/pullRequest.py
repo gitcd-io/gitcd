@@ -238,7 +238,7 @@ class Bitbucket(RepositoryProvider):
         # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
         token = self.configPersonal.getToken('bitbucket')
         url = "%s/repositories/%s/%s/pullrequests" % (
-            'https://api.bitbucket.org/2.0',
+            'https://bitbucket.org/api/1.0',
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
