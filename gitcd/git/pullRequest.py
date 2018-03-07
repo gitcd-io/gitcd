@@ -246,7 +246,6 @@ class Bitbucket(RepositoryProvider):
         data = {
             "title": title,
             "description": body,
-            "source": self.remote.getUrl(),
             "fromRef": {
                 "id": "refs/heads/%s" % (fromBranch.getName()),
                 "repository": {
