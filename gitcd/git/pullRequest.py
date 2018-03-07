@@ -7,6 +7,8 @@ import json
 import requests
 from sys import platform
 
+from pprint import pprint
+
 
 class RepositoryProvider(Git):
 
@@ -223,16 +225,74 @@ class Bitbucket(RepositoryProvider):
 
     tokenSpace = 'bitbucket'
 
-    def open(self):
+    def open(
+        self,
+        title: str,
+        body: str,
+        fromBranch: Branch,
+        toBranch: Branch
+    ) -> bool:
+
         # https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
         # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
         token = self.configPersonal.getToken('bitbucket')
-        url = "%s/repos/2.0/repositories/%s/%s/pullrequests" % (
-            'https://api.bitbucket.org',
+        url = "%s/repositories/%s/%s/pullrequests" % (
+            'https://api.bitbucket.org/2.0',
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
+
+        data = {
+            "title": title,
+            "description": body,
+            "fromRef": {
+                "id": "refs/heads/%s" % (fromBranch.getName()),
+                "repository": {
+                    "slug": self.remote.getRepositoryName(),
+                    "name": None,
+                    "project": {
+                        "key": self.remote.getRepositoryName()
+                    }
+                }
+            },
+            "toRef": {
+                "id": "refs/heads/%s" % (toBranch.getName()),
+                "repository": {
+                    "slug": self.remote.getRepositoryName(),
+                    "name": None,
+                    "project": {
+                        "key": self.remote.getRepositoryName()
+                    }
+                }
+            }
+        }
+
+        response = requests.post(
+            url,
+            #headers=headers,
+            data=json.dumps(data),
+        )
+        pprint(url)
+        pprint(response.json())
+        pprint(json.dumps(data))
         pass
+
+        # if response.status_code != 201:
+        #     jsonResponse = response.json()
+        #     message = jsonResponse['errors'][0]['message']
+        #     raise GitcdGithubApiException(
+        #         "Open a pull request failed with message: %s" % (
+        #             message
+        #         )
+        #     )
+
+        # defaultBrowser = self.getDefaultBrowserCommand()
+        # self.cli.execute("%s %s" % (
+        #     defaultBrowser,
+        #     response.json()["html_url"]
+        # ))
+
+        # return True
 
     def status(self):
         pass
