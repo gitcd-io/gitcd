@@ -138,7 +138,7 @@ class BaseCommand(object):
         token = self.configPersonal.getToken(tokenSpace)
         if token is None:
             token = self.interface.askFor(
-                "Your personal Github token?",
+                "Your personal %s token?" % (tokenSpace),
                 False,
                 token
             )

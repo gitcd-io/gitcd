@@ -237,63 +237,69 @@ class Bitbucket(RepositoryProvider):
         # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
         # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
         token = self.configPersonal.getToken('bitbucket')
-        url = "%s/repositories/%s/%s/pullrequests" % (
-            'https://bitbucket.org/api/1.0',
-            self.remote.getUsername(),
-            self.remote.getRepositoryName()
-        )
 
-        data = {
-            "title": title,
-            "description": body,
-            "fromRef": {
-                "id": "refs/heads/%s" % (fromBranch.getName()),
-                "repository": {
-                    "slug": self.remote.getRepositoryName(),
-                    "name": None,
-                    "project": {
-                        "key": self.remote.getRepositoryName()
+        if isinstance(token, str):
+
+            url = "%s/repositories/%s/%s/pullrequests" % (
+                'https://api.bitbucket.org/1.0',
+                self.remote.getUsername(),
+                self.remote.getRepositoryName()
+            )
+
+            data = {
+                "title": title,
+                "description": body,
+                "fromRef": {
+                    "id": "refs/heads/%s" % (fromBranch.getName()),
+                    "repository": {
+                        "slug": self.remote.getRepositoryName(),
+                        "name": None,
+                        "project": {
+                            "key": self.remote.getRepositoryName()
+                        }
                     }
-                }
-            },
-            "toRef": {
-                "id": "refs/heads/%s" % (toBranch.getName()),
-                "repository": {
-                    "slug": self.remote.getRepositoryName(),
-                    "name": None,
-                    "project": {
-                        "key": self.remote.getRepositoryName()
+                },
+                "toRef": {
+                    "id": "refs/heads/%s" % (toBranch.getName()),
+                    "repository": {
+                        "slug": self.remote.getRepositoryName(),
+                        "name": None,
+                        "project": {
+                            "key": self.remote.getRepositoryName()
+                        }
                     }
                 }
             }
-        }
+            headers = {'Authorization': 'token %s' % token}
 
-        response = requests.post(
-            url,
-            #headers=headers,
-            data=json.dumps(data),
-        )
-        pprint(url)
-        pprint(response.json())
-        pprint(json.dumps(data))
-        pass
+            response = requests.post(
+                url,
+                headers=headers,
+                data=json.dumps(data),
+            )
+            pprint(url)
+            pprint(response.status_code)
+            pprint(response.text)
+            pprint(json.dumps(data))
+            pass
 
-        # if response.status_code != 201:
-        #     jsonResponse = response.json()
-        #     message = jsonResponse['errors'][0]['message']
-        #     raise GitcdGithubApiException(
-        #         "Open a pull request failed with message: %s" % (
-        #             message
-        #         )
-        #     )
+            # if response.status_code != 201:
+            #     jsonResponse = response.json()
+            #     message = jsonResponse['errors'][0]['message']
+            #     raise GitcdGithubApiException(
+            #         "Open a pull request failed with message: %s" % (
+            #             message
+            #         )
+            #     )
 
-        # defaultBrowser = self.getDefaultBrowserCommand()
-        # self.cli.execute("%s %s" % (
-        #     defaultBrowser,
-        #     response.json()["html_url"]
-        # ))
+            # defaultBrowser = self.getDefaultBrowserCommand()
+            # self.cli.execute("%s %s" % (
+            #     defaultBrowser,
+            #     response.json()["html_url"]
+            # ))
 
-        # return True
+            # return True
+
 
     def status(self):
         pass
