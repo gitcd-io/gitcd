@@ -307,3 +307,18 @@ class Bitbucket(GitServer):
 
     def status(self):
         pass
+
+
+class Gitlab(GitServer):
+
+    tokenSpace = 'gitlab'
+    baseUrl = 'https://api.bitbucket.org/2.0'
+
+    def open(
+        self,
+        title: str,
+        body: str,
+        fromBranch: Branch,
+        toBranch: Branch
+    ) -> bool:
+        pass

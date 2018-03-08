@@ -121,7 +121,7 @@ class GitcdPersonal:
     parser = Parser()
     defaults = GitcdPersonalDefaults()
     config = {}
-    allowedTokenSpaces = ['github', 'bitbucket']
+    allowedTokenSpaces = ['github', 'bitbucket', 'gitlab']
 
     def __init__(self):
         defaultConfig = self.defaults.load()
