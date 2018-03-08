@@ -78,14 +78,25 @@ class Github(GitServer):
                 headers=headers,
                 data=json.dumps(data),
             )
-            if response.status_code != 201:
-                jsonResponse = response.json()
-                message = jsonResponse['errors'][0]['message']
+
+            if response.status_code == 401:
                 raise GitcdGithubApiException(
-                    "Open a pull request failed with message: %s" % (
-                        message
-                    )
+                    "Authentication failed, create a new access token."
                 )
+
+            if response.status_code != 201:
+                try:
+                    jsonResponse = response.json()
+                    message = jsonResponse['errors'][0]['message']
+                    raise GitcdGithubApiException(
+                        "Open a pull request failed with message: %s" % (
+                            message
+                        )
+                    )
+                except ValueError:
+                    raise GitcdGithubApiException(
+                        "Open a pull request on github failed for an unknown reason."
+                    )
 
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
@@ -238,13 +249,13 @@ class Bitbucket(GitServer):
 
         # https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post
         # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
-        # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
+        # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability
         # https://github.com/cdancy/bitbucket-rest
         # https://bitbucket.org/site/master/issues/8195/rest-api-for-creating-pull-requests
-        # https://api.bitbucket.org/2.0/repositories/{user}/{slug}/pullrequests/ \
+        # https://api.bitbucket.org/2.0/repositories/{user}/{slug}/pullrequests/
         token = self.configPersonal.getToken('bitbucket')
 
-        if isinstance(token, str):
+        if isinstance(token, str) and ':' in token:
 
             url = "%s/repositories/%s/%s/pullrequests" % (
                 self.baseUrl,
@@ -274,24 +285,73 @@ class Bitbucket(GitServer):
                 auth=(auth[0], auth[1])
             )
 
-            if response.status_code != 201:
-                jsonResponse = response.json()
-                message = jsonResponse['error']['message']
+            if response.status_code == 401:
                 raise GitcdGithubApiException(
-                    "Open a pull request on bitbucket failed with message: %s" % (
-                        message
-                    )
+                    "Authentication failed, create a new app password."
                 )
+
+            if response.status_code != 201:
+                try:
+                    jsonResponse = response.json()
+                    message = jsonResponse['error']['message']
+                    raise GitcdGithubApiException(
+                        "Open a pull request on bitbucket failed with message: %s" % (
+                            message
+                        )
+                    )
+                except ValueError:
+                    raise GitcdGithubApiException(
+                        "Open a pull request on bitbucket failed for an unknown reason."
+                    )
 
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
                 defaultBrowser,
                 response.json()["links"]['html']['href']
             ))
+        else:
+            defaultBrowser = self.getDefaultBrowserCommand()
+            self.cli.execute("%s %s" % (
+                defaultBrowser,
+                "https://bitbucket.org/%s/%s/pull-requests/new?source=%s&event_source=gitcd" % (
+                    self.remote.getUsername(),
+                    self.remote.getRepositoryName(),
+                    fromBranch.getName()
+                )
+            ))
+        return True
 
-            return True
+    def status(self, branch: Branch):
 
-    def status(self):
+
+
+        token = self.configPersonal.getToken('bitbucket')
+        master = Branch(self.config.getMaster())
+        if isinstance(token, str) and ':' in token:
+            url = "%s/repositories/%s/%s/pullrequests" % (
+                self.baseUrl,
+                self.remote.getUsername(),
+                self.remote.getRepositoryName()
+            )
+
+            data = {
+                "source": {
+                    "branch": {
+                      "name": branch.getName()
+                    }
+                }
+            }
+            auth = token.split(':')
+
+            response = requests.get(
+                url,
+                auth=(auth[0], auth[1]),
+                json=data
+            )
+
+            pprint(response.status_code)
+
+
         pass
 
 
