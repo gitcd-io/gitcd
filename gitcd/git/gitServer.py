@@ -240,6 +240,14 @@ class Bitbucket(GitServer):
         # https://community.atlassian.com/t5/Bitbucket-questions/Creating-a-pull-request-via-API/qaq-p/123913
         # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
         # https://github.com/cdancy/bitbucket-rest
+        # https://bitbucket.org/site/master/issues/8195/rest-api-for-creating-pull-requests
+
+        # https://api.bitbucket.org/2.0/repositories/{user}/{slug}/pullrequests/ \
+        # -d src=my_branch \
+        # -d title="Short description" \
+        # -d dest=master \
+        # -d description="Long description"
+
         token = self.configPersonal.getToken('bitbucket')
 
         if isinstance(token, str):
@@ -251,59 +259,43 @@ class Bitbucket(GitServer):
             )
 
             data = {
-                "title": title,
-                "description": body,
-                "fromRef": {
-                    "id": "refs/heads/%s" % (fromBranch.getName()),
-                    "repository": {
-                        "slug": self.remote.getRepositoryName(),
-                        "name": None,
-                        "project": {
-                            "key": self.remote.getRepositoryName()
-                        }
+                "destination": {
+                    "branch": {
+                        "name": toBranch.getName()
                     }
                 },
-                "toRef": {
-                    "id": "refs/heads/%s" % (toBranch.getName()),
-                    "repository": {
-                        "slug": self.remote.getRepositoryName(),
-                        "name": None,
-                        "project": {
-                            "key": self.remote.getRepositoryName()
-                        }
+                "source": {
+                    "branch": {
+                      "name": fromBranch.getName()
                     }
-                }
+                },
+                "title": title,
+                "description": body
             }
-            headers = {'Authorization': '%s' % token}
 
+            auth = token.split(':')
             response = requests.post(
                 url,
-                headers=headers,
-                data=json.dumps(data),
+                json=data,
+                auth=(auth[0], auth[1])
             )
-            pprint(url)
-            pprint(response.status_code)
-            pprint(response.text)
-            pprint(json.dumps(data))
-            pass
 
-            # if response.status_code != 201:
-            #     jsonResponse = response.json()
-            #     message = jsonResponse['errors'][0]['message']
-            #     raise GitcdGithubApiException(
-            #         "Open a pull request failed with message: %s" % (
-            #             message
-            #         )
-            #     )
+            if response.status_code != 201:
+                jsonResponse = response.json()
+                message = jsonResponse['error']['message']
+                raise GitcdGithubApiException(
+                    "Open a pull request on bitbucket failed with message: %s" % (
+                        message
+                    )
+                )
 
-            # defaultBrowser = self.getDefaultBrowserCommand()
-            # self.cli.execute("%s %s" % (
-            #     defaultBrowser,
-            #     response.json()["html_url"]
-            # ))
+            defaultBrowser = self.getDefaultBrowserCommand()
+            self.cli.execute("%s %s" % (
+                defaultBrowser,
+                response.json()["links"]['html']['href']
+            ))
 
-            # return True
-
+            return True
 
     def status(self):
         pass
