@@ -10,7 +10,7 @@ from sys import platform
 from pprint import pprint
 
 
-class RepositoryProvider(Git):
+class GitServer(Git):
 
     tokenSpace = None
 
@@ -44,9 +44,10 @@ class RepositoryProvider(Git):
         raise Exception('Not implemented')
 
 
-class Github(RepositoryProvider):
+class Github(GitServer):
 
     tokenSpace = 'github'
+    baseUrl = 'https://api.github.com'
 
     def open(
         self,
@@ -56,7 +57,8 @@ class Github(RepositoryProvider):
         toBranch: Branch
     ) -> bool:
         token = self.configPersonal.getToken('github')
-        url = "https://api.github.com/repos/%s/%s/pulls" % (
+        url = "%s/repos/%s/%s/pulls" % (
+            self.baseUrl,
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
@@ -109,9 +111,9 @@ class Github(RepositoryProvider):
         ref = "%s:refs/heads/%s" % (username, branch.getName())
         token = self.configPersonal.getToken('github')
         master = Branch(self.config.getMaster())
-        # claudio-walser:refs/heads/implement-status
         if isinstance(token, str):
-            url = "https://api.github.com/repos/%s/%s/pulls" % (
+            url = "%s/repos/%s/%s/pulls" % (
+                self.baseUrl,
                 username,
                 self.remote.getRepositoryName()
             )
@@ -221,9 +223,10 @@ class Github(RepositoryProvider):
         return reviewers
 
 
-class Bitbucket(RepositoryProvider):
+class Bitbucket(GitServer):
 
     tokenSpace = 'bitbucket'
+    baseUrl = 'https://api.bitbucket.org/2.0'
 
     def open(
         self,
@@ -242,7 +245,7 @@ class Bitbucket(RepositoryProvider):
         if isinstance(token, str):
 
             url = "%s/repositories/%s/%s/pullrequests" % (
-                'https://api.bitbucket.org/1.0',
+                self.baseUrl,
                 self.remote.getUsername(),
                 self.remote.getRepositoryName()
             )
@@ -271,7 +274,7 @@ class Bitbucket(RepositoryProvider):
                     }
                 }
             }
-            headers = {'Authorization': 'token %s' % token}
+            headers = {'Authorization': '%s' % token}
 
             response = requests.post(
                 url,
