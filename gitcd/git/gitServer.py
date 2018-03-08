@@ -241,13 +241,7 @@ class Bitbucket(GitServer):
         # https://blog.bitbucket.org/2013/11/12/api-2-0-new-function-and-enhanced-usability/
         # https://github.com/cdancy/bitbucket-rest
         # https://bitbucket.org/site/master/issues/8195/rest-api-for-creating-pull-requests
-
         # https://api.bitbucket.org/2.0/repositories/{user}/{slug}/pullrequests/ \
-        # -d src=my_branch \
-        # -d title="Short description" \
-        # -d dest=master \
-        # -d description="Long description"
-
         token = self.configPersonal.getToken('bitbucket')
 
         if isinstance(token, str):
