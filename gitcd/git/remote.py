@@ -1,8 +1,8 @@
 from typing import Union
 
 from gitcd.git import Git
-from gitcd.git.gitServer import Github
-from gitcd.git.gitServer import Bitbucket
+from gitcd.git.server.github import Github
+from gitcd.git.server.bitbucket import Bitbucket
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 
