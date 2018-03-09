@@ -58,7 +58,7 @@ class Github(GitServer):
                     )
                 except ValueError:
                     raise GitcdGithubApiException(
-                        "Open a pull request on github failed for an unknown reason."
+                        "Open a pull request on github failed."
                     )
 
             defaultBrowser = self.getDefaultBrowserCommand()
