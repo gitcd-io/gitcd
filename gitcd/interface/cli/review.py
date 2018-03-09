@@ -14,7 +14,14 @@ class Review(BaseCommand):
 
         self.interface.warning("Opening pull-request")
 
-        title = self.interface.askFor("Pull-Request title?")
+        title = self.interface.askFor(
+            'Pull-Request title?',
+            False,
+            branch.getName())
+        # use branch name as default title since its mandatory
+        if title == '':
+            title = branch.getName()
+
         body = self.interface.askFor("Pull-Request body?")
         pr = remote.getGitWebIntegration()
         # ensure a token is set for this remote
