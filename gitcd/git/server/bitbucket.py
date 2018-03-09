@@ -12,6 +12,13 @@ class Bitbucket(GitServer):
     tokenSpace = 'bitbucket'
     baseUrl = 'https://api.bitbucket.org/2.0'
 
+    def getAuth(self):
+        token = self.configPersonal.getToken('bitbucket')
+        if isinstance(token, str) and ':' in token:
+            auth = token.split(':')
+            return (auth[0], auth[1])
+        return None
+
     def open(
         self,
         title: str,
@@ -19,11 +26,8 @@ class Bitbucket(GitServer):
         fromBranch: Branch,
         toBranch: Branch
     ) -> bool:
-
-        token = self.configPersonal.getToken('bitbucket')
-
-        if isinstance(token, str) and ':' in token:
-
+        auth = self.getAuth()
+        if auth is not None:
             url = "%s/repositories/%s/%s/pullrequests" % (
                 self.baseUrl,
                 self.remote.getUsername(),
@@ -45,11 +49,10 @@ class Bitbucket(GitServer):
                 "description": body
             }
 
-            auth = token.split(':')
             response = requests.post(
                 url,
                 json=data,
-                auth=(auth[0], auth[1])
+                auth=auth
             )
 
             if response.status_code == 401:
@@ -62,8 +65,8 @@ class Bitbucket(GitServer):
                     jsonResponse = response.json()
                     message = jsonResponse['error']['message']
                     raise GitcdGithubApiException(
-                        "Open a pull request on bitbucket \
-                        failed with message: %s" % (
+                        "Open a pull request on bitbucket" +
+                        " failed with message: %s" % (
                             message
                         )
                     )
@@ -91,20 +94,18 @@ class Bitbucket(GitServer):
         return True
 
     def status(self, branch: Branch):
-        token = self.configPersonal.getToken('bitbucket')
         master = Branch(self.config.getMaster())
-        if isinstance(token, str) and ':' in token:
+        auth = self.getAuth()
+        if auth is not None:
             url = "%s/repositories/%s/%s/pullrequests" % (
                 self.baseUrl,
                 self.remote.getUsername(),
                 self.remote.getRepositoryName()
             )
 
-            auth = token.split(':')
-
             response = requests.get(
                 url,
-                auth=(auth[0], auth[1])
+                auth=auth
             )
 
             if response.status_code != 200:
@@ -124,12 +125,49 @@ class Bitbucket(GitServer):
                         pr['source']['branch']['name'] == branch.getName()
                     ):
                         currentPr = pr
+                        reviewers = self.isReviewedBy(
+                            currentPr['links']['activity']['href']
+                        )
+                        pprint(reviewers)
+
                         returnValue['state'] = 'REVIEW REQUIRED'
                         returnValue['master'] = master.getName()
                         returnValue['feature'] = branch.getName()
-                        # returnValue['reviews'] = reviewers
-                        returnValue['reviews'] = {}
+                        returnValue['reviews'] = reviewers
                         returnValue['url'] = currentPr['links']['html']['href']
                         returnValue['number'] = currentPr['id']
 
         return returnValue
+
+    def isReviewedBy(self, activityUrl: str) -> dict:
+        auth = self.getAuth()
+
+        if auth is not None:
+            response = requests.get(
+                activityUrl,
+                auth=auth
+            )
+            if response.status_code != 200:
+                raise GitcdGithubApiException(
+                    "Fetch PR activity for bitbucket failed."
+                )
+
+            responseJson = response.json()
+            pprint(responseJson)
+            reviewers = {}
+            if (
+                'values' in responseJson
+                and 'approval' in responseJson['values']
+            ):
+                approval = responseJson['values']['approval']
+                pprint(approval)
+                comment = {}
+                comment['date'] = approval['date']
+                comment['body'] = 'approved'
+                comment['state'] = 'APPROVED'
+                reviewer['state'] = 'APPROVED'
+                reviewer['comments'].append(comment)
+
+                reviewers[approval['user']['username']] = reviewer
+
+        return reviewers
