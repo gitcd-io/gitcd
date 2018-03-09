@@ -350,6 +350,7 @@ class Bitbucket(GitServer):
             )
 
             pprint(response.status_code)
+            pprint(response.json())
 
 
         pass
