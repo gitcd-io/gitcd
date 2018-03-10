@@ -171,27 +171,26 @@ class Github(GitServer):
         token = self.configPersonal.getToken('github')
         reviewers = {}
         if isinstance(token, str):
-            if token is not None:
-                headers = {'Authorization': 'token %s' % token}
-                response = requests.get(
-                    commentsUrl,
-                    headers=headers
-                )
-                comments = response.json()
-                for comment in comments:
-                    if 'lgtm' in comment['body'].lower():
+            headers = {'Authorization': 'token %s' % token}
+            response = requests.get(
+                commentsUrl,
+                headers=headers
+            )
+            comments = response.json()
+            for comment in comments:
+                if 'lgtm' in comment['body'].lower():
 
-                        if comment['user']['login'] in reviewers:
-                            reviewer = reviewers[comment['user']['login']]
-                        else:
-                            reviewer = {}
-
-                        reviewer['state'] = 'APPROVED'
+                    if comment['user']['login'] in reviewers:
+                        reviewer = reviewers[comment['user']['login']]
+                    else:
+                        reviewer = {}
                         reviewer['comments'] = []
-                        reviewerComment = {}
-                        reviewerComment['state'] = 'APPROVED'
-                        reviewerComment['body'] = comment['body']
-                        reviewer['comments'].append(reviewerComment)
-                        reviewers[comment['user']['login']] = reviewer
+
+                    reviewer['state'] = 'APPROVED'
+                    reviewerComment = {}
+                    reviewerComment['state'] = 'APPROVED'
+                    reviewerComment['body'] = comment['body']
+                    reviewer['comments'].append(reviewerComment)
+                    reviewers[comment['user']['login']] = reviewer
 
         return reviewers

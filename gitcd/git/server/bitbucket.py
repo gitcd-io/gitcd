@@ -128,9 +128,21 @@ class Bitbucket(GitServer):
                         reviewers = self.isReviewedBy(
                             currentPr['links']['activity']['href']
                         )
-                        pprint(reviewers)
+
+                        if len(reviewers) == 0:
+                            reviewers = self.getLgtmComments(
+                                currentPr['links']['comments']['href']
+                            )
 
                         returnValue['state'] = 'REVIEW REQUIRED'
+
+                        if len(reviewers) > 0:
+                            returnValue['state'] = 'APPROVED'
+                            for reviewer in reviewers:
+                                reviewer = reviewers[reviewer]
+                                if reviewer['state'] is not 'APPROVED':
+                                    returnValue['state'] = reviewer['state']
+
                         returnValue['master'] = master.getName()
                         returnValue['feature'] = branch.getName()
                         returnValue['reviews'] = reviewers
@@ -141,7 +153,6 @@ class Bitbucket(GitServer):
 
     def isReviewedBy(self, activityUrl: str) -> dict:
         auth = self.getAuth()
-
         if auth is not None:
             response = requests.get(
                 activityUrl,
@@ -153,21 +164,57 @@ class Bitbucket(GitServer):
                 )
 
             responseJson = response.json()
-            pprint(responseJson)
             reviewers = {}
-            if (
-                'values' in responseJson
-                and 'approval' in responseJson['values']
-            ):
-                approval = responseJson['values']['approval']
-                pprint(approval)
-                comment = {}
-                comment['date'] = approval['date']
-                comment['body'] = 'approved'
-                comment['state'] = 'APPROVED'
-                reviewer['state'] = 'APPROVED'
-                reviewer['comments'].append(comment)
+            if ('values' in responseJson):
+                for value in responseJson['values']:
+                    if 'approval' in value:
+                        reviewer = {}
+                        reviewer['comments'] = []
+                        approval = value['approval']
+                        comment = {}
+                        comment['date'] = approval['date']
+                        comment['body'] = 'approved'
+                        comment['state'] = 'APPROVED'
+                        reviewer['state'] = 'APPROVED'
+                        reviewer['comments'].append(comment)
 
-                reviewers[approval['user']['username']] = reviewer
+                        reviewers[approval['user']['username']] = reviewer
+
+        return reviewers
+
+    def getLgtmComments(self, commentsUrl):
+        auth = self.getAuth()
+        reviewers = {}
+        if auth is not None:
+            response = requests.get(
+                commentsUrl,
+                auth=auth
+            )
+            if response.status_code != 200:
+                raise GitcdGithubApiException(
+                    "Fetch PR comments for bitbucket failed."
+                )
+
+            comments = response.json()
+
+            if 'values' in comments:
+                for comment in comments['values']:
+                    if (
+                        'content' in comment and
+                        'lgtm' in comment['content']['raw'].lower()
+                    ):
+                        if comment['user']['username'] in reviewers:
+                            pprint('already found')
+                            reviewer = reviewers[comment['user']['username']]
+                        else:
+                            reviewer = {}
+                            reviewer['comments'] = []
+
+                        reviewer['state'] = 'APPROVED'
+                        reviewerComment = {}
+                        reviewerComment['state'] = 'APPROVED'
+                        reviewerComment['body'] = comment['content']['raw']
+                        reviewer['comments'].append(reviewerComment)
+                        reviewers[comment['user']['username']] = reviewer
 
         return reviewers

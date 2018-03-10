@@ -142,6 +142,17 @@ class BaseCommand(object):
                 False,
                 token
             )
+
+            if (
+                tokenSpace == 'bitbucket' and
+                ':' not in token
+            ):
+                self.interface.warning(
+                    'For bitbucket you need to pass a username' +
+                    ' as well like <username:app_password>'
+                )
+                return self.getTokenOrAskFor(tokenSpace)
+
             self.configPersonal.setToken(tokenSpace, token)
             self.configPersonal.write()
         return token
