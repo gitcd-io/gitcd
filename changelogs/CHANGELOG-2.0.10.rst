@@ -1,4 +1,4 @@
-Changelog for version 2.0.9
+Changelog for version 2.0.10
 ===========================
 
 Cleanup
