@@ -12,8 +12,9 @@ before_install:
   - sudo apt-get install -y expect
   - sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev libportmidi-dev libswscale-dev libavformat-dev libavcodec-dev zlib1g-dev libegl1-mesa-dev libgles2-mesa-dev libgstreamer1.0-0 libgstreamer1.0-dev
 
-# command to install gitcd
+# command to install dependencies
 install:
+  - pip install -r requirements-dev.txt
   - pip install .
 script:
   # Run flake8 on all .py files in all subfolders
