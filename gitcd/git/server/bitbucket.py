@@ -4,7 +4,6 @@ from gitcd.git.branch import Branch
 from gitcd.exceptions import GitcdGithubApiException
 
 import requests
-from pprint import pprint
 
 
 class Bitbucket(GitServer):
@@ -204,7 +203,6 @@ class Bitbucket(GitServer):
                         'lgtm' in comment['content']['raw'].lower()
                     ):
                         if comment['user']['username'] in reviewers:
-                            pprint('already found')
                             reviewer = reviewers[comment['user']['username']]
                         else:
                             reviewer = {}
