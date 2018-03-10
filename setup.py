@@ -27,7 +27,8 @@ setup(
         'argparse',
         'argcomplete',
         'requests',
-        'packaging'
+        'packaging',
+        'typing'
     ],
 
     entry_points={
