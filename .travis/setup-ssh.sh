@@ -1,4 +1,4 @@
-# setup ssh key for https://github.com/claudio-walser/travis-gitcd
+# setup ssh key for https://github.com/gitcd-io/travis-gitcd
 declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/XXXXX)"
 
 openssl aes-256-cbc \

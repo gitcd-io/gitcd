@@ -1,7 +1,7 @@
 set -e
 
 # change workdir to travis-gitcd
-cd ~/build/claudio-walser/travis-gitcd
+cd ~/build/gitcd-io/travis-gitcd
 
 /usr/bin/expect <<EOD
 spawn git-cd review

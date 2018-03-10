@@ -1,7 +1,7 @@
 set -e
 
 # change workdir to travis-gitcd
-cd ~/build/claudio-walser/travis-gitcd
+cd ~/build/gitcd-io/travis-gitcd
 
 # assert that new feature branch exists remote
 git branch -a | grep "origin/feature/travis-test-$TRAVIS_JOB_NUMBER"

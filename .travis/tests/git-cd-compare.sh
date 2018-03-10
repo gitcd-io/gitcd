@@ -1,7 +1,7 @@
 set -e
 
 # change workdir to travis-gitcd
-cd ~/build/claudio-walser/travis-gitcd
+cd ~/build/gitcd-io/travis-gitcd
 
 # call git-cd compare and compare it to the test branch
 git-cd compare test

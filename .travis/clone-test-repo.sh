@@ -1,3 +1,3 @@
-# setup ssh key for https://github.com/claudio-walser/travis-gitcd
+# setup ssh key for https://github.com/gitcd-io/travis-gitcd
 
-git clone git@github.com:claudio-walser/travis-gitcd.git ~/build/claudio-walser/travis-gitcd
+git clone git@github.com:gitcd-io/travis-gitcd.git ~/build/gitcd-io/travis-gitcd
