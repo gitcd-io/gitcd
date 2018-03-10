@@ -12,14 +12,14 @@ Continuous tool for working with git
 .. image:: https://img.shields.io/pypi/status/gitcd.svg
    :target: https://pypi.org/project/gitcd/
 
-.. image:: https://travis-ci.org/claudio-walser/gitcd.svg?branch=master
-    :target: https://travis-ci.org/claudio-walser/gitcd
+.. image:: https://travis-ci.org/gitcd-io/gitcd.svg?branch=master
+    :target: https://travis-ci.org/gitcd-io/gitcd
 
 .. image:: https://readthedocs.org/projects/gitcd/badge/?version=latest
     :target: https://gitcd.readthedocs.org/en/latest/?badge=latest
 
-.. image:: https://img.shields.io/github/last-commit/claudio-walser/gitcd.svg
-    :target: https://github.com/claudio-walser/gitcd/commits/master
+.. image:: https://img.shields.io/github/last-commit/gitcd-io/gitcd.svg
+    :target: https://github.com/gitcd-io/gitcd/commits/master
 
 
 
@@ -32,7 +32,7 @@ Continuous tool for working with git
     :target: https://pypi.org/project/gitcd/
 
 .. image:: http://img.shields.io/badge/license-APACHE2-blue.svg
-    :target: https://github.com/claudio-walser/gitcd/blob/master/LICENSE
+    :target: https://github.com/gitcd-io/gitcd/blob/master/LICENSE
 
 .. image:: https://img.shields.io/pypi/pyversions/gitcd.svg
     :target: https://pypi.org/project/gitcd/
@@ -177,7 +177,7 @@ Most of the values should be very self-explanatory. Still, here is a complete li
 
 - **Do you want to execute some additional commands after a release?**
 
-  - This is useful if you want to execute any cli script after creating a tag, for example, gitcd itself uses such a script to publish the new release on pypi after creating a new tag. You can see the script here https://github.com/claudio-walser/gitcd/blob/master/publish.sh.
+  - This is useful if you want to execute any cli script after creating a tag, for example, gitcd itself uses such a script to publish the new release on pypi after creating a new tag. You can see the script here https://github.com/gitcd-io/gitcd/blob/master/publish.sh.
 
 
 .. code-block:: bash
@@ -337,7 +337,7 @@ Contributing
 ############
 
 1. Fork it
-2. Add this repository as an origin (``git remote add upstream https://github.com/claudio-walser/gitcd.git``)
+2. Add this repository as an origin (``git remote add upstream https://github.com/gitcd-io/gitcd.git``)
 3. Create your feature branch (``git cd start my-new-feature``)
 4. Commit your changes (``git commit -am 'Add some feature'``)
 5. Push to the branch (``git push origin feature/my-new-feature``)
@@ -348,7 +348,7 @@ License
 #######
 
 Apache License 2.0 see
-https://github.com/claudio-walser/gitcd/blob/master/LICENSE
+https://github.com/gitcd-io/gitcd/blob/master/LICENSE
 
-.. _Issues List: https://github.com/claudio-walser/gitcd/issues
+.. _Issues List: https://github.com/gitcd-io/gitcd/issues
 
