@@ -19,6 +19,9 @@ script:
   # Run flake8 on all .py files in all subfolders
   - find . -name \*.py -exec flake8 {} +
 
+  # Scan for known security issues
+  - bandit -r .
+
   # run tests
   - | # default repo setup
       bash .travis/setup-ssh.sh
