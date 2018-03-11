@@ -6,7 +6,7 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7-dev"
+  # - "3.7-dev" # pyyaml not ready yet
 
 before_install:
   - sudo apt-get -qq update
