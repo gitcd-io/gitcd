@@ -110,11 +110,6 @@ class Remote(Git):
 
         return False
 
-    def update(self) -> bool:
-        self.cli.execute('git remote update -p %s' % (self.name))
-
-        return True
-
     def push(self, branch: Union[Branch, Tag]) -> bool:
         self.verboseCli.execute(
             "git push %s %s" % (self.name, branch.getName())

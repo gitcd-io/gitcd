@@ -22,13 +22,7 @@ class BaseCommand(object):
     def __init__(self):
         self.instantiateRepository()
         if self.updateRemote is True:
-            remotes = self.repository.getRemotes()
-
-            for remote in remotes:
-                try:
-                    remote.update()
-                except simpcli.CliException as e:
-                    pass
+            self.repository.update()
 
     def instantiateRepository(self) -> bool:
         self.repository = Repository()

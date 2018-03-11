@@ -7,7 +7,7 @@ from gitcd.app.clean import Clean as CleanHelper
 
 class Clean(BaseCommand):
 
-    updateRemotes = True
+    updateRemote = True
 
     def run(self, branch: Branch):
         helper = CleanHelper()

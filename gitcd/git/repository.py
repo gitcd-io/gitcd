@@ -160,3 +160,8 @@ class Repository(Git):
             return False
 
         return True
+
+    def update(self) -> bool:
+        self.cli.execute('git fetch -p')
+
+        return True
