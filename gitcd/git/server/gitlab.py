@@ -6,9 +6,9 @@ from gitcd.exceptions import GitcdGithubApiException
 import requests
 
 
-class Bitbucket(GitServer):
+class Gitlab(GitServer):
 
-    tokenSpace = 'bitbucket'
+    tokenSpace = 'gitlab'
     baseUrl = 'https://api.bitbucket.org/2.0'
 
     def getAuth(self):
@@ -25,6 +25,10 @@ class Bitbucket(GitServer):
         fromBranch: Branch,
         toBranch: Branch
     ) -> bool:
+        raise Exception('needs to be implemented')
+
+
+
         auth = self.getAuth()
         if auth is not None:
             url = "%s/repositories/%s/%s/pullrequests" % (
@@ -93,6 +97,8 @@ class Bitbucket(GitServer):
         return True
 
     def status(self, branch: Branch):
+        raise Exception('needs to be implemented')
+
         master = Branch(self.config.getMaster())
         auth = self.getAuth()
         if auth is not None:
@@ -151,6 +157,8 @@ class Bitbucket(GitServer):
         return returnValue
 
     def isReviewedBy(self, activityUrl: str) -> dict:
+        raise Exception('needs to be implemented')
+
         auth = self.getAuth()
         if auth is not None:
             response = requests.get(
@@ -182,6 +190,8 @@ class Bitbucket(GitServer):
         return reviewers
 
     def getLgtmComments(self, commentsUrl):
+        raise Exception('needs to be implemented')
+
         auth = self.getAuth()
         reviewers = {}
         if auth is not None:

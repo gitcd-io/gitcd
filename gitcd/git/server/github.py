@@ -19,7 +19,7 @@ class Github(GitServer):
         fromBranch: Branch,
         toBranch: Branch
     ) -> bool:
-        token = self.configPersonal.getToken('github')
+        token = self.configPersonal.getToken(self.tokenSpace)
         url = "%s/repos/%s/%s/pulls" % (
             self.baseUrl,
             self.remote.getUsername(),
@@ -83,7 +83,7 @@ class Github(GitServer):
     def status(self, branch: Branch):
         username = self.remote.getUsername()
         ref = "%s:refs/heads/%s" % (username, branch.getName())
-        token = self.configPersonal.getToken('github')
+        token = self.configPersonal.getToken(self.tokenSpace)
         master = Branch(self.config.getMaster())
         if isinstance(token, str):
             url = "%s/repos/%s/%s/pulls" % (
@@ -139,7 +139,7 @@ class Github(GitServer):
             return returnValue
 
     def isReviewedBy(self, reviewUrl) -> dict:
-        token = self.configPersonal.getToken('github')
+        token = self.configPersonal.getToken(self.tokenSpace)
         reviewers = {}
         if isinstance(token, str):
             if token is not None:
@@ -168,7 +168,7 @@ class Github(GitServer):
         return reviewers
 
     def getLgtmComments(self, commentsUrl):
-        token = self.configPersonal.getToken('github')
+        token = self.configPersonal.getToken(self.tokenSpace)
         reviewers = {}
         if isinstance(token, str):
             headers = {'Authorization': 'token %s' % token}
