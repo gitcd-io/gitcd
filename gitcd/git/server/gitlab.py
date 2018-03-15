@@ -4,12 +4,15 @@ from gitcd.git.branch import Branch
 from gitcd.exceptions import GitcdGithubApiException
 
 import requests
+from urllib.parse import urlencode
+
+from pprint import pprint
 
 
 class Gitlab(GitServer):
 
     tokenSpace = 'gitlab'
-    baseUrl = 'https://api.bitbucket.org/2.0'
+    baseUrl = 'https://gitlab.com/api/v4'
 
     def getAuth(self):
         token = self.configPersonal.getToken(self.tokenSpace)
@@ -27,35 +30,31 @@ class Gitlab(GitServer):
     ) -> bool:
         raise Exception('needs to be implemented')
 
+        token = self.configPersonal.getToken(self.tokenSpace)
+        if token is not None:
 
-
-        auth = self.getAuth()
-        if auth is not None:
-            url = "%s/repositories/%s/%s/pullrequests" % (
-                self.baseUrl,
+            projectId = '%s/%s' % (
                 self.remote.getUsername(),
-                self.remote.getRepositoryName()
+                self.remote.getRepositoryName
+            )
+            url = '%s/projects/%s/merge_requests' % (
+                self.baseUrl,
+                urlencode(projectId)
             )
 
-            data = {
-                "destination": {
-                    "branch": {
-                        "name": toBranch.getName()
-                    }
-                },
-                "source": {
-                    "branch": {
-                      "name": fromBranch.getName()
-                    }
-                },
-                "title": title,
-                "description": body
-            }
+            print(url)
 
+            data = {
+                'source_branch': fromBranch.getName(),
+                'target_branch': toBranch.getName(),
+                'title': title,
+                'description': body
+            }
+            headers = {'Private-Token': token}
             response = requests.post(
                 url,
-                json=data,
-                auth=auth
+                headers=headers,
+                json=data
             )
 
             if response.status_code == 401:
@@ -66,23 +65,24 @@ class Gitlab(GitServer):
             if response.status_code != 201:
                 try:
                     jsonResponse = response.json()
-                    message = jsonResponse['error']['message']
-                    raise GitcdGithubApiException(
-                        "Open a pull request on bitbucket" +
-                        " failed with message: %s" % (
-                            message
-                        )
-                    )
+                    pprint(jsonResponse)
+                    # message = jsonResponse['error']['message']
+                    # raise GitcdGithubApiException(
+                    #     "Open a pull request on bitbucket" +
+                    #     " failed with message: %s" % (
+                    #         message
+                    #     )
+                    # )
                 except ValueError:
                     raise GitcdGithubApiException(
                         "Open a pull request on bitbucket failed."
                     )
 
-            defaultBrowser = self.getDefaultBrowserCommand()
-            self.cli.execute("%s %s" % (
-                defaultBrowser,
-                response.json()["links"]['html']['href']
-            ))
+            # defaultBrowser = self.getDefaultBrowserCommand()
+            # self.cli.execute("%s %s" % (
+            #     defaultBrowser,
+            #     response.json()["links"]['html']['href']
+            # ))
         else:
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (

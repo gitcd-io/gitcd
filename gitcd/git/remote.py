@@ -3,6 +3,7 @@ from typing import Union
 from gitcd.git import Git
 from gitcd.git.server.github import Github
 from gitcd.git.server.bitbucket import Bitbucket
+from gitcd.git.server.gitlab import Gitlab
 from gitcd.git.branch import Branch
 from gitcd.git.tag import Tag
 
@@ -194,6 +195,8 @@ class Remote(Git):
             pr = Github()
         elif self.isBitbucket():
             pr = Bitbucket()
+        elif self.isGitlab():
+            pr = Gitlab()
         else:
             # todo: raise RepoProviderNotImplementedException
             return False
@@ -206,3 +209,6 @@ class Remote(Git):
 
     def isBitbucket(self) -> bool:
         return 'bitbucket.org' in self.url
+
+    def isGitlab(self) -> bool:
+        return 'gitlab.com' in self.url
