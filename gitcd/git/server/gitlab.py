@@ -14,13 +14,6 @@ class Gitlab(GitServer):
     tokenSpace = 'gitlab'
     baseUrl = 'https://gitlab.com/api/v4'
 
-    def getAuth(self):
-        token = self.configPersonal.getToken(self.tokenSpace)
-        if isinstance(token, str) and ':' in token:
-            auth = token.split(':')
-            return (auth[0], auth[1])
-        return None
-
     def open(
         self,
         title: str,
@@ -28,21 +21,18 @@ class Gitlab(GitServer):
         fromBranch: Branch,
         toBranch: Branch
     ) -> bool:
-        raise Exception('needs to be implemented')
-
         token = self.configPersonal.getToken(self.tokenSpace)
         if token is not None:
 
-            projectId = '%s/%s' % (
+            projectId = '%s%s%s' % (
                 self.remote.getUsername(),
-                self.remote.getRepositoryName
+                '%2F',
+                self.remote.getRepositoryName()
             )
             url = '%s/projects/%s/merge_requests' % (
                 self.baseUrl,
-                urlencode(projectId)
+                projectId
             )
-
-            print(url)
 
             data = {
                 'source_branch': fromBranch.getName(),
@@ -51,11 +41,18 @@ class Gitlab(GitServer):
                 'description': body
             }
             headers = {'Private-Token': token}
+            print(url)
             response = requests.post(
                 url,
                 headers=headers,
                 json=data
             )
+            pprint(response)
+
+
+            # <Response [409]>
+            # {'message': ['Cannot Create: This merge request already exists: '
+            # '["gitlab-integration"]']}
 
             if response.status_code == 401:
                 raise GitcdGithubApiException(
@@ -77,12 +74,69 @@ class Gitlab(GitServer):
                     raise GitcdGithubApiException(
                         "Open a pull request on bitbucket failed."
                     )
-
+            jsonResponse = response.json()
+            pprint(jsonResponse)
             # defaultBrowser = self.getDefaultBrowserCommand()
             # self.cli.execute("%s %s" % (
             #     defaultBrowser,
             #     response.json()["links"]['html']['href']
             # ))
+
+
+            # <Response [201]>
+            # {'approvals_before_merge': None,
+            #  'assignee': None,
+            #  'author': {'avatar_url': 'https://secure.gravatar.com/avatar/22633d974a18183781ded24ef5e43374?s=80&d=identicon',
+            #             'id': 2113833,
+            #             'name': 'Claudio Walser',
+            #             'state': 'active',
+            #             'username': 'claudio-walser',
+            #             'web_url': 'https://gitlab.com/claudio-walser'},
+            #  'changes_count': '6',
+            #  'closed_at': None,
+            #  'closed_by': None,
+            #  'created_at': '2018-03-15T17:39:44.316Z',
+            #  'description': 'hoi',
+            #  'discussion_locked': None,
+            #  'downvotes': 0,
+            #  'first_deployed_to_production_at': None,
+            #  'force_remove_source_branch': None,
+            #  'id': 8421843,
+            #  'iid': 3,
+            #  'labels': [],
+            #  'latest_build_finished_at': None,
+            #  'latest_build_started_at': None,
+            #  'merge_commit_sha': None,
+            #  'merge_status': 'can_be_merged',
+            #  'merge_when_pipeline_succeeds': False,
+            #  'merged_at': None,
+            #  'merged_by': None,
+            #  'milestone': None,
+            #  'pipeline': None,
+            #  'project_id': 5760416,
+            #  'sha': '11305bb6acfad8d9e6f9f99ecf1cf483c3f2e30b',
+            #  'should_remove_source_branch': None,
+            #  'source_branch': 'gitlab-integration',
+            #  'source_project_id': 5760416,
+            #  'squash': False,
+            #  'state': 'opened',
+            #  'subscribed': True,
+            #  'target_branch': 'master',
+            #  'target_project_id': 5760416,
+            #  'time_stats': {'human_time_estimate': None,
+            #                 'human_total_time_spent': None,
+            #                 'time_estimate': 0,
+            #                 'total_time_spent': 0},
+            #  'title': 'gitlab-integration',
+            #  'updated_at': '2018-03-15T17:39:44.316Z',
+            #  'upvotes': 0,
+            #  'user_notes_count': 0,
+            #  'web_url': 'https://gitlab.com/claudio-walser/gitcd/merge_requests/3',
+            #  'work_in_progress': False}
+
+
+
+
         else:
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
