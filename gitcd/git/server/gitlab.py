@@ -41,47 +41,43 @@ class Gitlab(GitServer):
                 'description': body
             }
             headers = {'Private-Token': token}
-            print(url)
             response = requests.post(
                 url,
                 headers=headers,
                 json=data
             )
-            pprint(response)
-
-
-            # <Response [409]>
-            # {'message': ['Cannot Create: This merge request already exists: '
-            # '["gitlab-integration"]']}
 
             if response.status_code == 401:
                 raise GitcdGithubApiException(
                     "Authentication failed, create a new app password."
                 )
 
-            if response.status_code != 201:
-                try:
-                    jsonResponse = response.json()
-                    pprint(jsonResponse)
-                    # message = jsonResponse['error']['message']
-                    # raise GitcdGithubApiException(
-                    #     "Open a pull request on bitbucket" +
-                    #     " failed with message: %s" % (
-                    #         message
-                    #     )
-                    # )
-                except ValueError:
-                    raise GitcdGithubApiException(
-                        "Open a pull request on bitbucket failed."
-                    )
-            jsonResponse = response.json()
-            pprint(jsonResponse)
-            # defaultBrowser = self.getDefaultBrowserCommand()
-            # self.cli.execute("%s %s" % (
-            #     defaultBrowser,
-            #     response.json()["links"]['html']['href']
-            # ))
+            if response.status_code == 409:
+                raise GitcdGithubApiException(
+                    "This pull-requests already exists."
+                )
 
+            # anything else but success
+            if response.status_code != 201:
+                raise GitcdGithubApiException(
+                    "Open a pull request on gitlab failed."
+                )
+
+            try:
+                jsonResponse = response.json()
+                defaultBrowser = self.getDefaultBrowserCommand()
+                self.cli.execute("%s %s" % (
+                    defaultBrowser,
+                    response.json()['web_url']
+                ))
+            except ValueError:
+                raise GitcdGithubApiException(
+                    "Open a pull request on gitlab failed."
+                )
+
+            # <Response [409]>
+            # {'message': ['Cannot Create: This merge request already exists: '
+            # '["gitlab-integration"]']}
 
             # <Response [201]>
             # {'approvals_before_merge': None,
@@ -134,17 +130,15 @@ class Gitlab(GitServer):
             #  'web_url': 'https://gitlab.com/claudio-walser/gitcd/merge_requests/3',
             #  'work_in_progress': False}
 
-
-
-
         else:
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
                 defaultBrowser,
-                "%s/%s/%s/pull-requests/new?source=%s&event_source=gitcd" % (
-                    "https://bitbucket.org",
+                "%s/%s/%s/merge_requests/new?%s=%s" % (
+                    "https://gitlab.com",
                     self.remote.getUsername(),
                     self.remote.getRepositoryName(),
+                    'merge_request%5Bsource_branch%5D',
                     fromBranch.getName()
                 )
             ))
