@@ -74,62 +74,6 @@ class Gitlab(GitServer):
                 raise GitcdGithubApiException(
                     "Open a pull request on gitlab failed."
                 )
-
-            # <Response [409]>
-            # {'message': ['Cannot Create: This merge request already exists: '
-            # '["gitlab-integration"]']}
-
-            # <Response [201]>
-            # {'approvals_before_merge': None,
-            #  'assignee': None,
-            #  'author': {'avatar_url': 'https://secure.gravatar.com/avatar/22633d974a18183781ded24ef5e43374?s=80&d=identicon',
-            #             'id': 2113833,
-            #             'name': 'Claudio Walser',
-            #             'state': 'active',
-            #             'username': 'claudio-walser',
-            #             'web_url': 'https://gitlab.com/claudio-walser'},
-            #  'changes_count': '6',
-            #  'closed_at': None,
-            #  'closed_by': None,
-            #  'created_at': '2018-03-15T17:39:44.316Z',
-            #  'description': 'hoi',
-            #  'discussion_locked': None,
-            #  'downvotes': 0,
-            #  'first_deployed_to_production_at': None,
-            #  'force_remove_source_branch': None,
-            #  'id': 8421843,
-            #  'iid': 3,
-            #  'labels': [],
-            #  'latest_build_finished_at': None,
-            #  'latest_build_started_at': None,
-            #  'merge_commit_sha': None,
-            #  'merge_status': 'can_be_merged',
-            #  'merge_when_pipeline_succeeds': False,
-            #  'merged_at': None,
-            #  'merged_by': None,
-            #  'milestone': None,
-            #  'pipeline': None,
-            #  'project_id': 5760416,
-            #  'sha': '11305bb6acfad8d9e6f9f99ecf1cf483c3f2e30b',
-            #  'should_remove_source_branch': None,
-            #  'source_branch': 'gitlab-integration',
-            #  'source_project_id': 5760416,
-            #  'squash': False,
-            #  'state': 'opened',
-            #  'subscribed': True,
-            #  'target_branch': 'master',
-            #  'target_project_id': 5760416,
-            #  'time_stats': {'human_time_estimate': None,
-            #                 'human_total_time_spent': None,
-            #                 'time_estimate': 0,
-            #                 'total_time_spent': 0},
-            #  'title': 'gitlab-integration',
-            #  'updated_at': '2018-03-15T17:39:44.316Z',
-            #  'upvotes': 0,
-            #  'user_notes_count': 0,
-            #  'web_url': 'https://gitlab.com/claudio-walser/gitcd/merge_requests/3',
-            #  'work_in_progress': False}
-
         else:
             defaultBrowser = self.getDefaultBrowserCommand()
             self.cli.execute("%s %s" % (
@@ -145,20 +89,31 @@ class Gitlab(GitServer):
         return True
 
     def status(self, branch: Branch):
-        raise Exception('needs to be implemented')
-
         master = Branch(self.config.getMaster())
-        auth = self.getAuth()
-        if auth is not None:
-            url = "%s/repositories/%s/%s/pullrequests" % (
-                self.baseUrl,
+        token = self.configPersonal.getToken(self.tokenSpace)
+        if token is not None:
+
+            data = {
+                'state': 'biber',
+                'source_branch': branch.getName(),
+                'target_branch': master.getName()
+            }
+
+            projectId = '%s%s%s' % (
                 self.remote.getUsername(),
+                '%2F',
                 self.remote.getRepositoryName()
             )
 
+            url = "%s/projects/%s/merge_requests?state=opened" % (
+                self.baseUrl,
+                projectId
+            )
+            headers = {'Private-Token': token}
             response = requests.get(
                 url,
-                auth=auth
+                headers=headers,
+                json=data
             )
 
             if response.status_code != 200:
@@ -169,53 +124,86 @@ class Gitlab(GitServer):
 
             returnValue = {}
             responseJson = response.json()
-            if 'values' in responseJson and len(responseJson['values']) > 0:
-                for pr in responseJson['values']:
-                    if (
-                        'source' in pr and
-                        'branch' in pr['source'] and
-                        'name' in pr['source']['branch'] and
-                        pr['source']['branch']['name'] == branch.getName()
-                    ):
-                        currentPr = pr
-                        reviewers = self.isReviewedBy(
-                            currentPr['links']['activity']['href']
-                        )
+            pprint(responseJson)
 
-                        if len(reviewers) == 0:
-                            reviewers = self.getLgtmComments(
-                                currentPr['links']['comments']['href']
-                            )
+            return returnValue
+        #     if len(result) == 1:
+        #         reviewers = self.isReviewedBy(
+        #             '%s/%s' % (result[0]['url'], 'reviews')
+        #         )
 
-                        returnValue['state'] = 'REVIEW REQUIRED'
+        #         returnValue['state'] = 'REVIEW REQUIRED'
 
-                        if len(reviewers) > 0:
-                            returnValue['state'] = 'APPROVED'
-                            for reviewer in reviewers:
-                                reviewer = reviewers[reviewer]
-                                if reviewer['state'] is not 'APPROVED':
-                                    returnValue['state'] = reviewer['state']
+        #         if len(reviewers) == 0:
+        #             reviewers = self.getLgtmComments(result[0]['comments_url'])
 
-                        returnValue['master'] = master.getName()
-                        returnValue['feature'] = branch.getName()
-                        returnValue['reviews'] = reviewers
-                        returnValue['url'] = currentPr['links']['html']['href']
-                        returnValue['number'] = currentPr['id']
+        #         if len(reviewers) > 0:
+        #             returnValue['state'] = 'APPROVED'
+        #             for reviewer in reviewers:
+        #                 reviewer = reviewers[reviewer]
+        #                 if reviewer['state'] is not 'APPROVED':
+        #                     returnValue['state'] = reviewer['state']
 
-        return returnValue
+        #         returnValue['master'] = master.getName()
+        #         returnValue['feature'] = branch.getName()
+        #         returnValue['reviews'] = reviewers
+        #         returnValue['url'] = result[0]['html_url']
+        #         returnValue['number'] = result[0]['number']
+
+        #     return returnValue
+
+
+
+
+
+
+
+        #     if 'values' in responseJson and len(responseJson['values']) > 0:
+        #         for pr in responseJson['values']:
+        #             if (
+        #                 'source' in pr and
+        #                 'branch' in pr['source'] and
+        #                 'name' in pr['source']['branch'] and
+        #                 pr['source']['branch']['name'] == branch.getName()
+        #             ):
+        #                 currentPr = pr
+        #                 reviewers = self.isReviewedBy(
+        #                     currentPr['links']['activity']['href']
+        #                 )
+
+        #                 if len(reviewers) == 0:
+        #                     reviewers = self.getLgtmComments(
+        #                         currentPr['links']['comments']['href']
+        #                     )
+
+        #                 returnValue['state'] = 'REVIEW REQUIRED'
+
+        #                 if len(reviewers) > 0:
+        #                     returnValue['state'] = 'APPROVED'
+        #                     for reviewer in reviewers:
+        #                         reviewer = reviewers[reviewer]
+        #                         if reviewer['state'] is not 'APPROVED':
+        #                             returnValue['state'] = reviewer['state']
+
+        #                 returnValue['master'] = master.getName()
+        #                 returnValue['feature'] = branch.getName()
+        #                 returnValue['reviews'] = reviewers
+        #                 returnValue['url'] = currentPr['links']['html']['href']
+        #                 returnValue['number'] = currentPr['id']
+
+        # return returnValue
 
     def isReviewedBy(self, activityUrl: str) -> dict:
-        raise Exception('needs to be implemented')
-
-        auth = self.getAuth()
-        if auth is not None:
+        token = self.getToken()
+        if token is not None:
+            headers = {'Private-Token': token}
             response = requests.get(
                 activityUrl,
-                auth=auth
+                headers = headers
             )
             if response.status_code != 200:
                 raise GitcdGithubApiException(
-                    "Fetch PR activity for bitbucket failed."
+                    "Fetch PR activity for gitlab failed."
                 )
 
             responseJson = response.json()
