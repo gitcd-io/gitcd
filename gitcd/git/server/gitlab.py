@@ -126,6 +126,9 @@ class Gitlab(GitServer):
             responseJson = response.json()
             pprint(responseJson)
 
+            if len(responseJson) > 1:
+                #https://gitlab.example.com/api/v4/projects/76/merge_requests/1/closes_issues
+
             return returnValue
         #     if len(result) == 1:
         #         reviewers = self.isReviewedBy(
@@ -194,6 +197,10 @@ class Gitlab(GitServer):
         # return returnValue
 
     def isReviewedBy(self, activityUrl: str) -> dict:
+        # not quite sure yet, need a different account to approve
+        # a pull request
+        return {}
+
         token = self.getToken()
         if token is not None:
             headers = {'Private-Token': token}
