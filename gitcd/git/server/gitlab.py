@@ -4,9 +4,6 @@ from gitcd.git.branch import Branch
 from gitcd.exceptions import GitcdGithubApiException
 
 import requests
-from urllib.parse import urlencode
-
-from pprint import pprint
 
 
 class Gitlab(GitServer):
@@ -64,11 +61,11 @@ class Gitlab(GitServer):
                 )
 
             try:
-                jsonResponse = response.json()
+                result = response.json()
                 defaultBrowser = self.getDefaultBrowserCommand()
                 self.cli.execute("%s %s" % (
                     defaultBrowser,
-                    response.json()['web_url']
+                    result['web_url']
                 ))
             except ValueError:
                 raise GitcdGithubApiException(
