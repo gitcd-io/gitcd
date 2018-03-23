@@ -125,21 +125,21 @@ class Gitlab(GitServer):
                 )
 
             returnValue = {}
-            responseJson = response.json()
-            if len(responseJson) > 0:
+            result = response.json()
+            if len(result) > 0:
                 returnValue['state'] = 'REVIEW REQUIRED'
                 reviewers = self.isReviewedBy(
                     "%s/%s/approvals" % (
                         baseUrl,
-                        responseJson[0]['iid']
+                        result[0]['iid']
                     )
                 )
 
-                if len(reviewers) == 0 and responseJson[0]['user_notes_count'] > 0:
+                if len(reviewers) == 0 and result[0]['user_notes_count'] > 0:
                     reviewers = self.getLgtmComments(
                         "%s/%s/notes" % (
                             baseUrl,
-                            responseJson[0]['iid']
+                            result[0]['iid']
                         )
                     )
 
@@ -153,8 +153,8 @@ class Gitlab(GitServer):
                 returnValue['master'] = master.getName()
                 returnValue['feature'] = branch.getName()
                 returnValue['reviews'] = reviewers
-                returnValue['url'] = responseJson[0]['web_url']
-                returnValue['number'] = responseJson[0]['iid']
+                returnValue['url'] = result[0]['web_url']
+                returnValue['number'] = result[0]['iid']
 
             return returnValue
 
