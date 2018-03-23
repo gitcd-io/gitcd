@@ -104,10 +104,12 @@ class Gitlab(GitServer):
                 '%2F',
                 self.remote.getRepositoryName()
             )
-
-            url = "%s/projects/%s/merge_requests?state=opened" % (
+            baseUrl = "%s/projects/%s/merge_requests" % (
                 self.baseUrl,
                 projectId
+            )
+            url = "%s?state=opened" % (
+                baseUrl
             )
             headers = {'Private-Token': token}
             response = requests.get(
@@ -124,84 +126,44 @@ class Gitlab(GitServer):
 
             returnValue = {}
             responseJson = response.json()
-            pprint(responseJson)
 
-            if len(responseJson) > 1:
-                #https://gitlab.example.com/api/v4/projects/76/merge_requests/1/closes_issues
+            if len(responseJson) > 0:
+                returnValue['state'] = 'REVIEW REQUIRED'
+                reviewers = self.isReviewedBy(
+                    "%s/%s/closes_issues" % (
+                        baseUrl,
+                        responseJson[0]['iid']
+                    )
+                )
+
+                if len(reviewers) == 0:
+                    reviewers = self.getLgtmComments(
+                        "%s/%s/notes" % (
+                            baseUrl,
+                            responseJson[0]['iid']
+                        )
+                    )
+
+                if len(reviewers) > 0:
+                    returnValue['state'] = 'APPROVED'
+                    for reviewer in reviewers:
+                        reviewer = reviewers[reviewer]
+                        if reviewer['state'] is not 'APPROVED':
+                            returnValue['state'] = reviewer['state']
+
+                returnValue['master'] = master.getName()
+                returnValue['feature'] = branch.getName()
+                returnValue['reviews'] = reviewers
+                returnValue['url'] = responseJson[0]['web_url']
+                returnValue['number'] = responseJson[0]['iid']
 
             return returnValue
-        #     if len(result) == 1:
-        #         reviewers = self.isReviewedBy(
-        #             '%s/%s' % (result[0]['url'], 'reviews')
-        #         )
-
-        #         returnValue['state'] = 'REVIEW REQUIRED'
-
-        #         if len(reviewers) == 0:
-        #             reviewers = self.getLgtmComments(result[0]['comments_url'])
-
-        #         if len(reviewers) > 0:
-        #             returnValue['state'] = 'APPROVED'
-        #             for reviewer in reviewers:
-        #                 reviewer = reviewers[reviewer]
-        #                 if reviewer['state'] is not 'APPROVED':
-        #                     returnValue['state'] = reviewer['state']
-
-        #         returnValue['master'] = master.getName()
-        #         returnValue['feature'] = branch.getName()
-        #         returnValue['reviews'] = reviewers
-        #         returnValue['url'] = result[0]['html_url']
-        #         returnValue['number'] = result[0]['number']
-
-        #     return returnValue
-
-
-
-
-
-
-
-        #     if 'values' in responseJson and len(responseJson['values']) > 0:
-        #         for pr in responseJson['values']:
-        #             if (
-        #                 'source' in pr and
-        #                 'branch' in pr['source'] and
-        #                 'name' in pr['source']['branch'] and
-        #                 pr['source']['branch']['name'] == branch.getName()
-        #             ):
-        #                 currentPr = pr
-        #                 reviewers = self.isReviewedBy(
-        #                     currentPr['links']['activity']['href']
-        #                 )
-
-        #                 if len(reviewers) == 0:
-        #                     reviewers = self.getLgtmComments(
-        #                         currentPr['links']['comments']['href']
-        #                     )
-
-        #                 returnValue['state'] = 'REVIEW REQUIRED'
-
-        #                 if len(reviewers) > 0:
-        #                     returnValue['state'] = 'APPROVED'
-        #                     for reviewer in reviewers:
-        #                         reviewer = reviewers[reviewer]
-        #                         if reviewer['state'] is not 'APPROVED':
-        #                             returnValue['state'] = reviewer['state']
-
-        #                 returnValue['master'] = master.getName()
-        #                 returnValue['feature'] = branch.getName()
-        #                 returnValue['reviews'] = reviewers
-        #                 returnValue['url'] = currentPr['links']['html']['href']
-        #                 returnValue['number'] = currentPr['id']
-
-        # return returnValue
 
     def isReviewedBy(self, activityUrl: str) -> dict:
         # not quite sure yet, need a different account to approve
         # a pull request
         return {}
 
-        token = self.getToken()
         if token is not None:
             headers = {'Private-Token': token}
             response = requests.get(
@@ -233,14 +195,13 @@ class Gitlab(GitServer):
         return reviewers
 
     def getLgtmComments(self, commentsUrl):
-        raise Exception('needs to be implemented')
-
-        auth = self.getAuth()
+        token = self.configPersonal.getToken(self.tokenSpace)
         reviewers = {}
-        if auth is not None:
+        if token is not None:
+            headers = {'Private-Token': token}
             response = requests.get(
                 commentsUrl,
-                auth=auth
+                headers=headers
             )
             if response.status_code != 200:
                 raise GitcdGithubApiException(
@@ -248,15 +209,14 @@ class Gitlab(GitServer):
                 )
 
             comments = response.json()
-
-            if 'values' in comments:
-                for comment in comments['values']:
+            if len(comments) > 0:
+                for comment in comments:
                     if (
-                        'content' in comment and
-                        'lgtm' in comment['content']['raw'].lower()
+                        'body' in comment and
+                        'lgtm' in comment['body'].lower()
                     ):
-                        if comment['user']['username'] in reviewers:
-                            reviewer = reviewers[comment['user']['username']]
+                        if comment['author']['username'] in reviewers:
+                            reviewer = reviewers[comment['author']['username']]
                         else:
                             reviewer = {}
                             reviewer['comments'] = []
@@ -264,8 +224,8 @@ class Gitlab(GitServer):
                         reviewer['state'] = 'APPROVED'
                         reviewerComment = {}
                         reviewerComment['state'] = 'APPROVED'
-                        reviewerComment['body'] = comment['content']['raw']
+                        reviewerComment['body'] = comment['body']
                         reviewer['comments'].append(reviewerComment)
-                        reviewers[comment['user']['username']] = reviewer
+                        reviewers[comment['author']['username']] = reviewer
 
         return reviewers
