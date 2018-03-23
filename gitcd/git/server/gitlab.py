@@ -126,17 +126,16 @@ class Gitlab(GitServer):
 
             returnValue = {}
             responseJson = response.json()
-
             if len(responseJson) > 0:
                 returnValue['state'] = 'REVIEW REQUIRED'
                 reviewers = self.isReviewedBy(
-                    "%s/%s/closes_issues" % (
+                    "%s/%s/approvals" % (
                         baseUrl,
                         responseJson[0]['iid']
                     )
                 )
 
-                if len(reviewers) == 0:
+                if len(reviewers) == 0 and responseJson[0]['user_notes_count'] > 0:
                     reviewers = self.getLgtmComments(
                         "%s/%s/notes" % (
                             baseUrl,
@@ -160,37 +159,31 @@ class Gitlab(GitServer):
             return returnValue
 
     def isReviewedBy(self, activityUrl: str) -> dict:
-        # not quite sure yet, need a different account to approve
-        # a pull request
-        return {}
-
+        reviewers = {}
+        token = self.configPersonal.getToken(self.tokenSpace)
         if token is not None:
             headers = {'Private-Token': token}
             response = requests.get(
                 activityUrl,
-                headers = headers
+                headers=headers
             )
             if response.status_code != 200:
                 raise GitcdGithubApiException(
                     "Fetch PR activity for gitlab failed."
                 )
 
-            responseJson = response.json()
-            reviewers = {}
-            if ('values' in responseJson):
-                for value in responseJson['values']:
-                    if 'approval' in value:
-                        reviewer = {}
-                        reviewer['comments'] = []
-                        approval = value['approval']
-                        comment = {}
-                        comment['date'] = approval['date']
-                        comment['body'] = 'approved'
-                        comment['state'] = 'APPROVED'
-                        reviewer['state'] = 'APPROVED'
-                        reviewer['comments'].append(comment)
+            result = response.json()
+            if 'approved_by' in result and len(result['approved_by']) > 0:
+                for approver in result['approved_by']:
+                    reviewer = {}
+                    reviewer['comments'] = []
+                    comment = {}
+                    comment['body'] = 'approved'
+                    comment['state'] = 'APPROVED'
+                    reviewer['state'] = 'APPROVED'
+                    reviewer['comments'].append(comment)
 
-                        reviewers[approval['user']['username']] = reviewer
+                    reviewers[approver['user']['username']] = reviewer
 
         return reviewers
 
