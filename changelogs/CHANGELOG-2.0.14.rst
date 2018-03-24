@@ -5,4 +5,5 @@ Gitlab Integration
 ##################
 
 - Implemented api calls to open pull requests on gitlab servers
-- ... proper recognition of remote service (maybe ssh -T git@host) ...
+- Implemented api calls to see status of a pull request on gitlab
+- Both only work with repositories on gitlab.com official server, not on selfhosted gitlab servers
