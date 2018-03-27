@@ -1,6 +1,5 @@
 from gitcd.git.server import GitServer
 from gitcd.git.branch import Branch
-from gitcd.git.remote import Remote
 
 from gitcd.exceptions import GitcdGithubApiException
 
@@ -25,7 +24,7 @@ class Bitbucket(GitServer):
         body: str,
         fromBranch: Branch,
         toBranch: Branch,
-        sourceRemote: Remote = None
+        sourceRemote=None
     ) -> bool:
         auth = self.getAuth()
         if auth is not None:
@@ -94,7 +93,7 @@ class Bitbucket(GitServer):
             ))
         return True
 
-    def status(self, branch: Branch, sourceRemote: Remote = None):
+    def status(self, branch: Branch, sourceRemote=None):
         master = Branch(self.config.getMaster())
         auth = self.getAuth()
         if auth is not None:
