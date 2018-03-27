@@ -93,7 +93,7 @@ class Gitlab(GitServer):
         if token is not None:
 
             data = {
-                'state': 'biber',
+                'state': 'opened',
                 'source_branch': branch.getName(),
                 'target_branch': master.getName()
             }
