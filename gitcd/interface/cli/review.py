@@ -7,23 +7,31 @@ class Review(BaseCommand):
 
     def run(self, branch: Branch):
         remote = self.getRemote()
+        sourceRemote = None
+        if self.hasMultipleRemotes() is True:
+            sourceRemote = self.getRemote()
+            if sourceRemote.getUrl() == remote.getUrl():
+                sourceRemote = None
+
         master = Branch(self.config.getMaster())
 
         self.checkRepository()
-        self.checkBranch(remote, branch)
+
+        if sourceRemote is None:
+            self.checkBranch(remote, branch)
+        else:
+            self.checkBranch(sourceRemote, branch)
 
         self.interface.warning("Opening pull-request")
 
         title = self.interface.askFor(
             'Pull-Request title?',
             False,
-            branch.getName())
-        # use branch name as default title since its mandatory
-        if title == '':
-            title = branch.getName()
+            branch.getName()
+        )
 
         body = self.interface.askFor("Pull-Request body?")
         pr = remote.getGitWebIntegration()
         # ensure a token is set for this remote
         self.getTokenOrAskFor(pr.getTokenSpace())
-        pr.open(title, body, branch, master)
+        pr.open(title, body, branch, master, sourceRemote)

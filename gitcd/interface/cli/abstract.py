@@ -40,6 +40,9 @@ class BaseCommand(object):
             branch = '%s%s' % (featureAsString, branch)
         return Branch(branch)
 
+    def hasMultipleRemotes(self) -> bool:
+        return len(self.repository.getRemotes()) > 1
+
     def getRemote(self) -> str:
         remotes = self.repository.getRemotes()
 

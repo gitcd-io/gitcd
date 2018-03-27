@@ -1,5 +1,6 @@
 from gitcd.git.server import GitServer
 from gitcd.git.branch import Branch
+from gitcd.git.remote import Remote
 
 from gitcd.exceptions import GitcdGithubApiException
 
@@ -17,7 +18,8 @@ class Github(GitServer):
         title: str,
         body: str,
         fromBranch: Branch,
-        toBranch: Branch
+        toBranch: Branch,
+        sourceRemote: Remote = None
     ) -> bool:
         token = self.configPersonal.getToken(self.tokenSpace)
         url = "%s/repos/%s/%s/pulls" % (
@@ -80,7 +82,7 @@ class Github(GitServer):
             ))
         return True
 
-    def status(self, branch: Branch):
+    def status(self, branch: Branch, sourceRemote: Remote = None):
         username = self.remote.getUsername()
         ref = "%s:refs/heads/%s" % (username, branch.getName())
         token = self.configPersonal.getToken(self.tokenSpace)
