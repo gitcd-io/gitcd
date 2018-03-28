@@ -26,13 +26,15 @@ class Github(GitServer):
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
-
+        headUrl = ''
+        if sourceRemote is not None:
+            headUrl = sourceRemote.getUrl().replace('.git', ':')
         # check if the token is a string - does not necessarily mean its valid
         if isinstance(token, str):
             data = {
                 "title": title,
                 "body": body,
-                "head": fromBranch.getName(),
+                "head": '%s%s' % (headUrl, fromBranch.getName()),
                 "base": toBranch.getName()
             }
 
@@ -82,6 +84,10 @@ class Github(GitServer):
         return True
 
     def status(self, branch: Branch, sourceRemote=None):
+        headUrl = ''
+        if sourceRemote is not None:
+            headUrl = sourceRemote.getUrl().replace('.git', ':')
+        print(headUrl)
         username = self.remote.getUsername()
         ref = "%s:refs/heads/%s" % (username, branch.getName())
         token = self.configPersonal.getToken(self.tokenSpace)
