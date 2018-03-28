@@ -6,9 +6,12 @@ from gitcd.exceptions import GitcdGithubApiException
 import json
 import requests
 
+from pprint import pprint
+
 
 class Github(GitServer):
 
+    type = 'github'
     tokenSpace = 'github'
     baseUrl = 'https://api.github.com'
 
@@ -26,9 +29,17 @@ class Github(GitServer):
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
-        headUrl = ''
+        head = ''
         if sourceRemote is not None:
-            headUrl = sourceRemote.getUrl().replace('.git', ':')
+            # check sourceRemote is github as well
+            if sourceRemote.getType() is not self.type:
+                raise GitcdGithubApiException(
+                    "Github is not able to get a pr from a different server"
+                )
+            headUrl = '%s/%s:' % (
+                sourceRemote.getUsername(),
+                sourceRemote.getRepositoryName()
+            )
         # check if the token is a string - does not necessarily mean its valid
         if isinstance(token, str):
             data = {
@@ -49,11 +60,14 @@ class Github(GitServer):
                 raise GitcdGithubApiException(
                     "Authentication failed, create a new access token."
                 )
+            print(response.status_code)
+            pprint(data)
+            pprint(response.json())
 
             if response.status_code != 201:
                 try:
                     jsonResponse = response.json()
-                    message = jsonResponse['errors'][0]['message']
+                    message = jsonResponse['message']
                     raise GitcdGithubApiException(
                         "Open a pull request failed with message: %s" % (
                             message

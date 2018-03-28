@@ -8,6 +8,7 @@ import requests
 
 class Gitlab(GitServer):
 
+    type = 'gitlab'
     tokenSpace = 'gitlab'
     baseUrl = 'https://gitlab.com/api/v4'
 

@@ -8,6 +8,7 @@ import requests
 
 class Bitbucket(GitServer):
 
+    type = 'bitbucket'
     tokenSpace = 'bitbucket'
     baseUrl = 'https://api.bitbucket.org/2.0'
 

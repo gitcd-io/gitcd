@@ -5,6 +5,10 @@ from sys import platform
 class GitServer(Git):
 
     tokenSpace = None
+    type = 'unknown'
+
+    def getType(self) -> str:
+        return self.type
 
     def getTokenSpace(self) -> str:
         return self.tokenSpace
