@@ -6,12 +6,9 @@ from gitcd.exceptions import GitcdGithubApiException
 import json
 import requests
 
-from pprint import pprint
-
 
 class Github(GitServer):
 
-    type = 'github'
     tokenSpace = 'github'
     baseUrl = 'https://api.github.com'
 
@@ -32,20 +29,17 @@ class Github(GitServer):
         head = ''
         if sourceRemote is not None:
             # check sourceRemote is github as well
-            if sourceRemote.getType() is not self.type:
+            if sourceRemote.isGithub() is not True:
                 raise GitcdGithubApiException(
                     "Github is not able to get a pr from a different server"
                 )
-            headUrl = '%s/%s:' % (
-                sourceRemote.getUsername(),
-                sourceRemote.getRepositoryName()
-            )
+            head = '%s:' % (sourceRemote.getUsername())
         # check if the token is a string - does not necessarily mean its valid
         if isinstance(token, str):
             data = {
                 "title": title,
                 "body": body,
-                "head": '%s%s' % (headUrl, fromBranch.getName()),
+                "head": '%s%s' % (head, fromBranch.getName()),
                 "base": toBranch.getName()
             }
 
@@ -60,9 +54,6 @@ class Github(GitServer):
                 raise GitcdGithubApiException(
                     "Authentication failed, create a new access token."
                 )
-            print(response.status_code)
-            pprint(data)
-            pprint(response.json())
 
             if response.status_code != 201:
                 try:
@@ -98,12 +89,17 @@ class Github(GitServer):
         return True
 
     def status(self, branch: Branch, sourceRemote=None):
-        headUrl = ''
-        if sourceRemote is not None:
-            headUrl = sourceRemote.getUrl().replace('.git', ':')
-        print(headUrl)
         username = self.remote.getUsername()
-        ref = "%s:refs/heads/%s" % (username, branch.getName())
+        if sourceRemote is not None:
+            # check sourceRemote is github as well
+            if sourceRemote.isGithub() is not True:
+                raise GitcdGithubApiException(
+                    "Github is not able to see a pr from a different server"
+                )
+            ref = '%s:%s' % (sourceRemote.getUsername(), branch.getName())
+        else:
+            ref = "%s:refs/heads/%s" % (username, branch.getName())
+
         token = self.configPersonal.getToken(self.tokenSpace)
         master = Branch(self.config.getMaster())
         if isinstance(token, str):
@@ -118,7 +114,6 @@ class Github(GitServer):
                 "head": ref,
                 "base": master.getName()
             }
-
             headers = {'Authorization': 'token %s' % token}
             response = requests.get(
                 url,
