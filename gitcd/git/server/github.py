@@ -17,7 +17,8 @@ class Github(GitServer):
         title: str,
         body: str,
         fromBranch: Branch,
-        toBranch: Branch
+        toBranch: Branch,
+        sourceRemote=None
     ) -> bool:
         token = self.configPersonal.getToken(self.tokenSpace)
         url = "%s/repos/%s/%s/pulls" % (
@@ -25,13 +26,20 @@ class Github(GitServer):
             self.remote.getUsername(),
             self.remote.getRepositoryName()
         )
-
+        head = ''
+        if sourceRemote is not None:
+            # check sourceRemote is github as well
+            if sourceRemote.isGithub() is not True:
+                raise GitcdGithubApiException(
+                    "Github is not able to get a pr from a different server"
+                )
+            head = '%s:' % (sourceRemote.getUsername())
         # check if the token is a string - does not necessarily mean its valid
         if isinstance(token, str):
             data = {
                 "title": title,
                 "body": body,
-                "head": fromBranch.getName(),
+                "head": '%s%s' % (head, fromBranch.getName()),
                 "base": toBranch.getName()
             }
 
@@ -50,7 +58,7 @@ class Github(GitServer):
             if response.status_code != 201:
                 try:
                     jsonResponse = response.json()
-                    message = jsonResponse['errors'][0]['message']
+                    message = jsonResponse['message']
                     raise GitcdGithubApiException(
                         "Open a pull request failed with message: %s" % (
                             message
@@ -80,9 +88,18 @@ class Github(GitServer):
             ))
         return True
 
-    def status(self, branch: Branch):
+    def status(self, branch: Branch, sourceRemote=None):
         username = self.remote.getUsername()
-        ref = "%s:refs/heads/%s" % (username, branch.getName())
+        if sourceRemote is not None:
+            # check sourceRemote is github as well
+            if sourceRemote.isGithub() is not True:
+                raise GitcdGithubApiException(
+                    "Github is not able to see a pr from a different server"
+                )
+            ref = '%s:%s' % (sourceRemote.getUsername(), branch.getName())
+        else:
+            ref = "%s:refs/heads/%s" % (username, branch.getName())
+
         token = self.configPersonal.getToken(self.tokenSpace)
         master = Branch(self.config.getMaster())
         if isinstance(token, str):
@@ -97,7 +114,6 @@ class Github(GitServer):
                 "head": ref,
                 "base": master.getName()
             }
-
             headers = {'Authorization': 'token %s' % token}
             response = requests.get(
                 url,

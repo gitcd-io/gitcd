@@ -23,7 +23,8 @@ class Bitbucket(GitServer):
         title: str,
         body: str,
         fromBranch: Branch,
-        toBranch: Branch
+        toBranch: Branch,
+        sourceRemote=None
     ) -> bool:
         auth = self.getAuth()
         if auth is not None:
@@ -92,7 +93,7 @@ class Bitbucket(GitServer):
             ))
         return True
 
-    def status(self, branch: Branch):
+    def status(self, branch: Branch, sourceRemote=None):
         master = Branch(self.config.getMaster())
         auth = self.getAuth()
         if auth is not None:

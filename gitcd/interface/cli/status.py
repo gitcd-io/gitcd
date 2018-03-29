@@ -7,10 +7,16 @@ class Status(BaseCommand):
 
     def run(self, branch: str):
         remote = self.getRemote()
+        sourceRemote = None
+        if self.hasMultipleRemotes() is True:
+            sourceRemote = self.getRemote()
+            if sourceRemote.getUrl() == remote.getUrl():
+                sourceRemote = None
+
         master = Branch(self.config.getMaster())
         pr = remote.getGitWebIntegration()
         self.getTokenOrAskFor(pr.getTokenSpace())
-        prInfo = pr.status(branch)
+        prInfo = pr.status(branch, sourceRemote)
         if len(prInfo) is 0:
             self.interface.writeOut(
                 "No pull request exists for %s...%s\n" % (
