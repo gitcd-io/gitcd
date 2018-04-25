@@ -4,7 +4,6 @@ from gitcd.git.branch import Branch
 from gitcd.exceptions import GitcdGithubApiException
 
 import requests
-from pprint import pprint
 
 
 class Bitbucket(GitServer):
@@ -54,12 +53,12 @@ class Bitbucket(GitServer):
                     raise GitcdGithubApiException(
                         "Bitbucket is not able to get a pr from a different server"
                     )
-                data['source']['repository']['full_name'] = "%s/%s" % (
-                    sourceRemote.getUsername(),
-                    sourceRemote.getRepositoryName()
-                )
-
-            pprint(data)
+                data['source']['repository'] = {
+                    'full_name': "%s/%s" % (
+                        sourceRemote.getUsername(),
+                        sourceRemote.getRepositoryName()
+                    )
+                }
 
             response = requests.post(
                 url,
