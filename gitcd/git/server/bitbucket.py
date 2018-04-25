@@ -51,7 +51,8 @@ class Bitbucket(GitServer):
             if sourceRemote is not None:
                 if sourceRemote.isBitbucket() is not True:
                     raise GitcdGithubApiException(
-                        "Bitbucket is not able to get a pr from a different server"
+                        "Bitbucket is not able to get a pr" +
+                        " from a different server"
                     )
                 data['source']['repository'] = {
                     'full_name': "%s/%s" % (
