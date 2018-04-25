@@ -54,7 +54,7 @@ class Bitbucket(GitServer):
                     raise GitcdGithubApiException(
                         "Bitbucket is not able to get a pr from a different server"
                     )
-                data['source']['full_name'] = "%s/%s" % (
+                data['source']['repository']['full_name'] = "%s/%s" % (
                     sourceRemote.getUsername(),
                     sourceRemote.getRepositoryName()
                 )
