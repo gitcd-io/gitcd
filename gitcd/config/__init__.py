@@ -36,16 +36,10 @@ class Gitcd:
     config = {}
 
     def __init__(self):
-        defaultConfig = self.defaults.load()
-        if not os.path.isfile(self.filename):
-            self.config = defaultConfig
-        else:
+        self.config = self.defaults.load()
+        if os.path.isfile(self.filename):
             config = self.parser.load(self.filename)
-            for key in defaultConfig.keys():
-                if key in config:
-                    self.config[key] = config[key]
-                else:
-                    self.config[key] = defaultConfig[key]
+            self.config.update(config)
 
     def getString(self, value):
         if not isinstance(value, str):
@@ -124,22 +118,16 @@ class GitcdPersonal:
     allowedTokenSpaces = ['github', 'bitbucket', 'gitlab']
 
     def __init__(self):
-        defaultConfig = self.defaults.load()
+        self.config = self.defaults.load()
 
         if not os.path.isdir(self.path):
             os.mkdir(self.path)
 
         self.filename = '%s/%s' % (self.path, self.file)
 
-        if not os.path.isfile(self.filename):
-            self.config = defaultConfig
-        else:
+        if os.path.isfile(self.filename):
             config = self.parser.load(self.filename)
-            for key in defaultConfig.keys():
-                if key in config:
-                    self.config[key] = config[key]
-                else:
-                    self.config[key] = defaultConfig[key]
+            self.config['tokens'].update(config['tokens'])
 
     def setFilename(self, configFilename: str):
         self.filename = configFilename

@@ -18,6 +18,7 @@ class GitcdPersonalDefaults(object):
         return {
             'tokens': {
                 'github': None,
-                'bitbucket': None
+                'bitbucket': None,
+                'gitlab': None
             }
         }

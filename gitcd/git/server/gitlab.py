@@ -16,8 +16,7 @@ class Gitlab(GitServer):
         title: str,
         body: str,
         fromBranch: Branch,
-        toBranch: Branch,
-        sourceRemote=None
+        toBranch: Branch
     ) -> bool:
         token = self.configPersonal.getToken(self.tokenSpace)
         if token is not None:
@@ -86,13 +85,13 @@ class Gitlab(GitServer):
             ))
         return True
 
-    def status(self, branch: Branch, sourceRemote=None):
+    def status(self, branch: Branch):
         master = Branch(self.config.getMaster())
         token = self.configPersonal.getToken(self.tokenSpace)
         if token is not None:
 
             data = {
-                'state': 'opened',
+                'state': 'biber',
                 'source_branch': branch.getName(),
                 'target_branch': master.getName()
             }
