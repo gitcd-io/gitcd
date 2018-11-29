@@ -18,10 +18,10 @@ class Test(BaseCommand):
             for developmentBranch in developmentBranches:
                 branchNames.append(developmentBranch.getName())
 
+            branchNames.reverse()
             default = branchNames[0]
             choice = branchNames
 
-            branchNames.reverse()
 
             developmentBranch = Branch(self.interface.askFor(
                 "Which develop branch you want to use?",
