@@ -21,6 +21,8 @@ class Test(BaseCommand):
             default = branchNames[0]
             choice = branchNames
 
+            branchNames.reverse()
+
             developmentBranch = Branch(self.interface.askFor(
                 "Which develop branch you want to use?",
                 choice,
