@@ -7,31 +7,17 @@ class Refresh(BaseCommand):
 
     def run(self, branch: Branch):
         remote = self.getRemote()
-        sourceRemote = None
-        if self.hasMultipleRemotes() is True:
-            sourceRemote = self.getRemote()
-            if sourceRemote.getUrl() == remote.getUrl():
-                sourceRemote = None
-
         master = Branch(self.config.getMaster())
 
-        # self.checkRepository()
+        if branch.getName() == master.getName():
+            # maybe i should use recursion here
+            # if anyone passes master again, i wouldnt notice
+            branch = Branch('%s%s' % (
+                branch.getName(),
+                self.interface.askFor(
+                    "You passed your master branch name as feature branch,\
+                    please give a different branch."
+                )
+            ))
 
-        # if sourceRemote is None:
-        #     self.checkBranch(remote, branch)
-        # else:
-        #     self.checkBranch(sourceRemote, branch)
-
-        # self.interface.warning("Opening pull-request")
-
-        # title = self.interface.askFor(
-        #     'Pull-Request title?',
-        #     False,
-        #     branch.getName()
-        # )
-
-        # body = self.interface.askFor("Pull-Request body?")
-        # pr = remote.getGitWebIntegration()
-        # # ensure a token is set for this remote
-        # self.getTokenOrAskFor(pr.getTokenSpace())
-        # pr.open(title, body, branch, master, sourceRemote)
+        remote.merge(branch, master)
