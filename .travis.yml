@@ -37,6 +37,8 @@ script:
   - |
       bash .travis/git-add-build.sh
   - |
+      bash .travis/tests/git-cd-refresh.sh
+  - |
       bash .travis/tests/git-cd-review.sh
   - |
       bash .travis/tests/git-cd-finish.sh
