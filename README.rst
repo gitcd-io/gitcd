@@ -234,6 +234,20 @@ Starts a new feature branch from your master branch. If you don't pass a branch 
         :alt: git cd start
 
 
+Updating a feature with the master branch
+-----------------------------------------
+Merges the remote master branch into your current feature branch. If you don't pass a branch name, your current branch will be taken.
+
+.. code-block:: bash
+
+    git cd refresh <branchname>
+
+.. container:: responsive-image
+
+    .. image:: https://www.gitcd.io/images/cli/git-cd_refresh.png
+        :alt: git cd refresh
+
+
 Testing a feature
 -----------------
 You might have a testing environment or want to run some integration test on a shared or common branch without the need to push out your feature with the next release. Therefore you can't merge it into the master. That's exactly why the git-cd test command exists. You might even have some dedicated tester checking the new feature on this specific branch. So to merge your new feature into your testing branch you call this command, if you don't pass a branch name, your current feature branch will be merged.
