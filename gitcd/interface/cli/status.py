@@ -17,7 +17,7 @@ class Status(BaseCommand):
         pr = remote.getGitWebIntegration()
         self.getTokenOrAskFor(pr.getTokenSpace())
         prInfo = pr.status(branch, sourceRemote)
-        if len(prInfo) is 0:
+        if len(prInfo) == 0:
             self.interface.writeOut(
                 "No pull request exists for %s...%s\n" % (
                     branch.getName(),

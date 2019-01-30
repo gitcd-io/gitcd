@@ -152,7 +152,7 @@ class Bitbucket(GitServer):
                             returnValue['state'] = 'APPROVED'
                             for reviewer in reviewers:
                                 reviewer = reviewers[reviewer]
-                                if reviewer['state'] is not 'APPROVED':
+                                if reviewer['state'] != 'APPROVED':
                                     returnValue['state'] = reviewer['state']
 
                         returnValue['master'] = master.getName()

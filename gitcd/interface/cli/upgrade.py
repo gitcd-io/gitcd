@@ -38,7 +38,7 @@ class Upgrade(BaseCommand):
                 try:
                     helper.upgrade()
                     return True
-                except SystemExit as e:
+                except SystemExit:
                     self.interface.error('An error occured during the update!')
                     pass
 
