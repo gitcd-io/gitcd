@@ -29,7 +29,7 @@ class Finish(BaseCommand):
                     branch.getName(),
                     self.interface.askFor(
                         "You passed your test branch name as feature branch,\
-                        please give a different name."
+                        please give a different branch."
                     )
                 ))
         self.checkRepository()

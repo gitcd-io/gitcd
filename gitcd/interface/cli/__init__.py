@@ -13,6 +13,7 @@ from gitcd.interface.cli.start import Start
 from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
+from gitcd.interface.cli.refresh import Refresh
 
 from gitcd.config import MoveGitcdPersonalPerRepo
 
@@ -34,7 +35,8 @@ class Cli():
         'release',
         'status',
         'compare',
-        'upgrade'
+        'upgrade',
+        'refresh'
     ]
 
     def getAvailableCommands(self):
@@ -61,6 +63,8 @@ class Cli():
             return Compare()
         if command == 'upgrade':
             return Upgrade()
+        if command == 'refresh':
+            return Refresh()
 
     def dispatch(self, command: str, branch: str):
         # this is kind of temporary and will get removed in a few
