@@ -58,6 +58,8 @@ class Github(GitServer):
             if response.status_code != 201:
                 try:
                     jsonResponse = response.json()
+                    from pprint mport pprint
+                    pprint(jsonResponse)
                     message = jsonResponse['message']
                     raise GitcdGithubApiException(
                         "Open a pull request failed with message: %s" % (
