@@ -50,5 +50,5 @@ class Review(BaseCommand):
         )
 
         body = self.interface.askFor("Pull-Request body?")
-        # go on opn pr
+        # go on opening pr
         pr.open(title, body, branch, master, sourceRemote)
