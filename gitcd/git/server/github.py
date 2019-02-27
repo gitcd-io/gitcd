@@ -58,7 +58,7 @@ class Github(GitServer):
             if response.status_code != 201:
                 try:
                     jsonResponse = response.json()
-                    from pprint mport pprint
+                    from pprint import pprint
                     pprint(jsonResponse)
                     message = jsonResponse['message']
                     raise GitcdGithubApiException(
