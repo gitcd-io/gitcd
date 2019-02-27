@@ -2,6 +2,7 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.git.branch import Branch
 
+import time
 
 class Review(BaseCommand):
 
@@ -24,6 +25,24 @@ class Review(BaseCommand):
 
         self.interface.warning("Opening pull-request")
 
+        # check if pr is open already
+        pr = remote.getGitWebIntegration()
+        self.getTokenOrAskFor(pr.getTokenSpace())
+        prInfo = pr.status(branch, sourceRemote)
+        if 'url' in prInfo:
+            self.interface.info(
+                'Pull request is already open. ' +
+                'I\'ll be so nice and open it for you in 3 seconds...'
+            )
+            self.interface.writeOut(
+                'Press ctrl+c if you dont like me to.'
+            )
+            time.sleep(3)
+            pr.openBrowser(prInfo['url'])
+
+            return True
+
+        # ask for title and body
         title = self.interface.askFor(
             'Pull-Request title?',
             False,
@@ -31,7 +50,5 @@ class Review(BaseCommand):
         )
 
         body = self.interface.askFor("Pull-Request body?")
-        pr = remote.getGitWebIntegration()
-        # ensure a token is set for this remote
-        self.getTokenOrAskFor(pr.getTokenSpace())
+        # go on opn pr
         pr.open(title, body, branch, master, sourceRemote)
