@@ -30,7 +30,7 @@ class Review(BaseCommand):
         pr = remote.getGitWebIntegration()
         self.getTokenOrAskFor(pr.getTokenSpace())
         prInfo = pr.status(branch, sourceRemote)
-        if 'url' in prInfo:
+        if prInfo is not None and 'url' in prInfo:
             self.interface.info(
                 'Pull request is already open. ' +
                 'I\'ll be so nice and open it for you in 3 seconds...'
