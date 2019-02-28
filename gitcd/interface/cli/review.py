@@ -4,6 +4,7 @@ from gitcd.git.branch import Branch
 
 import time
 
+
 class Review(BaseCommand):
 
     def run(self, branch: Branch):
