@@ -2,8 +2,6 @@ from gitcd.interface.cli.abstract import BaseCommand
 
 from gitcd.git.branch import Branch
 
-import time
-
 
 class Review(BaseCommand):
 
