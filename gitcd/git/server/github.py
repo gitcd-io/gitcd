@@ -173,7 +173,6 @@ class Github(GitServer):
                         reviewer['comments'] = []
 
                     comment = {}
-                    comment['date'] = review['submitted_at']
                     comment['body'] = review['body']
                     comment['state'] = review['state']
                     reviewer['state'] = review['state']

@@ -184,7 +184,6 @@ class Bitbucket(GitServer):
                         reviewer['comments'] = []
                         approval = value['approval']
                         comment = {}
-                        comment['date'] = approval['date']
                         comment['body'] = 'approved'
                         comment['state'] = 'APPROVED'
                         reviewer['state'] = 'APPROVED'

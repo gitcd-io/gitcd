@@ -31,15 +31,15 @@ class Review(BaseCommand):
         self.getTokenOrAskFor(pr.getTokenSpace())
         prInfo = pr.status(branch, sourceRemote)
         if prInfo is not None and 'url' in prInfo:
-            self.interface.info(
+            openPr = self.interface.askFor(
                 'Pull request is already open. ' +
-                'I\'ll be so nice and open it for you in 3 seconds...'
+                'Should i open it in your browser?',
+                ["yes", "no"],
+                "yes"
             )
-            self.interface.writeOut(
-                'Press ctrl+c if you dont like me to.'
-            )
-            time.sleep(3)
-            pr.openBrowser(prInfo['url'])
+
+            if openPr == "yes":
+                pr.openBrowser(prInfo['url'])
 
             return True
 
