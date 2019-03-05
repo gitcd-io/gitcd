@@ -109,7 +109,7 @@ class BaseCommand(object):
         # check remote existence
         if not remote.hasBranch(branch):
             pushFeatureBranch = self.interface.askFor(
-                "Your feature branch does not exists on remote." +
+                "Your feature branch does not exist on remote." +
                 " Do you want me to push it remote?", ["yes", "no"], "yes"
             )
 
