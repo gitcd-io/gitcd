@@ -25,15 +25,13 @@ class Repository(Git):
     def __init__(self):
         self.directory = os.getcwd()
 
-        try:
-            if not os.path.exists('%s/.git' % (self.directory)):
-                raise Exception('no git')
-        except Exception:
+        if not os.path.exists('%s/.git' % (self.directory)):
             raise NoRepositoryException(
                 'No git repository found in %s' % (
                     self.directory
                 )
             )
+
 
     def getDirectory(self) -> str:
         return self.directory
