@@ -23,15 +23,12 @@ class Repository(Git):
     remotes = []
 
     def __init__(self):
-        self.directory = os.getcwd()
+        self.directory = self.cli.execute('git rev-parse --show-toplevel')
 
-        try:
-            if not os.path.exists('%s/.git' % (self.directory)):
-                raise Exception('no git')
-        except Exception:
+        if self.directory is False:
             raise NoRepositoryException(
                 'No git repository found in %s' % (
-                    self.directory
+                    os.getcwd()
                 )
             )
 

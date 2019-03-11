@@ -65,6 +65,8 @@ class Cli():
             return Upgrade()
         if command == 'refresh':
             return Refresh()
+        # probably best to implement a default command
+        # for command-not-found error
 
     def dispatch(self, command: str, branch: str):
         # this is kind of temporary and will get removed in a few
@@ -74,16 +76,14 @@ class Cli():
 
         try:
             commandObject = self.instantiateCommand(command)
-        except Exception as e:
-            errorMessage = 'Command %s does not exists,' + \
-                ' see gitcd --help for more information.' + \
-                ' Exception was: %s'
-
+        except GitcdException as e:
             self.interface.error(
-                errorMessage % (
-                    command,
-                    e
-                )
+                e
+            )
+            sys.exit(1)
+        except Exception as e:
+            self.interface.error(
+                e
             )
             sys.exit(1)
 
