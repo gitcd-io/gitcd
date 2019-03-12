@@ -1,3 +1,4 @@
+import simpcli
 from packaging import version
 import pkg_resources
 import requests
@@ -12,6 +13,7 @@ class Upgrade(App):
     localVersion = 0
     pypiVersion = 0
     packageUrl = 'https://pypi.org/pypi/gitcd/json'
+    verboseCli = simpcli.Command(True)
 
     def getLocalVersion(self) -> str:
         self.localVersion = pkg_resources.get_distribution("gitcd").version
