@@ -1,5 +1,4 @@
 from packaging import version
-import pip
 import pkg_resources
 import requests
 
@@ -41,6 +40,6 @@ class Upgrade(App):
         return False
 
     def upgrade(self) -> bool:
-        pip.main(['install', '--user', '--upgrade', 'gitcd'])
+        self.verboseCli.execute("pip3 install --user --upgrade gitcd")
 
         return True
