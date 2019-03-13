@@ -5,6 +5,8 @@ from gitcd.git.branch import Branch
 
 class Refresh(BaseCommand):
 
+    updateRemote = True
+
     def run(self, branch: Branch):
         remote = self.getRemote()
         master = Branch(self.config.getMaster())
