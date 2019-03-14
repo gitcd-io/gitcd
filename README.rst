@@ -208,7 +208,7 @@ You want to know which version of gitcd you are currently running?
 
 
 Upgrade gitcd itself
----------------------
+--------------------
 Gitcd is able to check your local version with the one published on pypi and upgrade itself if you wish so.
 
 .. code-block:: bash
