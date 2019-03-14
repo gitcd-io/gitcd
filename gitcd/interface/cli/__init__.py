@@ -14,6 +14,7 @@ from gitcd.interface.cli.status import Status
 from gitcd.interface.cli.test import Test
 from gitcd.interface.cli.upgrade import Upgrade
 from gitcd.interface.cli.refresh import Refresh
+from gitcd.interface.cli.version import Version
 
 from gitcd.config import MoveGitcdPersonalPerRepo
 
@@ -36,7 +37,8 @@ class Cli():
         'status',
         'compare',
         'upgrade',
-        'refresh'
+        'refresh',
+        'version'
     ]
 
     def getAvailableCommands(self):
@@ -65,6 +67,8 @@ class Cli():
             return Upgrade()
         if command == 'refresh':
             return Refresh()
+        if command == 'version':
+            return Version()
         # probably best to implement a default command
         # for command-not-found error
 
