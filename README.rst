@@ -192,8 +192,23 @@ The image below represents the configuration for gitcd itself.
         :alt: git cd init
 
 
-Check version and upgrade
--------------------------
+
+Check current version
+---------------------
+You want to know which version of gitcd you are currently running?
+
+.. code-block:: bash
+
+    git cd version
+
+.. container:: responsive-image
+
+    .. image:: https://www.gitcd.io/images/cli/git-cd_version.png
+        :alt: git cd version
+
+
+Upgrade gitcd itself
+---------------------
 Gitcd is able to check your local version with the one published on pypi and upgrade itself if you wish so.
 
 .. code-block:: bash
