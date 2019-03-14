@@ -28,6 +28,8 @@ script:
   - | # default repo setup
       bash .travis/setup-ssh.sh
   - |
+      bash .travis/tests/git-cd-version.sh
+  - |
       bash .travis/clone-test-repo.sh
   - | # check git-cd upgrade
       bash .travis/tests/git-cd-upgrade.sh
