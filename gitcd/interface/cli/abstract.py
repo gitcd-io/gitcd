@@ -43,7 +43,7 @@ class BaseCommand(object):
     def hasMultipleRemotes(self) -> bool:
         return len(self.repository.getRemotes()) > 1
 
-    def getRemote(self) -> str:
+    def getRemote(self, whatFor: str = "") -> str:
         remotes = self.repository.getRemotes()
 
         if len(remotes) == 1:
@@ -58,8 +58,12 @@ class BaseCommand(object):
                 for remoteObj in remotes:
                     choice.append(remoteObj.getName())
 
+            if whatFor:
+                whatFor = " {}".format(whatFor)
+
+            msg = "Which remote you want to use{}?".format(whatFor)
             remoteAnswer = self.interface.askFor(
-                "Which remote you want to use?",
+                msg,
                 choice,
                 default
             )

@@ -6,10 +6,10 @@ from gitcd.git.branch import Branch
 class Review(BaseCommand):
 
     def run(self, branch: Branch):
-        remote = self.getRemote()
+        remote = self.getRemote("as target remote")
         sourceRemote = None
         if self.hasMultipleRemotes() is True:
-            sourceRemote = self.getRemote()
+            sourceRemote = self.getRemote("as source remote")
             if sourceRemote.getUrl() == remote.getUrl():
                 sourceRemote = None
 
