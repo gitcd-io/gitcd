@@ -172,11 +172,17 @@ class Remote(Git):
             self.name,
             branch.getName()
         ))
-        self.verboseCli.execute("git merge %s/%s" % (
+
+        mergeSuccess = self.verboseCli.execute("git merge %s/%s" % (
             self.name,
             branchToMerge.getName()
         ))
+
+        if not mergeSuccess:
+            return False
+
         self.push(branch)
+        return True
 
     def compare(self, branch: Branch, toCompare: [Branch, Tag]) -> bool:
         if isinstance(toCompare, Tag):
