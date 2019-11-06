@@ -37,15 +37,7 @@ class Finish(BaseCommand):
 
         master = Branch(masterBranch)
 
-        if not remote.merge(master, branch):
-            tryAgain = self.interface.askFor(
-                "An error occured during the merge.\
-                Do you want to fix it and let me try it again?",
-                ["yes", "no"], "yes"
-            )
-
-            if tryAgain == 'yes':
-                remote.merge(master, branch)
+        self.mergeWithRetry(remote, master, branch)
 
         deleteFeatureBranch = self.interface.askFor(
             "Delete your feature branch?", ["yes", "no"], "yes"

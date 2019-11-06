@@ -157,3 +157,14 @@ class BaseCommand(object):
             self.configPersonal.setToken(tokenSpace, token)
             self.configPersonal.write()
         return token
+
+    def mergeWithRetry(self, remote, sourceBranch, targetBranch):
+        if not remote.merge(sourceBranch, targetBranch):
+            tryAgain = self.interface.askFor(
+                "An error occured during the merge.\
+                Do you want to fix it and let me try it again?",
+                ["yes", "no"], "yes"
+            )
+
+            if tryAgain == 'yes':
+                remote.merge(sourceBranch, targetBranch)

@@ -28,5 +28,5 @@ class Test(BaseCommand):
                 default
             ))
 
-        remote.merge(developmentBranch, branch)
+        self.mergeWithRetry(remote, developmentBranch, branch)
         repository.checkoutBranch(branch)

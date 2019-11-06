@@ -22,4 +22,4 @@ class Refresh(BaseCommand):
                 )
             ))
 
-        remote.merge(branch, master)
+        self.mergeWithRetry(remote, branch, master)
