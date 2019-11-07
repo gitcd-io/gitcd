@@ -159,7 +159,9 @@ class BaseCommand(object):
         return token
 
     def mergeWithRetry(self, remote, sourceBranch, targetBranch):
-        if not remote.merge(sourceBranch, targetBranch):
+        try:
+            remote.merge(sourceBranch, targetBranch)
+        except simpcli.CliException as e:
             tryAgain = self.interface.askFor(
                 "An error occured during the merge.\
                 Do you want to fix it and let me try it again?",

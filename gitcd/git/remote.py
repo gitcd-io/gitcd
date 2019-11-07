@@ -178,11 +178,7 @@ class Remote(Git):
             branchToMerge.getName()
         ))
 
-        if not mergeSuccess:
-            return False
-
         self.push(branch)
-        return True
 
     def compare(self, branch: Branch, toCompare: [Branch, Tag]) -> bool:
         if isinstance(toCompare, Tag):
