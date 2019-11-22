@@ -173,7 +173,7 @@ class Remote(Git):
             branch.getName()
         ))
 
-        mergeSuccess = self.verboseCli.execute("git merge %s/%s" % (
+        self.verboseCli.execute("git merge %s/%s" % (
             self.name,
             branchToMerge.getName()
         ))
