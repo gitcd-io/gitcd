@@ -36,7 +36,10 @@ class BaseCommand(object):
 
     def getRequestedBranch(self, branch: str) -> Branch:
         featureAsString = self.config.getString(self.config.getFeature())
-        if not branch.startswith(featureAsString):
+        if (
+            not branch.startswith(featureAsString) and
+            branch != self.config.getMaster()
+        ):
             branch = '%s%s' % (featureAsString, branch)
         return Branch(branch)
 
