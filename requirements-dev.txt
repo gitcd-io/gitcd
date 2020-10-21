@@ -1,2 +1,2 @@
-flake8==3.5.0
-bandit==1.4.0
+flake8==3.8.4
+bandit==1.6.2
