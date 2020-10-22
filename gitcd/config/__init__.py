@@ -35,7 +35,8 @@ class Gitcd:
     defaults = GitcdDefaults()
     config = {}
 
-    def __init__(self):
+    def __init__(self, gitDirectory: str):
+        self.filename = "{}/{}".format(gitDirectory, self.filename)
         self.config = self.defaults.load()
         if os.path.isfile(self.filename):
             config = self.parser.load(self.filename)

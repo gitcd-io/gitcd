@@ -18,22 +18,22 @@ from gitcd.exceptions import GitcdNoDevelopmentBranchDefinedException
 
 class Repository(Git):
 
-    directory = None
+    rootDirectory = None
     name = None
     remotes = []
 
     def __init__(self):
-        self.directory = self.cli.execute('git rev-parse --show-toplevel')
+        self.rootDirectory = self.cli.execute('git rev-parse --show-toplevel')
 
-        if self.directory is False:
+        if self.rootDirectory is False:
             raise NoRepositoryException(
                 'No git repository found in %s' % (
                     os.getcwd()
                 )
             )
 
-    def getDirectory(self) -> str:
-        return self.directory
+    def getRootDirectory(self) -> str:
+        return self.rootDirectory
 
     def getRemotes(self) -> List[Remote]:
         output = self.cli.execute('git remote')
