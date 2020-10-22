@@ -15,18 +15,23 @@ from gitcd.exceptions import GitcdNoFeatureBranchException
 class BaseCommand(object):
 
     interface = simpcli.Interface()
-    config = GitcdConfig()
+    repository = None
+    config = None
     configPersonal = GitcdPersonalConfig()
     updateRemote = False
 
     def __init__(self):
         self.instantiateRepository()
+        self.instantiateConfig()
         if self.updateRemote is True:
             self.repository.update()
 
     def instantiateRepository(self) -> bool:
         self.repository = Repository()
         return True
+
+    def instantiateConfig(self):
+        self.config = GitcdConfig(self.repository.getRootDirectory())
 
     def run(self, branch: Branch):
         pass
