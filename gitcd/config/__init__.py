@@ -1,6 +1,8 @@
 import os
 import yaml
 
+from gitcd.git.repository import Repository
+
 from gitcd.config.defaults import GitcdDefaults
 from gitcd.config.defaults import GitcdPersonalDefaults
 from gitcd.exceptions import GitcdFileNotFoundException
@@ -37,6 +39,9 @@ class Gitcd:
 
     def __init__(self):
         self.config = self.defaults.load()
+
+        repository = Repository()
+        self.filename = "{}/{}".format(repository.getDirectory(), self.filename)
         if os.path.isfile(self.filename):
             config = self.parser.load(self.filename)
             self.config.update(config)
