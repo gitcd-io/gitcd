@@ -12,7 +12,7 @@ class Start(BaseCommand):
             % (featurePrefixAsString)
         )
 
-        return self.instantiateBranch(branch)
+        return self.instantiateBranch(branch.replace(' ', '-'))
 
     def instantiateBranch(self, branch: str) -> Branch:
         featurePrefix = self.config.getFeature()
