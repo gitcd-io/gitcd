@@ -23,6 +23,8 @@ expect "From what file do you want to load your version?"
 send "version.txt\n"
 expect "Do you want to execute some additionalcommands after a release?"
 send "echo 'well done' > done.txt\n"
+expect "Do you want to execute some additionalcommands before a release?"
+send "\n"
 expect
 EOD
 

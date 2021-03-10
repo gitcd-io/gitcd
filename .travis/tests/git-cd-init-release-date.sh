@@ -20,6 +20,8 @@ expect "Scheme for your date-tag? Year: %Y / Month: %m  / Day: %d / Hour: %H / M
 send "%Y.%m.%d%H%M\n"
 expect "Do you want to execute some additionalcommands after a release?"
 send "\n"
+expect "Do you want to execute some additionalcommands before a release?"
+send "\n"
 expect
 EOD
 
