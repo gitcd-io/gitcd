@@ -4,11 +4,12 @@ class GitcdDefaults(object):
         return {
             'test': None,
             'feature': None,
-            'master': 'master',
+            'master': 'main',
             'tag': None,
             'versionType': 'manual',
             'versionScheme': None,
             'extraReleaseCommand': None
+            'preReleaseCommand': None
         }
 
 
