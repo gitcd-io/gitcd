@@ -40,6 +40,13 @@ class Release(App):
         return False
 
     def release(self, version: str, message: str, remote: Remote) -> bool:
+        preCommand = self.config.getPreReleaseCommand()
+        if preCommand is not None:
+            cli = simpcli.Command(True)
+            cli.execute(
+                preCommand
+            )
+
         tag = Tag(version)
         tag.create(message)
         remote.push(tag)

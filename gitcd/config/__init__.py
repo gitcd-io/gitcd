@@ -106,6 +106,14 @@ class Gitcd:
     def getExtraReleaseCommand(self):
         return self.config['extraReleaseCommand']
 
+    def setPreReleaseCommand(self, preReleaseCommand: str):
+        if preReleaseCommand == '<none>':
+            preReleaseCommand = None
+        self.config['preReleaseCommand'] = preReleaseCommand
+
+    def getPreReleaseCommand(self):
+        return self.config['preReleaseCommand']
+
 
 class GitcdPersonal:
 
