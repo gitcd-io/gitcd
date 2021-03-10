@@ -96,6 +96,18 @@ class Init(BaseCommand):
             )
         )
 
+        preReleaseCommandDefault = self.config.getPreReleaseCommand()
+        if preReleaseCommandDefault is None:
+            preReleaseCommandDefault = '<none>'
+        self.config.setPreReleaseCommand(
+            self.interface.askFor(
+                "Do you want to execute some additional " +
+                "commands before a release?",
+                False,
+                preReleaseCommandDefault
+            )
+        )
+
         # pass version scheme to config
         self.config.setVersionScheme(versionScheme)
 
