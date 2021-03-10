@@ -182,6 +182,10 @@ Most of the values should be very self-explanatory. Still, here is a complete li
 
   - This is useful if you want to execute any cli script after creating a tag, for example, gitcd itself uses such a script to publish the new release on pypi after creating a new tag. You can see the script here https://github.com/gitcd-io/gitcd/blob/master/publish.sh.
 
+- **Do you want to execute some additional commands before a release?**
+
+  - This is useful if you want to execute any cli script before creating a tag, for example, if you want to modify any file in your git tree where you want to add the current version number.
+
 
 .. code-block:: bash
 
