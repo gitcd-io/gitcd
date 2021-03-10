@@ -8,7 +8,7 @@ class GitcdDefaults(object):
             'tag': None,
             'versionType': 'manual',
             'versionScheme': None,
-            'extraReleaseCommand': None
+            'extraReleaseCommand': None,
             'preReleaseCommand': None
         }
 
