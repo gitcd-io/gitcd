@@ -19,6 +19,9 @@ send "\n"
 expect "Do you want to execute some additionalcommands after a release?"
 send "\n"
 expect
+expect "Do you want to execute some additionalcommands before a release?"
+send "\n"
+expect
 EOD
 
 # change back to original workdir
