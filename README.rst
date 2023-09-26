@@ -91,11 +91,11 @@ If the command "git-cd" or "git cd" is not available now, you probably need to a
 MacOSX
 ______
 
-Open ~/.bash_profile in your favorite editor and add the following lines at the end of the file.
+Open ~/.bash_profile or ~/.zprofile in your favorite editor and add the following lines at the end of the file.
 
 .. container:: alert alert-warning
 
-    **Replace <python-version> with your currently installed python version**
+    **Replace <python-version> with your currently installed python version, e.g. `3.11` **
 
 .. code-block:: bash
 
