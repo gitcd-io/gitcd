@@ -5,9 +5,10 @@ from typing import Optional
 def getGitRoot() -> Optional[str]:
     """
     Get the git repository root directory.
-    
+
     Returns:
-        The absolute path to the git repository root, or None if not in a git repository.
+        The absolute path to the git repository root, or None if not in a
+        git repository.
     """
     try:
         result = subprocess.run(

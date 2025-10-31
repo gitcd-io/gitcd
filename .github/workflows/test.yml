@@ -14,9 +14,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     strategy:
       matrix:
         python-version: ['3.9', '3.10', '3.11', '3.12']
+      fail-fast: false
     
     env:
       GH_ACCESS_TOKEN: ${{ secrets.GH_TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
@@ -57,6 +59,10 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GH_TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
       run: |
+        if [ -z "${{ secrets.GH_TEST_REPO_TOKEN }}" ]; then
+          echo "Warning: GH_TEST_REPO_TOKEN not set. Integration tests may fail."
+          echo "See .github/tests/README.md for setup instructions."
+        fi
         git clone https://x-access-token:${GH_TOKEN}@github.com/gitcd-io/travis-gitcd.git ~/build/gitcd-io/travis-gitcd
         cd ~/build/gitcd-io/travis-gitcd
         git config user.email "ci@github.com"
@@ -64,9 +70,11 @@ jobs:
     
     - name: Test git-cd version
       run: bash .github/tests/git-cd-version.sh
+      continue-on-error: false
     
     - name: Test git-cd upgrade
       run: bash .github/tests/git-cd-upgrade.sh
+      continue-on-error: false
     
     - name: Test git-cd init
       run: bash .github/tests/git-cd-init.sh
