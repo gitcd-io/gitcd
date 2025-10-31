@@ -1,10 +1,11 @@
 import os
-from typing import List
+from typing import List, Optional
 
 from gitcd.git import Git
 from gitcd.git.branch import Branch
 from gitcd.git.remote import Remote
 from gitcd.git.tag import Tag
+from gitcd.util import getGitRoot
 
 # git exceptions
 from gitcd.git.exceptions import NoRepositoryException
