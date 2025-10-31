@@ -4,17 +4,17 @@ set -e
 cd ~/build/gitcd-io/travis-gitcd
 
 # start a feature
-git-cd start travis-test-$TRAVIS_JOB_NUMBER
+git-cd start github-test-$GITHUB_RUN_NUMBER
 
 # assert that new feature branch exists remote
-git branch -a | grep "origin/feature/travis-test-$TRAVIS_JOB_NUMBER"
+git branch -a | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER"
 
 
 # call git-cd clean
 git-cd test
 
 # assert the feature branch is checked out again
-git status | grep "origin/feature/travis-test-$TRAVIS_JOB_NUMBER"
+git status | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER"
 
 # assert there is no diff against the test branch
 

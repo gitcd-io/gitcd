@@ -1,0 +1,120 @@
+name: Tests
+
+# Note: These tests require write access to gitcd-io/travis-gitcd repository.
+# You need to configure a secret named GH_TEST_REPO_TOKEN with a Personal Access Token
+# that has write access to that repository. Alternatively, you can fork the test repo
+# and update the repository URL in the test scripts.
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.5', '3.6', '3.7', '3.8']
+    
+    env:
+      GH_ACCESS_TOKEN: ${{ secrets.GH_TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt-get -qq update
+        sudo apt-get install -y expect
+    
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements-dev.txt
+        pip install .
+    
+    - name: Run flake8
+      run: |
+        find . -name \*.py -exec flake8 {} +
+    
+    - name: Run bandit security scan
+      run: |
+        bandit -r .
+    
+    - name: Configure Git
+      run: |
+        git config --global user.email "ci@github.com"
+        git config --global user.name "GitHub Actions"
+    
+    - name: Clone test repository
+      env:
+        GH_TOKEN: ${{ secrets.GH_TEST_REPO_TOKEN || secrets.GITHUB_TOKEN }}
+      run: |
+        git clone https://x-access-token:${GH_TOKEN}@github.com/gitcd-io/travis-gitcd.git ~/build/gitcd-io/travis-gitcd
+        cd ~/build/gitcd-io/travis-gitcd
+        git config user.email "ci@github.com"
+        git config user.name "GitHub Actions"
+    
+    - name: Test git-cd version
+      run: bash .github/tests/git-cd-version.sh
+    
+    - name: Test git-cd upgrade
+      run: bash .github/tests/git-cd-upgrade.sh
+    
+    - name: Test git-cd init
+      run: bash .github/tests/git-cd-init.sh
+    
+    - name: Test git-cd start
+      run: bash .github/tests/git-cd-start.sh
+    
+    - name: Add test build
+      run: bash .github/tests/git-add-build.sh
+    
+    - name: Test git-cd refresh
+      run: bash .github/tests/git-cd-refresh.sh
+    
+    - name: Test git-cd review
+      run: bash .github/tests/git-cd-review.sh
+    
+    - name: Test git-cd finish
+      run: bash .github/tests/git-cd-finish.sh
+    
+    - name: Test git-cd release
+      run: bash .github/tests/git-cd-release.sh
+    
+    - name: Test git-cd test
+      run: bash .github/tests/git-cd-test.sh
+    
+    - name: Test git-cd compare
+      run: bash .github/tests/git-cd-compare.sh
+    
+    - name: Test git-cd clean
+      run: bash .github/tests/git-cd-clean.sh
+    
+    - name: Test git-cd init-release-date
+      run: bash .github/tests/git-cd-init-release-date.sh
+    
+    - name: Test git-cd release-date
+      run: bash .github/tests/git-cd-release-date.sh
+    
+    - name: Reset git state
+      run: bash .github/tests/git-reset.sh
+    
+    - name: Test git-cd init-release-file
+      run: bash .github/tests/git-cd-init-release-file.sh
+    
+    - name: Test git-cd release-file
+      run: bash .github/tests/git-cd-release-file.sh
+    
+    - name: Reset git state (final)
+      run: bash .github/tests/git-reset.sh
+    
+    - name: Test git-cd subdirectory
+      run: bash .github/tests/git-cd-subdirectory.sh
