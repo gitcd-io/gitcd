@@ -44,7 +44,7 @@ jobs:
     
     - name: Run flake8
       run: |
-        find . -name \*.py -exec flake8 {} +
+        find . -name \*.py -not -path "./build/*" -not -path "./dist/*" -not -path "./*.egg-info/*" -exec flake8 {} +
     
     - name: Run bandit security scan
       run: |
