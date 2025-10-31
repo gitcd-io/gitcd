@@ -11,6 +11,10 @@ on:
   pull_request:
     branches: [ master ]
 
+concurrency:
+  group: integration-tests
+  cancel-in-progress: false
+
 jobs:
   test:
     runs-on: ubuntu-latest

@@ -2,6 +2,9 @@ set -e
 
 # Test that git-cd works from a subdirectory of the project
 
+# Save original working directory
+ORIGINAL_DIR=$(pwd)
+
 # change workdir to travis-gitcd
 cd ~/build/gitcd-io/travis-gitcd
 
@@ -18,8 +21,9 @@ git-cd version | grep "You run git-cd in version"
 
 echo "✓ git-cd commands work correctly from subdirectory"
 
-# change back to original workdir
+# change back to test repo root and cleanup
 cd ~/build/gitcd-io/travis-gitcd
 rm -rf src
 
-cd -
+# change back to original workdir
+cd "$ORIGINAL_DIR"
