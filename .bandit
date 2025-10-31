@@ -1,0 +1,4 @@
+[bandit]
+exclude_dirs = /build,/dist,/.eggs,*.egg-info
+# B603: We use subprocess.run with hardcoded git commands, no untrusted input
+skips = B603
