@@ -1,6 +1,6 @@
 import simpcli
-from packaging import version
-import pkg_resources
+from packaging import version as parse_version
+from importlib.metadata import version
 import requests
 
 from gitcd.app import App
@@ -10,13 +10,13 @@ from gitcd.exceptions import GitcdPyPiApiException
 
 class Upgrade(App):
 
-    localVersion = 0
-    pypiVersion = 0
+    localVersion: str = ""
+    pypiVersion: str = ""
     packageUrl = 'https://pypi.org/pypi/gitcd/json'
     verboseCli = simpcli.Command(True)
 
     def getLocalVersion(self) -> str:
-        self.localVersion = pkg_resources.get_distribution("gitcd").version
+        self.localVersion = version("gitcd")
 
         return self.localVersion
 
@@ -37,7 +37,7 @@ class Upgrade(App):
         return self.pypiVersion
 
     def isUpgradable(self) -> bool:
-        if version.parse(self.localVersion) < version.parse(self.pypiVersion):
+        if parse_version.parse(self.localVersion) < parse_version.parse(self.pypiVersion):
             return True
         return False
 

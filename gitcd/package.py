@@ -1,4 +1,4 @@
-import pkg_resources
+from importlib.metadata import version
 import requests
 import pip
 from gitcd.exceptions import GitcdPyPiApiException
@@ -12,7 +12,7 @@ class Package(object):
         pip.main(['install', '--user', '--upgrade', 'gitcd'])
 
     def getLocalVersion(self):
-        return pkg_resources.get_distribution("gitcd").version
+        return version("gitcd")
 
     def getPypiVersion(self):
         response = requests.get(
