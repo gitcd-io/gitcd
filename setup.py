@@ -17,6 +17,7 @@ setup(
     version=version('version.txt'),
     description='Tool for continuous delivery using git',
     long_description=read('README.rst'),
+    long_description_content_type='text/x-rst',
     author='Claudio Walser',
     author_email='info@gitcd.io',
     url='https://www.gitcd.io',

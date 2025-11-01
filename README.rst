@@ -93,9 +93,9 @@ ______
 
 Open ~/.bash_profile or ~/.zprofile in your favorite editor and add the following lines at the end of the file.
 
-.. container:: alert alert-warning
+.. note::
 
-    **Replace <python-version> with your currently installed python version, e.g. `3.11` **
+    Replace <python-version> with your currently installed python version, e.g. ``3.11``
 
 .. code-block:: bash
 
@@ -144,9 +144,9 @@ CLI Usage of gitcd
 For convenience, you can call gitcd as a git sub command as well as directly. Therefore, you can replace "git cd" in any of the following commands with "git-cd" if you like it more.
 
 
-.. container:: alert alert-warning
+.. note::
 
-    **Note: Python argument completion wont work if you use it as a git sub command!**
+    Python argument completion won't work if you use it as a git sub command!
 
 
 Initializing gitcd
