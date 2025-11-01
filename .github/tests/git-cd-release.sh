@@ -7,9 +7,9 @@ cd ~/build/gitcd-io/travis-gitcd
 /usr/bin/expect <<EOD
 spawn git-cd release
 expect "Whats the current tag number you want to deliver?"
-send "$GITHUB_RUN_NUMBER\n"
+send "$GITHUB_RUN_NUMBER-$PYTHON_VERSION\n"
 expect "What message your new tag should have?"
-send "New GitHub Release $GITHUB_RUN_NUMBER\n"
+send "New GitHub Release $GITHUB_RUN_NUMBER-$PYTHON_VERSION\n"
 expect
 EOD
 

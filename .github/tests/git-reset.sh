@@ -13,8 +13,8 @@ git reset --hard
 git checkout master
 
 # Delete local feature branches that might exist
-git branch -D "feature/github-$GITHUB_RUN_NUMBER" 2>/dev/null || true
-git branch -D "test/github-$GITHUB_RUN_NUMBER" 2>/dev/null || true
+git branch -D "feature/github-$GITHUB_RUN_NUMBER-$PYTHON_VERSION" 2>/dev/null || true
+git branch -D "test/github-$GITHUB_RUN_NUMBER-$PYTHON_VERSION" 2>/dev/null || true
 
 # Reset master to origin
 git reset --hard origin/master

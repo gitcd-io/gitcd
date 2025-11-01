@@ -4,13 +4,13 @@ set -e
 cd ~/build/gitcd-io/travis-gitcd
 
 # assert that new feature branch exists remote
-git branch -a | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER"
+git branch -a | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER-$PYTHON_VERSION"
 
 # delete feature branch on remote
-git push origin :feature/github-test-$GITHUB_RUN_NUMBER
+git push origin :feature/github-test-$GITHUB_RUN_NUMBER-$PYTHON_VERSION
 
 # assert that the feature branch not present on remote anymore
-REMOTE_COUNT=`git branch -a | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER" | wc -l`
+REMOTE_COUNT=`git branch -a | grep "origin/feature/github-test-$GITHUB_RUN_NUMBER-$PYTHON_VERSION" | wc -l`
 if [ $REMOTE_COUNT != 0 ]; then
 	echo "Feature Branch still found on remote"
 	exit 1
@@ -25,7 +25,7 @@ expect
 EOD
 
 # assert the local feature branch is deleted
-LOCAL_COUNT=`git branch -a | grep "feature/github-test-$GITHUB_RUN_NUMBER" | wc -l`
+LOCAL_COUNT=`git branch -a | grep "feature/github-test-$GITHUB_RUN_NUMBER-$PYTHON_VERSION" | wc -l`
 if [ $LOCAL_COUNT != 0 ]; then
 	echo "Feature Branch still found locally"
 	exit 1
