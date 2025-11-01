@@ -79,11 +79,14 @@ jobs:
         cd ~/build/gitcd-io/travis-gitcd
         # Delete any leftover branches from previous test runs
         git fetch origin
-        for branch in $(git branch -r | grep 'origin/feature/github-' | sed 's|origin/||'); do
+        # List all remote branches matching our test pattern and delete them
+        git branch -r | grep 'origin/feature/github-' | sed 's|origin/||' | while read branch; do
+          branch=$(echo "$branch" | xargs)  # trim whitespace
           echo "Deleting remote branch: $branch"
           git push origin --delete "$branch" || true
         done
-        for branch in $(git branch -r | grep 'origin/test/github-' | sed 's|origin/||'); do
+        git branch -r | grep 'origin/test/github-' | sed 's|origin/||' | while read branch; do
+          branch=$(echo "$branch" | xargs)  # trim whitespace
           echo "Deleting remote branch: $branch"
           git push origin --delete "$branch" || true
         done
