@@ -9,7 +9,7 @@ echo "Test uncommitted change for stash" >> README.rst
 # Start a new feature branch with expect to handle the stash prompt
 /usr/bin/expect <<EOD
 set timeout 30
-spawn git-cd start github-$env(GITHUB_RUN_NUMBER)-$env(PYTHON_VERSION)
+spawn git-cd start github-${GITHUB_RUN_NUMBER}-${PYTHON_VERSION}
 expect {
     "You have uncommitted changes. Do you want me to stash them and re-apply after creating the new branch?" {
         send "yes\r"
