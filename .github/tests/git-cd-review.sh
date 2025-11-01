@@ -8,9 +8,9 @@ spawn git-cd review
 expect "Your personal Github token?"
 send "$GH_ACCESS_TOKEN\n"
 expect "Pull-Request title?"
-send "Pull Request Title for travis build $TRAVIS_JOB_NUMBER\n"
+send "Pull Request Title for github build $GITHUB_RUN_NUMBER-$PYTHON_VERSION\n"
 expect "Pull-Request body?"
-send "Pull Request Body for travis build $TRAVIS_JOB_NUMBER\n"
+send "Pull Request Body for github build $GITHUB_RUN_NUMBER-$PYTHON_VERSION\n"
 expect
 EOD
 

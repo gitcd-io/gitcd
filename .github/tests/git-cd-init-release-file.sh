@@ -4,7 +4,7 @@ set -e
 cd ~/build/gitcd-io/travis-gitcd
 
 # write version file because git-cd init checks its existence
-echo $TRAVIS_JOB_NUMBER.1 > version.txt
+echo $GITHUB_RUN_NUMBER-$PYTHON_VERSION.1 > version.txt
 
 # git-cd init with accepting all the defaults
 /usr/bin/expect <<EOD

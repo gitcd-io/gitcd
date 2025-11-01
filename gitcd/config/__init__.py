@@ -5,6 +5,7 @@ from gitcd.config.defaults import GitcdDefaults
 from gitcd.config.defaults import GitcdPersonalDefaults
 from gitcd.exceptions import GitcdFileNotFoundException
 from gitcd.exceptions import GitcdTokenNotImplemented
+from gitcd.util import getGitRoot
 
 
 class Parser:
@@ -12,7 +13,7 @@ class Parser:
     yaml = {}
 
     def load(self, filename: str):
-        # raise exception if no .gitcd in current working dir
+        # raise exception if config file is not found
         if not os.path.isfile(filename):
             raise GitcdFileNotFoundException("File %s not found" % filename)
 
@@ -37,7 +38,17 @@ class Gitcd:
 
     def __init__(self):
         self.config = self.defaults.load()
-        if os.path.isfile(self.filename):
+        # Find git root directory to locate .gitcd config file
+        git_root = getGitRoot()
+        if git_root:
+            config_path = os.path.join(git_root, self.filename)
+            if os.path.isfile(config_path):
+                config = self.parser.load(config_path)
+                self.config.update(config)
+                # Update filename to use the full path from git root
+                self.filename = config_path
+        elif os.path.isfile(self.filename):
+            # Fallback to current directory if not in a git repo
             config = self.parser.load(self.filename)
             self.config.update(config)
 
