@@ -74,6 +74,22 @@ jobs:
         git config user.email "ci@github.com"
         git config user.name "GitHub Actions"
     
+    - name: Cleanup previous test branches
+      run: |
+        cd ~/build/gitcd-io/travis-gitcd
+        # Delete any leftover branches from previous test runs
+        git fetch origin
+        for branch in $(git branch -r | grep 'origin/feature/github-' | sed 's|origin/||'); do
+          echo "Deleting remote branch: $branch"
+          git push origin --delete "$branch" || true
+        done
+        for branch in $(git branch -r | grep 'origin/test/github-' | sed 's|origin/||'); do
+          echo "Deleting remote branch: $branch"
+          git push origin --delete "$branch" || true
+        done
+        git checkout master
+        git reset --hard origin/master
+    
     - name: Test git-cd version
       run: bash .github/tests/git-cd-version.sh
       continue-on-error: false
