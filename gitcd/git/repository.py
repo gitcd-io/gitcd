@@ -158,6 +158,14 @@ class Repository(Git):
 
         return True
 
+    def stash(self) -> bool:
+        self.verboseCli.execute("git stash")
+        return True
+
+    def stashPop(self) -> bool:
+        self.verboseCli.execute("git stash pop")
+        return True
+
     def update(self) -> bool:
         self.cli.execute('git fetch -p')
 
