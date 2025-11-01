@@ -52,16 +52,14 @@ jobs:
         VERSION=${{ steps.get_version.outputs.version }}
         CHANGELOG_FILE="changelogs/CHANGELOG-${VERSION}.rst"
         if [ -f "$CHANGELOG_FILE" ]; then
-          # Read changelog and store in output using a unique delimiter
-          {
-            echo "changelog<<CHANGELOG_DELIMITER_${{ github.sha }}"
-            cat "$CHANGELOG_FILE"
-            echo "CHANGELOG_DELIMITER_${{ github.sha }}"
-          } >> $GITHUB_OUTPUT
+          # Read changelog and save to a temporary file
+          CHANGELOG_CONTENT=$(cat "$CHANGELOG_FILE")
+          # Use printf to handle special characters properly
+          printf "changelog<<GITCD_EOF\n%s\nGITCD_EOF\n" "$CHANGELOG_CONTENT" >> $GITHUB_OUTPUT
           echo "found=true" >> $GITHUB_OUTPUT
         else
-          echo "found=false" >> $GITHUB_OUTPUT
           echo "changelog=Release $VERSION" >> $GITHUB_OUTPUT
+          echo "found=false" >> $GITHUB_OUTPUT
         fi
     
     - name: Create GitHub Release
