@@ -3,6 +3,11 @@ set -e
 # change workdir to travis-gitcd
 cd ~/build/gitcd-io/travis-gitcd
 
+# Ensure we're on master with a clean state
+git fetch origin
+git checkout master
+git reset --hard origin/master
+
 # git-cd finish with deleting the feature branch
 /usr/bin/expect <<EOD
 spawn git-cd release
