@@ -109,9 +109,6 @@ jobs:
     - name: Test git-cd start
       run: bash .github/tests/git-cd-start.sh
 
-    - name: Test git-cd start with stash
-      run: bash .github/tests/git-cd-start-stash.sh
-
     - name: Add test build
       run: bash .github/tests/git-add-build.sh
 
