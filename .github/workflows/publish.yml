@@ -52,10 +52,12 @@ jobs:
         VERSION=${{ steps.get_version.outputs.version }}
         CHANGELOG_FILE="changelogs/CHANGELOG-${VERSION}.rst"
         if [ -f "$CHANGELOG_FILE" ]; then
-          # Read changelog and store in output
-          echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          cat "$CHANGELOG_FILE" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          # Read changelog and store in output using a unique delimiter
+          {
+            echo "changelog<<CHANGELOG_DELIMITER_${{ github.sha }}"
+            cat "$CHANGELOG_FILE"
+            echo "CHANGELOG_DELIMITER_${{ github.sha }}"
+          } >> $GITHUB_OUTPUT
           echo "found=true" >> $GITHUB_OUTPUT
         else
           echo "found=false" >> $GITHUB_OUTPUT
