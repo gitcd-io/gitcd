@@ -1,7 +1,7 @@
-extraReleaseCommand: ./publish.sh
 feature: null
 master: master
 tag: v
 test: test
 versionScheme: version.txt
 versionType: file
+
