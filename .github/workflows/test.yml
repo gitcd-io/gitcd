@@ -108,10 +108,10 @@ jobs:
     
     - name: Test git-cd start
       run: bash .github/tests/git-cd-start.sh
-    
+
     - name: Add test build
       run: bash .github/tests/git-add-build.sh
-    
+
     - name: Test git-cd refresh
       run: bash .github/tests/git-cd-refresh.sh
     

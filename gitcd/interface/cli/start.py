@@ -57,6 +57,32 @@ class Start(BaseCommand):
         testBranch = self.config.getTest()
         testBranchAsString = self.config.getString(testBranch)
 
+        # Check for uncommitted changes and offer to stash
+        stashed = False
+        if self.repository.hasUncommitedChanges():
+            stashChanges = self.interface.askFor(
+                "You have uncommitted changes." +
+                " Do you want me to stash them and re-apply after" +
+                " creating the new branch?",
+                ["yes", "no"],
+                "yes"
+            )
+
+            if stashChanges == "yes":
+                self.repository.stash()
+                stashed = True
+            else:
+                abort = self.interface.askFor(
+                    "Do you want me to abort and let you" +
+                    " commit or discard your changes first?",
+                    ["yes", "no"],
+                    "yes"
+                )
+
+                if abort == "yes":
+                    import sys
+                    sys.exit(1)
+
         # few checks on the new feature branch
         if '%s%s' % (featurePrefixAsString, branch.getName()) == masterBranch:
             # maybe i should use while here
@@ -83,3 +109,7 @@ class Start(BaseCommand):
         branch = self.checkDoubleFeaturePrefix(branch)
 
         remote.createFeature(branch)
+
+        # Re-apply stashed changes if we stashed them earlier
+        if stashed:
+            self.repository.stashPop()
