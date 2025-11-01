@@ -37,7 +37,9 @@ class Upgrade(App):
         return self.pypiVersion
 
     def isUpgradable(self) -> bool:
-        if parse_version.parse(self.localVersion) < parse_version.parse(self.pypiVersion):
+        local = parse_version.parse(self.localVersion)
+        pypi = parse_version.parse(self.pypiVersion)
+        if local < pypi:
             return True
         return False
 
